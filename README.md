@@ -1,33 +1,14 @@
 PattyVis
 ========
 
-[![Build Status](https://travis-ci.org/NLeSC/PattyVis.svg?branch=master)](https://travis-ci.org/NLeSC/PattyVis)
-[![Code Climate](https://codeclimate.com/github/NLeSC/PattyVis/badges/gpa.svg)](https://codeclimate.com/github/NLeSC/PattyVis)
-[![Test Coverage](https://codeclimate.com/github/NLeSC/PattyVis/badges/coverage.svg)](https://codeclimate.com/github/NLeSC/PattyVis)
-[![Sauce Test Status](https://saucelabs.com/buildstatus/patty-vis)](https://saucelabs.com/u/patty-vis)
-[![devDependency Status](https://david-dm.org/NLeSC/PattyVis/dev-status.svg)](https://david-dm.org/NLeSC/PattyVis#info=devDependencies)
-[![Codacy Badge](https://www.codacy.com/project/badge/a2ebd9977fe04aa1af6e5c47dc8d6927)](https://www.codacy.com/public/sverhoeven/PattyVis)
+[![Join the chat at https://gitter.im/NLeSC/ahn-pointcloud-viewer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/NLeSC/ahn-pointcloud-viewer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/NLeSC/ahn-pointcloud-viewer.svg)](https://travis-ci.org/NLeSC/ahn-pointcloud-viewer)
 
-Webgl pointcloud visualization of the Via Appia based on http://potree.org
---------------------------------------------------------------------------
-![logo](DOCS/pattyvis_fp_ss4.png "A beautiful vista")
+[![Code Climate](https://codeclimate.com/github/NLeSC/PattyVis/badges/gpa.svg)](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer)
+[![Test Coverage](https://codeclimate.com/github/NLeSC/PattyVis/badges/coverage.svg)](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer)
 
-A big step towards a 3D GIS Application.  
-![logo](DOCS/pattyvis_fp_ss2.png "A big step towards a 3D GIS Application")
-With 3D footprints of grave monuments based on GPS coordinates.  
-![logo](DOCS/pattyvis_fp_ss1.png "With 3D footprints based on GPS coordinates")
-A 'background' or reference frame was made with Fugro's drive-map technology http://www.drive-map.eu/  
-![logo](DOCS/pattyvis_fp_ss9.png "The drive map visualized")
-Several monuments have been photographed extensively and made into seperate pointclouds. This is an ongoing process.  
-![logo](DOCS/pattyvis_fp_ss5.png "Here you can see the drive-map and the site-specific photography based pointcloud next to eachother")
-![logo](DOCS/pattyvis_fp_ss3.png "A particularly well-captured monument.")
-Measurements can be made in the 3D environment.  
-![logo](DOCS/pattyvis_fp_ss8.png "Measurements can be made in the 3D environment.")
-Historical maps can give extra information on the site's history.  
-![logo](DOCS/pattyvis_fp_ss6.png "Historical maps can give extra information on the site's history.")
-Searching options like the material used in the site can give extra insight.  
-![logo](DOCS/pattyvis_fp_ss7.png "Historical maps can give extra information on the site's history.")
-
+Webgl pointcloud visualization of the Actuele Hoogtekaart Nederland (2) based on http://potree.org
+--------------------------------------------------------------------------------------------------
 
 Getting started (windows, from scratch)
 ---------------------------------------
@@ -39,8 +20,8 @@ Getting started (windows, from scratch)
 3. Install Ruby: http://rubyinstaller.org/ (Make sure add ruby to PATH option is checked)
   1. Open ruby command prompt and run `gem install compass`
 4. Start Git bash
-5. Type: "git clone https://github.com/NLeSC/PattyVis"
-6. Type: "cd PattyVis"
+5. Type: "git clone https://github.com/NLeSC/ahn-pointcloud-viewer"
+6. Type: "cd ahn-pointcloud-viewer"
 7. Type: "npm install -g grunt grunt-cli"
 8. Type: "npm install"
 8. Type: "bower install"
@@ -89,12 +70,12 @@ gem install compass
 
 ### Fetch git repository
 ```
-git clone https://github.com/NLeSC/PattyVis
+git clone https://github.com/NLeSC/ahn-pointcloud-viewer
 ```
 
 ### setup with bower
 ```
-cd PattyVis
+cd ahn-pointcloud-viewer
 npm install
 bower install
 ```
@@ -162,26 +143,6 @@ grunt jsdoc
 ```
 
 API documentation is generated in `doc/` directory.
-
-Mockup
-------
-
-For mockup see https://wiki.esciencecenter.nl/index.php/Patty_Visualization
-
-Oculus Rift
------------
-Get the host application and run it: https://github.com/Instrument/oculus-bridge
-
-Creation of sites.json
-----------------------
-
-In db run:
-
-    SELECT site_id, ST_ASGEOJSON(geom, 15,5) FROM sites_geoms WHERE site_id IN (162,13);
-
-To get geometry, bbox and crs.
-
-Height and properties need to be filled manually.
 
 Frame rate report
 ----------------
