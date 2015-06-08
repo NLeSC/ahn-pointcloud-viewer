@@ -1,0 +1,146 @@
+<button ng-click="sc.toggleSettings()" class="icon-big gear-icon" ng-class="{active: sc.showSettings}" title="Settings"></button>
+<div collapse='!sc.showSettings' class="panel panel-default settings-panel">
+  <div class="panel-heading">Drive Map Settings</div>
+  <div class="panel-body">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label>
+          Points(m)
+          <input class="form-control" type="number" min="0.1" max="10.0" step="0.1" ng-model="sc.settings.pointCountTarget" />
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          PointSize
+          <input class="form-control" type="number" min="0.01" max="3.0" step="0.01" ng-model="sc.settings.pointSize" />
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          Opacity
+          <input class="form-control" type="number" min="0.0" max="2.0" step="0.1" ng-model="sc.settings.opacity" />
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          Size type
+          <select class="form-control" ng-model="sc.settings.pointSizeType" ng-options="value as key|lowercase for (key, value) in sc.settings.pointSizeTypes | orderBy:value">
+          </select>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          Color type
+          <select class="form-control" ng-model="sc.settings.pointColorType" ng-options="value as key|lowercase for (key, value) in sc.settings.pointColorTypes | orderBy:value">
+          </select>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          Shape
+          <select class="form-control" ng-model="sc.settings.pointShape" ng-options="value as key|lowercase for (key, value) in sc.settings.pointShapes | orderBy:value">
+          </select>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          Clip mode
+          <select class="form-control" ng-model="sc.settings.clipMode" ng-options="value as key|lowercase for (key, value) in sc.settings.clipModes | orderBy:value">
+          </select>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          Profile width
+          <input class="form-control" type="number" min="0.1" max="50" step="0.1" ng-model="sc.measure.profileWidth" />
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="sc.settings.showSkybox"> skybox
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="sc.settings.highQuality"> High Quality
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="sc.settings.showStats"> stats
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="sc.PointcloudService.pathMesh.visible"> path
+        </label>
+        <button ng-click="sc.recordCameraLocation()" class="btn btn-sm btn-trans glyphicon glyphicon-record" title="Record camera location"></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div collapse='!sc.showSiteSettings' class="panel panel-default site-settings-panel">
+  <div class="panel-heading">Site-specific Settings</div>
+  <div class="panel-body">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label>
+          Points(m)
+          <input class="form-control" type="number" min="0.1" max="10.0" step="0.1" ng-model="sc.siteSettings.pointCountTarget" />
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          PointSize
+          <input class="form-control" type="number" min="0.01" max="3.0" step="0.01" ng-model="sc.siteSettings.pointSize" />
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          Opacity
+          <input class="form-control" type="number" min="0.0" max="2.0" step="0.1" ng-model="sc.siteSettings.opacity" />
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          Size type
+          <select class="form-control" ng-model="sc.siteSettings.pointSizeType" ng-options="value as key|lowercase for (key, value) in sc.settings.pointSizeTypes | orderBy:value">
+          </select>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          Color type
+          <select class="form-control" ng-model="sc.siteSettings.pointColorType" ng-options="value as key|lowercase for (key, value) in sc.settings.pointColorTypes | orderBy:value">
+          </select>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          Shape
+          <select class="form-control" ng-model="sc.siteSettings.pointShape" ng-options="value as key|lowercase for (key, value) in sc.settings.pointShapes | orderBy:value">
+          </select>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          Clip mode
+          <select class="form-control" ng-model="sc.siteSettings.clipMode" ng-options="value as key|lowercase for (key, value) in sc.settings.clipModes | orderBy:value">
+          </select>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          Profile width
+          <input class="form-control" type="number" min="0.1" max="50" step="0.1" ng-model="sc.measure.profileWidth" />
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="sc.siteSettings.interpolate"> interpolate
+        </label>
+      </div>
+    </form>
+  </div>
+</div>

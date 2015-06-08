@@ -1,0 +1,21 @@
+<div class="toolbox">
+  <button ng-click="measuring.toggleToolbox()" class="icon-big toolbox-icon" ng-class="{active: measuring.showToolboxTray}"></button>
+</div>
+
+<div class="toolbox-tray tool-icon" collapse='!measuring.showToolboxTray'>
+  <button ng-click="measuring.toggleToolbox()" class="icon-big toolbox-tray-top-icon"></button>
+  <div class="toolbox-tools">
+    <button ng-click="measuring.startDistance()" ng-class="{active: measuring.distanceActive}" class="icon-small distance-icon" title="Start distance measurement"></button>
+    <button ng-click="measuring.startAngle()" ng-class="{active: measuring.angleActive}" class="icon-small angle-icon" title="Start angle measurement"></button>
+    <button ng-click="measuring.startArea()" ng-class="{active: measuring.areaActive}" class="icon-small area-icon" title="Start area measurement"></button>
+    <button ng-click="measuring.startVolume()" ng-class="{active: measuring.volumeActive}" class="icon-small volume-icon" title="Start volume measurement"></button>
+    <button ng-click="measuring.startHeightProfile()" ng-class="{active: measuring.heightProfileActive}" class="icon-small heightprofile-icon" title="Start heightprofile measurement"></button>
+    <button ng-click="measuring.startClipVolume()" ng-class="{active: measuring.clipVolumeActive}" class="icon-small clipvolume-icon" title="Start clip volume measurement"></button>
+  </div>
+</div>
+
+<div class="transformation-toolbox-tray" collapse='!measuring.showTransformationToolboxTray'>
+  <button ng-click="measuring.toggleRotate()" ng-class="{active: measuring.isTransformationRotate()}" class="icon-tiny rotate-icon" title="Change the rotation of the selected area ('R' key)"></button>
+  <button ng-click="measuring.toggleTranslate()" ng-class="{active: measuring.isTransformationTranslate()}" class="icon-tiny translate-icon" title="Change the translation of the selected area ('T' key)"></button>
+  <button ng-click="measuring.toggleScale()" ng-class="{active: measuring.isTransformationScale()}" class="icon-tiny scale-icon" title="Change the scale of the selected area ('E' key)"></button>
+</div>

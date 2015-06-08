@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+  - '0.10'
+addons:
+  sauce_connect: true
+  code_climate:
+    repo_token: 72207598c2d5d4f105a0a3edb1d02c21e85b9c64748d40fc62f37620df932e0f
+before_install:
+  - gem install compass
+install:
+  - 'npm install'
+  - 'npm install -g bower grunt-cli'
+  - 'bower install'
+script:
+  - 'grunt test'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && grunt e2e-sauce || false'
+after_script:
+  - codeclimate < test/reports/coverage/*/lcov.info
+env:
+  global:
+    - secure: f0zQxOSew2ysDBhyHzB8CwRdp3Ll6MNVCHrAibIUVzDZuwuxCPBkIM7qd8mvnpJGr3GHFirNxT8khBvWKyhKDZct4DsceJVeYqoeB9J7gTbj1sxa9BKGof0p+0wqIWZ77Sp5i5UE32FP8X434OF/u5xpxttMllug0s5gdpxWlXo=
+    - secure: oMss10tPTQ0EwaBM/CVuTGVfFpwFFtlnlvF98YmkHTGZkW5HnrGW52prVMUUrGkEnyI6yqAhZEsYBNh7ZUSveraeMcPdDx5/oYrLi8vj7CRcKoidc+XZso66pvoL1SA+ea+5KTM0LFtMp4/vaxTzIo4Xi5mkO79fRqV/1MRU/ew=
+sudo: false

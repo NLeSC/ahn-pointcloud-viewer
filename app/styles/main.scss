@@ -1,0 +1,305 @@
+$icon-font-path: '../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/';
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+// endbower
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+body {
+  padding: 0;
+  overflow: hidden;
+}
+
+.clickable {
+  pointer-events: all;
+}
+
+patty-search-panel {
+  left: 1%;
+  min-width: 200px;
+  padding: 2px;
+  position: absolute;
+  top: 1%;
+  width: 30%;
+}
+
+.search-results {
+  padding: 10px;
+  background-color: #fff;
+  opacity: 0.9;
+  filter:alpha(opacity=90);
+  /* For IE8 and earlier */
+}
+
+.scroll-panel {
+  max-height: 700px;
+  overflow-y: scroll;
+}
+
+patty-minimap {
+  position: absolute;
+  top: 1%;
+  right: 1%;
+  background-color: #fff;
+  display: block;
+  padding: 2px;
+  width: 13%;
+  height: 25%;
+  min-width: 200px;
+  min-height: 200px;
+}
+
+.big-minimap {
+  height: 80%;
+  width: 50%;
+}
+
+.resize-minimap {
+  bottom: .5em;
+  left: .5em;
+}
+
+.ol-touch .resize-minimap {
+  bottom: .5em;
+}
+
+.layer-switcher {
+  top: .5em;
+}
+
+patty-pointcloud-canvas {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -100;
+  width: 100%;
+  height: 100%;
+  tabindex: 1;
+}
+
+.settings-panel {
+  position: absolute;
+  left: 5px;
+  bottom: 70px;
+}
+.site-settings-panel {
+  position: absolute;
+  left: 165px;
+  bottom: 70px;
+}
+.help-panel {
+  position: absolute;
+  left: 5px;
+  bottom: 70px;
+}
+
+patty-pointcloud-stats {
+  position: absolute;
+  left: 0;
+  bottom: 80px;
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px black, 1px -1px 1px black, -1px 1px 1px black, -1px -1px 1px black;
+}
+.btn-trans {
+  border-color: transparent;
+  background-color: transparent;
+  box-shadow: none;
+}
+.camera-modes {
+  position: absolute;
+  left: 50%;
+  bottom: 5px;
+  transform: translate(-50%, 0);
+}
+.controls {
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+}
+.toolbox {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
+.toolbox-tray {
+  position: absolute;
+  right: 5px;
+  bottom: 44px;
+  width: 80px;
+}
+.transformation-toolbox-tray {
+  position: absolute;
+  right: 87px;
+  bottom: 13px;
+  width: 100px;
+}
+.settings-panel .panel-body {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.help-panel .panel-body {
+  width: 700px;
+  height: 500px;
+  overflow-y: auto;
+}
+.icon-inline {
+  width: 28px;
+  height: 28px;
+  background-size: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: inline-block;
+}
+.icon-big {
+  width: 80px;
+  height: 80px;
+  border-color: transparent;
+  background-color: transparent;
+  box-shadow: none;
+}
+.icon-big:focus {
+  outline: 0;
+}
+.fly-icon {
+  background-image: url("../images/icons/heli_icon_80px.png");
+}
+.fly-icon.active {
+  background-image: url("../images/icons/heli_icon_green_80px.png");
+}
+.onrails-icon {
+  background-image: url("../images/icons/indy_icon_80px.png");
+}
+.onrails-icon.active {
+  background-image: url("../images/icons/indy_icon_green_80px.png");
+}
+.demo-icon {
+  background-image: url("../images/icons/play_icon_80px.png");
+}
+.demo-icon.active {
+  background-image: url("../images/icons/play_icon_green_80px.png");
+}
+.back-icon {
+  background-image: url("../images/icons/backtodrivemap_icon_80px.png");
+}
+.gear-icon {
+  background-image: url("../images/icons/gear_icon_80px.png");
+}
+.gear-icon.active {
+  background-image: url("../images/icons/gear_icon_green_80px.png");
+}
+.help-icon {
+  background-image: url("../images/icons/help_icon_80px.png");
+}
+.help-icon.active {
+  background-image: url("../images/icons/help_icon_green_80px.png");
+}
+.toolbox-icon {
+  background-image: url("../images/icons/toolbox_icon_80px.png");
+}
+.toolbox-icon.active {
+  background-image: url("../images/icons/toolbox_bottom_icon_green_80px.png");
+  height: 60px;
+}
+.rotate-icon {
+  background-image: url("../images/icons/toolbox_rotation_icon_30px.png");
+}
+.rotate-icon.active {
+  background-image: url("../images/icons/toolbox_rotation_icon_green_30px.png");
+}
+.translate-icon {
+  background-image: url("../images/icons/toolbox_move_icon_30px.png");
+}
+.translate-icon.active {
+  background-image: url("../images/icons/toolbox_move_icon_green_30px.png");
+}
+.scale-icon {
+  background-image: url("../images/icons/toolbox_scale_icon_30px.png");
+}
+.scale-icon.active {
+  background-image: url("../images/icons/toolbox_scale_icon_green_30px.png");
+}
+.icon-small {
+  width: 50px;
+  height: 50px;
+  border-color: transparent;
+  background-color: transparent;
+  box-shadow: none;
+}
+.icon-small:hover {
+  outline: 0;
+}
+.icon-tiny {
+  width: 30px;
+  height: 30px;
+  border-color: transparent;
+  background-color: transparent;
+  box-shadow: none;
+}
+.icon-tiny:hover {
+  outline: 0;
+}
+.distance-icon {
+  background-image: url("../images/icons/toolbox_distance_icon_50px.png");
+}
+.distance-icon.active {
+  background-image: url("../images/icons/toolbox_distance_icon_green_50px.png");
+}
+.angle-icon {
+  background-image: url("../images/icons/toolbox_angle_icon_50px.png");
+}
+.angle-icon.active {
+  background-image: url("../images/icons/toolbox_angle_icon_green_50px.png");
+}
+.area-icon {
+  background-image: url("../images/icons/toolbox_area_icon_50px.png");
+}
+.area-icon.active {
+  background-image: url("../images/icons/toolbox_area_icon_green_50px.png");
+}
+.volume-icon {
+  background-image: url("../images/icons/toolbox_volume_icon_50px.png");
+}
+.volume-icon.active {
+  background-image: url("../images/icons/toolbox_volume_icon_green_50px.png");
+}
+.heightprofile-icon {
+  background-image: url("../images/icons/toolbox_heightprofile_icon_50px.png");
+}
+.heightprofile-icon.active {
+  background-image: url("../images/icons/toolbox_heightprofile_icon_green_50px.png");
+}
+.clipvolume-icon {
+  background-image: url("../images/icons/toolbox_clipvolume_icon_50px.png");
+}
+.clipvolume-icon.active {
+  background-image: url("../images/icons/toolbox_clipvolume_icon_green_50px.png");
+}
+.toolbox-tray-top-icon {
+  background-image: url("../images/icons/toolbox_top_icon_green_80px.png");
+  height: 50px;
+}
+.toolbox-tools {
+  padding-left: 13px;
+}
+.site-thumb {
+  padding-right: 12px;
+}
+
+.logobox {
+    position:absolute;
+    bottom:3%;
+    right:14%;
+    max-width:20%;
+    max-height:15%
+}
+
+.logobox-bottom {
+    position:relative;
+}
+
+.logo-custom-nlesc {
+  max-width:100%;
+}

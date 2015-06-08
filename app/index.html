@@ -1,0 +1,161 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+  <meta charset="utf-8">
+  <title>Project Patty Visualisation</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/openlayers3/css/ol.css" />
+  <link rel="stylesheet" href="bower_components/ol3-layerswitcher/src/ol3-layerswitcher.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+</head>
+
+<script id="vs" type="x-shader/x-vertex">
+varying vec2 vUv;
+void main() {
+    vUv = uv;
+    gl_Position =   projectionMatrix *
+                    modelViewMatrix *
+                    vec4(position,1.0);
+}
+</script>
+
+<script id="fs" type="x-shader/x-vertex">
+#extension GL_EXT_frag_depth : enable
+uniform sampler2D depthMap;
+uniform sampler2D texture;
+varying vec2 vUv;
+void main() {
+    vec4 color = texture2D(texture, vUv);
+    float depth = texture2D(depthMap, vUv).g;
+	color = color / color.w;
+    gl_FragColor = color;
+
+	gl_FragDepthEXT = depth;
+}
+</script>
+
+<body ng-app="pattyApp">
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+  <!--
+    <script>
+      var invocation = new XMLHttpRequest();
+      var url = 'http://geodata1.nationaalgeoregister.nl/luchtfoto/wms?';
+      var body = '<?xml version="1.0"?><person><name>Arun</name></person>';
+
+      function handler() {
+        console.log('finished');
+      }
+
+      function callOtherDomain() {
+        if(invocation) {
+          console.log('calling');
+
+          invocation.open('GET', url+'REQUEST=GetCapabilities', true);
+          invocation.onreadystatechange = handler;
+          invocation.send();
+        }
+      }
+      callOtherDomain();
+    </script>
+  -->
+
+  <!-- Add your site or application content here -->
+  <patty-search-panel class="clickable"></patty-search-panel>
+  <patty-minimap class="clickable"></patty-minimap>
+  <!--<patty-maximap class="clickable"></patty-maximap>-->
+  <patty-pointcloud-canvas></patty-pointcloud-canvas>
+  <patty-pointcloud-stats></patty-pointcloud-stats>
+  <div class="controls">
+    <patty-settings></patty-settings>
+    <patty-help></patty-help>
+  </div>
+  <patty-camera-modes></patty-camera-modes>
+  <measuring-directive class="clickable"></measuring-directive>
+  <logo-box-directive></logo-box-directive>
+
+  <!-- build:js(.) scripts/oldieshim.js -->
+  <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.js"></script>
+    <![endif]-->
+  <!-- endbuild -->
+
+  <!-- build:js(.) scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/angular-touch/angular-touch.js"></script>
+  <script src="bower_components/openlayers3/build/ol.js"></script>
+  <script src="bower_components/proj4/dist/proj4.js"></script>
+  <script src="bower_components/threejs/build/three.js"></script>
+  <script src="bower_components/OrbitControls/index.js"></script>
+  <script src="bower_components/OBJLoader/index.js"></script>
+  <script src="bower_components/DDSLoader/index.js"></script>
+  <script src="bower_components/MTLLoader/index.js"></script>
+  <script src="bower_components/OBJMTLLoader/index.js"></script>
+  <script src="bower_components/potree/build/js/potree.js"></script>
+  <script src="bower_components/potree/libs/plasio/js/laslaz.js"></script>
+  <script src="bower_components/potree/build/workers/laslaz-worker.js"></script>
+  <script src="bower_components/potree/build/workers/lasdecoder-worker.js"></script>
+  <script src="bower_components/bluebird/js/browser/bluebird.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="bower_components/ol3-layerswitcher/src/ol3-layerswitcher.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:js({.tmp,app}) scripts/scripts.js -->
+  <script src="scripts/app.js"></script>
+  <script src="scripts/utils/messagebus.service.js"></script>
+  <script src="scripts/utils/startfrom.filter.js"></script>
+  <script src="scripts/core/constants.js"></script>
+  <script src="scripts/core/drivemap.service.js"></script>
+  <script src="scripts/logos/logos.directive.js"></script>
+  <script src="scripts/searchbox/searchbox.directive.js"></script>
+  <script src="scripts/searchbox/searchbox.controller.js"></script>
+  <script src="scripts/settings/settings.directive.js"></script>
+  <script src="scripts/settings/settings.controller.js"></script>
+  <script src="scripts/help/help.directive.js"></script>
+  <script src="scripts/help/help.controller.js"></script>
+  <script src="scripts/minimap/constants.js"></script>
+  <script src="scripts/minimap/cam-frustum.service.js"></script>
+  <script src="scripts/minimap/minimap.directive.js"></script>
+  <script src="scripts/minimap/minimap.controller.js"></script>
+  <script src="scripts/maximap/maximap.directive.js"></script>
+  <script src="scripts/maximap/maximap.controller.js"></script>
+  <script src="scripts/maximap/maximap.service.js"></script>
+  <script src="scripts/pointcloud/pointcloud.service.js"></script>
+  <script src="scripts/pointcloud/scene.service.js"></script>
+  <script src="scripts/pointcloud/camera.service.js"></script>
+  <script src="scripts/pointcloud/path.controls.js"></script>
+  <script src="scripts/pointcloud/pointcloud-canvas.directive.js"></script>
+  <script src="scripts/pointcloud/pointcloud-canvas.controller.js"></script>
+  <script src="scripts/cameramodes/cameramodes.directive.js"></script>
+  <script src="scripts/cameramodes/cameramodes.controller.js"></script>
+  <script src="scripts/pointcloud/pointcloud-stats.directive.js"></script>
+  <script src="scripts/pointcloud/pointcloud-stats.controller.js"></script>
+  <script src="scripts/measuring/measuring.service.js"></script>
+  <script src="scripts/measuring/measuring.directive.js"></script>
+  <script src="scripts/measuring/measuring.controller.js"></script>
+
+  <!-- endbuild -->
+</body>
+
+</html>

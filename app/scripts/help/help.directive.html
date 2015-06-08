@@ -1,0 +1,138 @@
+<button ng-click="hc.showHelp=!hc.showHelp" class="icon-big help-icon" ng-class="{active: hc.showHelp}" title="Help"></button>
+<div collapse='!hc.showHelp' class="panel panel-default help-panel">
+  <div class="panel-heading">Help</div>
+  <div class="panel-body">
+    <h2>General</h2>
+    <div>
+      <div class="icon-inline gear-icon"></div>
+      Settings
+    </div>
+    Access point-cloud settings
+
+    <h2>Navigation</h2>
+    <div>
+      <div>
+        <div class="icon-inline onrails-icon"></div>
+        First-Person Navigation
+      </div>
+      WS: Move back and forth in first-person view Mouse: rotate camera
+    </div>
+    <div>
+      <div>
+        <div class="icon-inline fly-icon"></div>
+        Fly Navigation
+      </div>
+      ASDW or Arrows: Move freely through scene Mouse: rotate camera
+    </div>
+    <div>
+      <div>
+        <div class="icon-inline demo-icon"></div>
+        Play Mode
+      </div>
+      Automically move along a preconfigured demo path
+    </div>
+    <div>
+      <h4>Inspect Mode</h4>
+      <div>When doubleclicking a site, the navigation options switch to 'inspect mode',
+        this changes the mouse input to 'orbit' around the selected site and shows
+        the information for this site.</div>
+      <div>
+        <div class="icon-inline back-icon"></div>
+        Exit Inspect Mode
+      </div>
+      When inspecting a specific site, this button can be used to exit
+      the inspect mode and return to the normal controls.
+    </div>
+
+    <h2>Measurement</h2>
+    <div>
+      <div>
+        <div class="icon-inline toolbox-icon"></div>
+        Toolkit
+      </div>
+      Click to open measuring instruments
+    </div>
+    <div>
+      <div>
+        <div class="icon-inline distance-icon"></div>
+        Distance
+      </div>
+      Left Mouse: Insert Measurement Point Right Mouse: Finish insertion Drag&Drop: Move Measurement Points Distance between measurement points will be displayed on the edge.
+
+    </div>
+    <div>
+      <div>
+        <div class="icon-inline area-icon"></div>
+        Surface Area
+      </div>
+      Left Mouse: Insert Measurement Point Right Mouse: Finish insertion Drag&Drop: Move Measurement Points Distance between measurement points will be displayed on the edge and the total area on the centroid. The area is calculated on the ground plane. The
+      height does not affect the result. Crossings should be avoided.
+    </div>
+    <div>
+      <div>
+        <div class="icon-inline volume-icon"></div>
+        Volume
+      </div>
+      Left Mouse: Insert Volume or Select Inserted Volume Switch between translation (icon), scale (icon) and rotation (icon) mode Keyboard shortcut: T, E, R Volume will be displayed on the objects centroid.
+    </div>
+    <div>
+      <div>
+        <div class="icon-inline heightprofile-icon"></div>
+        Height Profile
+      </div>
+      Left Mouse: Insert Profile Marker Right Mouse: Finish insertion Drag&amp;Drop: Move Profile Marker ctrl + Drag&amp;Drop: Drag upwards to increase or downwards to decrease the profile width Depending on the Clip Mode, points inside the profile will be highlighted
+      or points outside the profile will be clipped.
+    </div>
+    <div>
+      <div>
+        <div class="icon-inline clipvolume-icon"></div>
+        Clip Volume
+      </div>
+      Left Mouse: Insert Volume or Select Inserted Volume Switch between translation (icon), scale (icon) and rotation (icon) mode Keyboard shortcut: T, E, R
+    </div>
+
+      <h2>Search Box</h2>
+    <p>
+    In the search box, one can search all (textual) properties of the site
+    objects, plus the site ID-numbers.
+    There are several possibilities for searching.
+    You can search for words or phrases, or use "tags" to search in specific
+    fields.
+    The supported tags are "site:", "condition:", "material:" and "time:".
+    Below we list some example searches.
+    Note that all searches are case-insensitive.
+    </p>
+    <dl>
+      <dt>pyramid</dt>
+      <dd>Searches all textual fields of the site objects for the word "pyramid".</dd>
+
+      <dt>pyramidal monument</dt>
+      <dd>Searches all textual fields of the site objects for the exact phrase
+      "pyramidal monument". Only objects containing this exact phrase will be
+      found! For instance, if the description contains "pyramidal funerary
+      monument", it will not be found by searching for "pyramidal monument".</dd>
+
+      <dt>site:21</dt>
+      <dd>Matched the site_id field of the site objects to the given number (21 in
+      this case).</dd>
+
+      <dt>condition:complete</dt>
+      <dd>Searches the condition field of the site objects for the word "complete"
+      (or "damaged").</dd>
+
+      <dt>material:tufo</dt>
+      <dd>Searches the material fields (material_type, material_subtype and
+      material_technique) of the site objects for the word "tufo" or "peperino".</dd>
+
+      <dt>time:A.D</dt>
+      <dd>Searches the time fields (date_specific and period) of the site objects
+      for the "A.D".</dd>
+
+      <dt>time:2nd time:century</dt>
+      <dd>When looking for multiple words using tags, one needs to add the tag to
+      all words!</dd>
+    </dl>
+
+  </div>
+
+</div>
