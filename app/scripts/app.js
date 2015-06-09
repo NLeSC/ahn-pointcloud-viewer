@@ -78,7 +78,7 @@
 
   angular.module('pattyApp.templates', []);
   angular.module('pattyApp.logos', []);
-  angular.module('pattyApp.extract', []);
+  angular.module('pattyApp.extract', ['toastr', 'pattyApp.core']);
   angular.module('pattyApp.utils', ['pattyApp.templates']);
   angular.module('pattyApp.core', ['pattyApp.utils']);
   angular.module('pattyApp.minimap', ['pattyApp.core']);

@@ -23,5 +23,10 @@ describe('core.constants', function() {
     it('should have a DRIVEMAP_JSON_URL key', function() {
       expect(pattyConf.DRIVEMAP_JSON_URL).toBeDefined();
     });
+
+    it('should have a AHN_API_ENDPOINT key', function() {
+      expect(pattyConf.AHN_API_ENDPOINT).toBeDefined();
+    });
+
   });
 });

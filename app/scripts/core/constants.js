@@ -22,6 +22,12 @@
        * @type {String}
        * @memberof core.pattyConf
        */
-      DRIVEMAP_JSON_URL: 'data/drivemap.json'
+      DRIVEMAP_JSON_URL: 'data/drivemap.json',
+      /**
+       * AHN web service endpoint url
+       * @type {String}
+       * @memberof core.pattyConf
+       */
+      AHN_API_ENDPOINT: 'http://localhost/ahn-pointcloud-viewer/api',
     });
 })();
