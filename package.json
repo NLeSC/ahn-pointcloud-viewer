@@ -54,6 +54,6 @@
   },
   "scripts": {
     "test": "grunt test",
-    "postinstall": "webdriver-manager update"
+    "postinstall": "node_modules/grunt-protractor-runner/node_modules/.bin/webdriver-manager update"
   }
 }
