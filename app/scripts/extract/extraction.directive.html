@@ -1,37 +1,44 @@
-<button ng-click="ec.showForm=!ec.showForm" ng-class="{active: ec.showForm}" class="btn-lg" style="position: absolute;left: 5px;bottom: 600px;" title="Extract points"><span aria-hidden="true" class="glyphicon glyphicon-download-alt"></span></button>
-<div collapse='!ec.showForm' class="panel panel-default" style="position: absolute;left: 5px;bottom: 100px;">
-  <div class="panel-heading">Extract points</div>
+<button ng-click="ec.showForm=!ec.showForm" ng-class="{active: ec.showForm}" class="icon-big extract-icon" title="Extract points"></button>
+<div collapse='!ec.showForm' class="panel panel-default extract-panel">
+  <div class="panel-heading">Extract points
+    <button ng-click="ec.showForm=!ec.showForm" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  </div>
   <div class="panel-body">
-    <form class="form-inline" role="search">
+    <form class="form-inline" role="search" name="extractForm">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="" ng-model="ec.email">
+        <input required type="email" ng-minlength="4" class="form-control" name="email" placeholder="" ng-model="ec.email" compute-selection-size>
       </div>
       <fieldset>
         <div class="form-group">
           <label for="lon1">Lon 1</label>
-          <input type="number" class="form-control" id="lon1" placeholder="" ng-model="ec.selection.lon1">
+          <input required type="number" step=0.01 class="form-control" name="lon1" placeholder="" ng-model="ec.selection.lon1">
         </div>
         <div class="form-group">
           <label for="lat1">Lat 1</label>
-          <input type="number" class="form-control" id="lat1" placeholder="" ng-model="ec.selection.lat1">
+          <input required type="number" step=0.01 class="form-control" name="lat1" placeholder="" ng-model="ec.selection.lat1">
         </div>
       </fieldset>
       <fieldset>
         <div class="form-group">
           <label for="lon2">Lon 2</label>
-          <input type="number" class="form-control" id="lon2" placeholder="" ng-model="ec.selection.lon2">
+          <input required type="number" step=0.01 class="form-control" name="lon2" placeholder="" ng-model="ec.selection.lon2">
         </div>
         <div class="form-group">
           <label for="lat2">Lat 2</label>
-          <input type="number" class="form-control" id="lat2" placeholder="" ng-model="ec.selection.lat2">
+          <input required type="number" step=0.01 class="form-control" name="lat2" placeholder="" ng-model="ec.selection.lat2">
         </div>
       </fieldset>
-      <div>
-        Points
-        <span class="badge">{{ec.numberofpoints}}</span>
+      <div >
+        Selected number of points:
+        <span>{{ec.size.points}}</span>
+        Level:
+        <span>{{ec.size.level}}</span>
+        Coverage (%):
+        <span>{{ec.size.coverage}}</span>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button ng-click="ec.count()" type="submit" class="btn btn-default">Count points</button>
+      <button ng-disabled="extractForm.$invalid" ng-click="ec.submit()" type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
 </div>

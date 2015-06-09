@@ -95,6 +95,11 @@ patty-pointcloud-canvas {
   left: 5px;
   bottom: 70px;
 }
+.extract-panel {
+  bottom: 70px;
+  left: 5px;
+  position: absolute;
+}
 
 patty-pointcloud-stats {
   position: absolute;
@@ -145,6 +150,9 @@ patty-pointcloud-stats {
   width: 700px;
   height: 500px;
   overflow-y: auto;
+}
+.extract-panel .panel-body {
+  width: 510px;
 }
 .icon-inline {
   width: 28px;
@@ -221,6 +229,14 @@ patty-pointcloud-stats {
 .scale-icon.active {
   background-image: url("../images/icons/toolbox_scale_icon_green_30px.png");
 }
+
+.extract-icon {
+  background-image: url("../images/icons/extract_icon_80px.png");
+}
+.extract-icon.active {
+  background-image: url("../images/icons/extract_icon_green_80px.png");
+}
+
 .icon-small {
   width: 50px;
   height: 50px;
