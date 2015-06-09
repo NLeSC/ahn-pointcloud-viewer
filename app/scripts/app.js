@@ -69,7 +69,8 @@
       'pattyApp.settings',
       'pattyApp.help',
       'pattyApp.cameramodes',
-      'pattyApp.pointcloud'
+      'pattyApp.pointcloud',
+      'pattyApp.extract'
     ])
     .run(function(DrivemapService) {
       DrivemapService.load();
@@ -77,6 +78,7 @@
 
   angular.module('pattyApp.templates', []);
   angular.module('pattyApp.logos', []);
+  angular.module('pattyApp.extract', []);
   angular.module('pattyApp.utils', ['pattyApp.templates']);
   angular.module('pattyApp.core', ['pattyApp.utils']);
   angular.module('pattyApp.minimap', ['pattyApp.core']);

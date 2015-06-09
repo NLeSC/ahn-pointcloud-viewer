@@ -1,0 +1,37 @@
+<button ng-click="ec.showForm=!ec.showForm" ng-class="{active: ec.showForm}" class="btn-lg" style="position: absolute;left: 5px;bottom: 600px;" title="Extract points"><span aria-hidden="true" class="glyphicon glyphicon-download-alt"></span></button>
+<div collapse='!ec.showForm' class="panel panel-default" style="position: absolute;left: 5px;bottom: 100px;">
+  <div class="panel-heading">Extract points</div>
+  <div class="panel-body">
+    <form class="form-inline" role="search">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="" ng-model="ec.email">
+      </div>
+      <fieldset>
+        <div class="form-group">
+          <label for="lon1">Lon 1</label>
+          <input type="number" class="form-control" id="lon1" placeholder="" ng-model="ec.selection.lon1">
+        </div>
+        <div class="form-group">
+          <label for="lat1">Lat 1</label>
+          <input type="number" class="form-control" id="lat1" placeholder="" ng-model="ec.selection.lat1">
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="form-group">
+          <label for="lon2">Lon 2</label>
+          <input type="number" class="form-control" id="lon2" placeholder="" ng-model="ec.selection.lon2">
+        </div>
+        <div class="form-group">
+          <label for="lat2">Lat 2</label>
+          <input type="number" class="form-control" id="lat2" placeholder="" ng-model="ec.selection.lat2">
+        </div>
+      </fieldset>
+      <div>
+        Points
+        <span class="badge">{{ec.numberofpoints}}</span>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
