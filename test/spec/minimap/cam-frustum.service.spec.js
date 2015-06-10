@@ -11,6 +11,56 @@ describe('minimap.CamFrustumService', function() {
 
   var ol;
 
+
+
+
+  var customMatchers = {
+    toBeCloseEnoughTo: function() {
+      function arrayIsCloseEnough(inputArray1,inputArray2, maxDiff) {
+        var result = true;
+        if (inputArray1.length !== inputArray2.length) {
+          return false;
+        }
+
+        for (var i = 0; i < inputArray1.length; i++) {
+          if (inputArray1[i] instanceof Array) {
+            if (inputArray2 instanceof Array) {
+              result = arrayIsCloseEnough(inputArray1[i], inputArray2[i], maxDiff);
+            } else {
+              result = false;
+            }
+          } else {
+            if (inputArray1[i] < inputArray2[i] - maxDiff || inputArray1[i] > inputArray2[i] + maxDiff) {
+              result = false;
+            }
+          }
+        }
+        return result;
+      }
+
+      return {
+        compare: function(actualArray, expectedArray) {
+          var result = {};
+          if (actualArray instanceof Array && expectedArray instanceof Array) {
+            result.pass = arrayIsCloseEnough(actualArray, expectedArray, 0.0001);
+            if (result.pass === false) {
+              result.message = 'Expected' +actualArray + ' and '+ expectedArray +' to have the same elements. They did not.';
+            }
+          } else {
+            result.pass = false;
+            result.message = 'Expected' +actualArray + ' and '+ expectedArray +' to be an array. They were not.';
+          }
+
+          return result;
+        }
+      };
+    }
+  };
+
+  beforeEach(function() {
+    jasmine.addMatchers(customMatchers);
+  });
+
   beforeEach(function() {
     inject(function($rootScope, DrivemapService, CamFrustumService, defaultDrivemapJSON, _ol_) {
       service = CamFrustumService;
@@ -48,7 +98,7 @@ describe('minimap.CamFrustumService', function() {
       service.onCameraMove(mockFrustum);
       var expectedCoordinates = service.camFrustum.getCoordinates();
 
-      expect(expectedCoordinates).toEqual(mockCamFrustumCoordinates);
+      expect(expectedCoordinates).toBeCloseEnoughTo(mockCamFrustumCoordinates);
     });
   });
 
@@ -58,7 +108,7 @@ describe('minimap.CamFrustumService', function() {
       var extent = service.getExtent();
       var expected = [93440.63638977094, 436669.4687500017, 94431.34984060988, 436973.96993015957];
 
-      expect(extent).toEqual(expected);
+      expect(extent).toBeCloseEnoughTo(expected);
     });
   });
 
