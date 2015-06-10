@@ -4,7 +4,7 @@ describe('pointcloud.service', function() {
 
   // load the module
   beforeEach(module('pattyApp.pointcloud'));
-  beforeEach(module('mockedSites', 'mockedDrivemap'));
+  beforeEach(module('mockedDrivemap'));
 
   var PointcloudService;
   var Potree;
@@ -20,15 +20,16 @@ describe('pointcloud.service', function() {
     it('should have settings', function() {
 
       var expected = {
-        pointCountTarget: 2.0,
-        pointSize: 0.15,
+        pointCountTarget: 5.0,
+        pointSize: 0.5,
         opacity: 1,
         showSkybox: true,
         interpolate: true,
         showStats: false,
-        pointSizeType: Potree.PointSizeType.ATTENUATED,
+        highQuality: false,
+        pointSizeType: Potree.PointSizeType.ADAPTIVE,
         pointSizeTypes: Potree.PointSizeType,
-        pointColorType: Potree.PointColorType.RGB,
+        pointColorType: Potree.PointColorType.HEIGHT,
         pointColorTypes: Potree.PointColorType,
         pointShapes: Potree.PointShape,
         pointShape: Potree.PointShape.CIRCLE,
@@ -40,17 +41,10 @@ describe('pointcloud.service', function() {
     });
   });
 
-  describe('with SitesService, DrivemapService loaded and OrbitControls and PathControls initialized', function() {
-    var SitesService = null,
-      DrivemapService = null,
+  describe('with DrivemapService loaded and OrbitControls and PathControls initialized', function() {
+    var DrivemapService = null,
       canvasElement = null,
       site162 = null;
-
-    beforeEach(inject(function(_SitesService_, defaultSitesJSON) {
-      SitesService = _SitesService_;
-      SitesService.onLoad(defaultSitesJSON);
-      site162 = defaultSitesJSON[0];
-    }));
 
     beforeEach(inject(function(_DrivemapService_, defaultDrivemapJSON) {
       DrivemapService = _DrivemapService_;
@@ -68,32 +62,5 @@ describe('pointcloud.service', function() {
       spyOn(POCLoader, 'load');
     }));
 
-    describe('enterOrbitMode() function', function() {
-      beforeEach(function() {
-        PointcloudService.enterOrbitMode(null, site162);
-      });
-
-      it('should select the site', function() {
-        expect(SitesService.searched).toEqual([site162]);
-      });
-
-      it('should set isInOrbitMode to true', function() {
-        expect(PointcloudService.isInOrbitMode).toBeTruthy();
-      });
-    });
-
-    describe('exitOrbitMode() function', function() {
-      beforeEach(function() {
-        PointcloudService.exitOrbitMode();
-      });
-
-      it('should select no sites', function() {
-        expect(SitesService.searched).toEqual([]);
-      });
-
-      it('should set isInOrbitMode to false', function() {
-        expect(PointcloudService.isInOrbitMode).toBeFalsy();
-      });
-    });
   });
 });

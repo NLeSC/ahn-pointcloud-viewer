@@ -10,7 +10,7 @@
       ]
     },
     "properties": {
-      "pointcloud": "http://131.180.126.49/tiled_20B_potree/tile_over/cloud.js",
+      "pointcloud": "http://131.180.126.49/tiled_ahn2_dirty_2tiles_potree/tile_4_5/cloud.js",
       "proj4": "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +no_defs",
       "lookatpath": [
         [93938.72485075414, 436669.46845370205,150],

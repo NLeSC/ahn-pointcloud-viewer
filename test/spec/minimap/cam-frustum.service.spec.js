@@ -21,8 +21,7 @@ describe('minimap.CamFrustumService', function() {
       $rootScope.$digest();
 
       ol = _ol_;
-
-      mockFrustum = {'cam':{'x':297051.4777832031,'y':4632724.935546875,'z':141.26402282611974},'left':{'x':297406.5820811396,'y':4632622.404538055,'z':146.29805584894072},'right':{'x':297066.8933021421,'y':4632355.646999936,'z':146.29805584894078}};
+      mockFrustum = {'cam':{'x':93938.7265625,'y':436669.46875,'z':149.99999999990305},'left':{'x':93440.63638977098,'y':436964.9426789419,'z':149.999999999903},'right':{'x':94431.34984060985,'y':436973.96993015846,'z':149.999999999903}};
     });
   });
 
@@ -44,7 +43,7 @@ describe('minimap.CamFrustumService', function() {
 
   describe('onCameraMove() function', function() {
     it('should set coordinates for camFrustum', function() {
-      var mockCamFrustumCoordinates = [[1397771.4318921762,5134117.448713819],[1398250.8778260758,5133993.199513802],[1397806.1460583345,5133621.6601744285],[1397771.4318921762,5134117.448713819]];
+      var mockCamFrustumCoordinates = [[93938.7265625, 436669.4687500017],[93440.63638977094, 436964.9426789425],[94431.34984060988, 436973.96993015957],[93938.7265625, 436669.4687500017]];
 
       service.onCameraMove(mockFrustum);
       var expectedCoordinates = service.camFrustum.getCoordinates();
@@ -56,9 +55,8 @@ describe('minimap.CamFrustumService', function() {
   describe('getExtent() function', function() {
     it('should set coordinates for camFrustum', function() {
       service.onCameraMove(mockFrustum);
-
       var extent = service.getExtent();
-      var expected = [1397771.4318921762, 5133621.6601744285, 1398250.8778260758, 5134117.448713819];
+      var expected = [93440.63638977094, 436669.4687500017, 94431.34984060988, 436973.96993015957];
 
       expect(extent).toEqual(expected);
     });

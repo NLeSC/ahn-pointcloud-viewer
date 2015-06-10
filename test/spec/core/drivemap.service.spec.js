@@ -1,6 +1,6 @@
 'use strict';
 
-describe('core.SitesService', function() {
+describe('core.DrivemapService', function() {
   var service;
   var defaultDrivemapJSON;
   var $rootScope;
@@ -58,7 +58,7 @@ describe('core.SitesService', function() {
     it('should have projection defined', function() {
       // TODO should also compare proj4 definition string,
       // but havent found way to created an expected value
-      expect(proj4.defs('urn:ogc:def:crs:EPSG::32633')).toBeDefined();
+      expect(proj4.defs('urn:ogc:def:crs:EPSG::28992')).toBeDefined();
     });
   });
 
@@ -97,7 +97,7 @@ describe('core.SitesService', function() {
 
     describe('getPointcloudUrl() function', function() {
       it('should return an url', function() {
-        expect(service.getPointcloudUrl()).toEqual('http://148.251.106.132:8090/POTREE/PC/BACK/DRIVE_1_V3/DRIVE_1_V3_levels_8/cloud.js');
+        expect(service.getPointcloudUrl()).toEqual('http://131.180.126.49/tiled_ahn2_dirty_2tiles_potree/tile_4_5/cloud.js');
       });
     });
 

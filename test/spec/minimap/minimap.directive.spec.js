@@ -18,6 +18,6 @@ describe('minimap.directive', function() {
     var scope = $rootScope.$new();
     var html = '<patty-minimap class="clickable"></patty-minimap>';
     var result = $compile(html)(scope);
-    expect(result.html()).toContain('ol-touch');
+    expect(result.html()).toContain('ol-control');
   });
 });

@@ -2,7 +2,7 @@
   'use strict';
 
   function CamFrustumService(ol, proj4, DrivemapService) {
-    var olProjectionCode = 'EPSG:28992';
+    var olProjectionCode = 'urn:ogc:def:crs:EPSG::28992';
     var siteProjectionCode = null;
 
     DrivemapService.ready.then(function() {

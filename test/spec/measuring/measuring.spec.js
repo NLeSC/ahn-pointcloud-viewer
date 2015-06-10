@@ -27,9 +27,7 @@ describe('measuring', function() {
         expect(ctrl.measuringService).toBeDefined();
 
         var tools = {
-          distance: null,
-          angle: null,
-          area: null,
+          measuring: null,
           volume: null,
           heightprofile: null,
           clipvolume: null,
@@ -38,7 +36,6 @@ describe('measuring', function() {
         expect(ctrl.measuringService.tools).toEqual(tools);
 
         expect(ctrl.measuringService.pointcloud).toEqual(null);
-        expect(ctrl.measuringService.sitePointcloud).toEqual(null);
         expect(ctrl.measuringService.profileWidth).toEqual(0.1);
         expect(ctrl.measuringService.initialized).toBeFalsy();
 
