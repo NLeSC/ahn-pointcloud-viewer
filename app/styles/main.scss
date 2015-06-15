@@ -26,14 +26,6 @@ patty-search-panel {
   width: 30%;
 }
 
-.search-results {
-  padding: 10px;
-  background-color: #fff;
-  opacity: 0.9;
-  filter:alpha(opacity=90);
-  /* For IE8 and earlier */
-}
-
 .scroll-panel {
   max-height: 700px;
   overflow-y: scroll;
