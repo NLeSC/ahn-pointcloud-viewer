@@ -13,7 +13,7 @@
 
     me.settings = {
       pointCountTarget: 5.0,
-      pointSize: 0.5,
+      pointSize: 0.01,
       opacity: 1,
       showSkybox: true,
       interpolate: true,
@@ -184,7 +184,7 @@
 
       MeasuringService.init(me.renderer, scene, camera);
 
-      skybox = loadSkybox('bower_components/potree/resources/textures/skybox/');
+      skybox = loadSkybox('images/skybox/');
 
       // enable frag_depth extension for the interpolation shader, if available
       me.renderer.context.getExtension('EXT_frag_depth');
@@ -231,29 +231,25 @@
           }
         );
 
-        var minx = 0, maxx = 200000, miny = 0, maxy = 200000;
-        //var minx = -285402, maxx = 22599, miny = 595402, maxy = 903402;
+        //var miny = 306740, maxy = 615440, minx = 13420, maxx = 322120;
+        var minx = 79692.68, maxx = 96258.93, miny = 383917.51, maxy = 422503.12;
         var worldHeight = 256, worldWidth = 256;
 
         var leftTop = SceneService.toLocal(new THREE.Vector3(minx, maxy, 0));
         var rightBottom = SceneService.toLocal(new THREE.Vector3(maxx, miny, 0));
 
+        var diffx = rightBottom.x - leftTop.x;
+        var diffy = rightBottom.z - leftTop.z;
+
         console.log(leftTop);
         console.log(rightBottom);
 
-        var planeGeometry = new THREE.PlaneBufferGeometry( 40000, 50000, worldWidth - 1, worldHeight - 1 );
-        planeGeometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
-        planeGeometry.applyMatrix( new THREE.Matrix4().makeTranslation( 20000, -50, -25000) );
-
-        //var vertices = geometry.attributes.position.array;
-				// for ( var i = 0, j = 0, l = vertices.length; i < l; i ++, j += 3 ) {
-				// 	vertices[ j + 1 ] = data[ i ] * 10;
-				// }
-
-				var planeMesh = new THREE.Mesh( planeGeometry, new THREE.MeshBasicMaterial( { color: 0xffff00 } ) );
-
-        SceneService.addMaximap(planeMesh);
-				scene.add( planeMesh );
+        //var planeGeometry = new THREE.PlaneBufferGeometry( diffx, diffy, worldWidth - 1, worldHeight - 1 );
+        //planeGeometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
+        //planeGeometry.applyMatrix( new THREE.Matrix4().makeTranslation( leftTop.x+(diffx/2), -50, rightBottom.z-(diffy/2)) );
+				//var planeMesh = new THREE.Mesh( planeGeometry, new THREE.MeshBasicMaterial( { color: 0xffff00 } ) );
+        //SceneService.addMaximap(planeMesh);
+				//scene.add( planeMesh );
 
         //PathControls.init(camera, myPath, lookPath, me.renderer.domElement);
         PathControls.init(camera, cameraPath, lookPath, me.elRenderArea);
@@ -304,7 +300,7 @@
 
       CameraService.update();
 
-      SceneService.update();
+      // SceneService.update();
 
       updateStats();
     };
@@ -330,7 +326,7 @@
         me.renderer.render(scene, camera);
 
         MeasuringService.render();
-        SceneService.render();
+        // SceneService.render();
       }
     };
 

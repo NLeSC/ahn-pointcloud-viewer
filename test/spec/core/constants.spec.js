@@ -16,10 +16,6 @@ describe('core.constants', function() {
       pattyConf = _pattyConf_;
     }));
 
-    it('should have a SITES_JSON_URL key', function() {
-      expect(pattyConf.SITES_JSON_URL).toBeDefined();
-    });
-
     it('should have a DRIVEMAP_JSON_URL key', function() {
       expect(pattyConf.DRIVEMAP_JSON_URL).toBeDefined();
     });

@@ -5,7 +5,8 @@
     proj4.defs('EPSG:28992','+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +no_defs');
 
     var projection = new ol.proj.Projection('EPSG:28992');
-    var projectionExtent = [-285401.92,22598.08,595401.9199999999,903401.9199999999];
+    //var projectionExtent = [-285401.92,22598.08,595401.9199999999,903401.9199999999];
+    var projectionExtent = [79692.68,96258.93,383917.51,422503.12];
 
     var resolutions = [3440.64, 1720.32, 860.16, 430.08, 215.04, 107.52, 53.76, 26.88, 13.44, 6.72, 3.36, 1.68, 0.84, 0.42];
     var matrixIds = new Array(14);
@@ -28,64 +29,92 @@
     projectionNL.setExtent([646.36, 308975.28, 276050.82, 636456.31]);
 
     var Rotterdam = ol.proj.transform([4.5000, 51.9167], 'EPSG:4326', 'EPSG:28992');
+    var startLocation = ol.proj.transform([4.451,51.777], 'EPSG:4326', 'EPSG:28992');
     //console.log('Rotterdam: ' + Rotterdam);
 
     var baseLayers = new ol.layer.Group({
       'title': 'Base maps',
       layers: [
-        this.luchtfotoLayer = new ol.layer.Tile({
-          title: 'Luchtfotos',
-          type: 'base',
-          visible: true,
-          source: new ol.source.WMTS({
-            url: 'http://geodata1.nationaalgeoregister.nl/luchtfoto/wmts',
-            layer: 'luchtfoto',
-            matrixSet: 'nltilingschema',
-            format: 'image/jpeg',
-            projection: projection,
-            tileGrid: new ol.tilegrid.WMTS({
-              origin: ol.extent.getTopLeft(projectionExtent),
-              resolutions: resolutions,
-              matrixIds: matrixIdsLuchtfotos
-            }),
-            style: 'default'
-          })
-        })
+        // this.luchtfotoLayer = new ol.layer.Tile({
+        //   title: 'Luchtfotos',
+        //   type: 'base',
+        //   visible: true,
+        //   source: new ol.source.WMTS({
+        //     url: 'http://geodata1.nationaalgeoregister.nl/luchtfoto/wmts',
+        //     layer: 'luchtfoto',
+        //     matrixSet: 'nltilingschema',
+        //     format: 'image/jpeg',
+        //     projection: projection,
+        //     crossOrigin:'Anonymous',
+        //     tileGrid: new ol.tilegrid.WMTS({
+        //       origin: ol.extent.getTopLeft(projectionExtent),
+        //       resolutions: resolutions,
+        //       matrixIds: matrixIdsLuchtfotos
+        //     }),
+        //     style: 'default'
+        //   })
+        // }),
+        this.bingLayer = new ol.layer.Tile({
+  			  source: new ol.source.BingMaps({
+  				imagerySet: 'Aerial',
+          crossOrigin:'Anonymous',
+  				key: 'AvkSi_2KgDu8JNeMVPEBGJHoHATta02IrypWlTdh5he7eq40PQko5Ujte2lRdUxw'
+			  })
+			})
       ]
     });
 
-    var canvas = document.createElement('canvas');
-    var context = canvas.getContext('2d');
+    this.bingLayer.on('postcompose', function(event) {
+      console.log('luchtfoto postcompose');
+		});
 
-    canvas.width = 1024;
-    canvas.height = 1024;
-    context.fillStyle = '#000000';
-    context.fillRect( 0, 0, canvas.width, canvas.height );
+    var canvas;
+    this.setTarget = function() {
+      var maximap = document.getElementById('maximap');
 
-    this.initMap = function() {
+      //var canvas = document.createElement('canvas');
+
+      //this.initMap = function() {
+
       this.map = new ol.Map({
         maxExtent: projectionExtent,
         layers: baseLayers,
-        target: 'canvas',
+        //target: 'maximap',
         theme: null,
         maxResolution: 860.16,
         numZoomLevels: 12,
         units: 'm',
         displayProjection: projection,
         view: new ol.View({
-          center: Rotterdam,
+          center: startLocation,
           zoom: 14
         }),
         renderer: 'canvas'
       });
 
+      maximap.width = 1024;
+      maximap.height = 1024;
+
+      this.map.setTarget(maximap);
+
+      canvas = maximap.children[0].children[0];
+      canvas.style.display = 'none';
+
+      var context = canvas.getContext('2d');
+
+      context.fillStyle = '#000000';
+      context.fillRect( 0, 0, maximap.width, maximap.height );
+
+
       this.map.on('render', function(event) {
         console.log('render');
       });
-    };   
+      //};
+    };
 
     this.addToMesh = function(mesh) {
-      this.initMap();
+      //this.initMap();
+      //this.map.setSize([canvas.width, canvas.height]);
 
       this.texture = new THREE.Texture(canvas);
       this.texture.minFilter = THREE.LinearFilter;

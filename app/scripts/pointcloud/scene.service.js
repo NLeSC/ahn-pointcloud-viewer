@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function SceneService(THREE, MaximapService) {
+  function SceneService(THREE) {
     var scene = new THREE.Scene();
     this.referenceFrame = new THREE.Object3D();
     scene.add(this.referenceFrame);
@@ -41,17 +41,17 @@
       return geo;
     };
 
-    this.addMaximap = function(mesh) {
-      MaximapService.addToMesh(mesh);
-    };
-
-    this.update = function() {
-      MaximapService.update();
-    };
-
-    this.render = function() {
-      MaximapService.render();
-    };
+    // this.addMaximap = function(mesh) {
+    //   MaximapService.addToMesh(mesh);
+    // };
+    //
+    // this.update = function() {
+    //   MaximapService.update();
+    // };
+    //
+    // this.render = function() {
+    //   MaximapService.render();
+    // };
   }
 
   angular.module('pattyApp.pointcloud')

@@ -8,7 +8,8 @@
 (function() {
 	'use strict';
 
-	var MOVEMENT_SPEED_MULTIPLIER = 60;
+	var NORMAL_MOVEMENT_SPEED_MULTIPLIER = 30;
+	var FAST_MOVEMENT_SPEED_MULTIPLIER = 10;
 
 	var me;
 
@@ -363,8 +364,9 @@
 		}
 
 		var delta = clock.getDelta();
+		delta *= NORMAL_MOVEMENT_SPEED_MULTIPLIER;
 		if (keys[32]) {
-			delta *= MOVEMENT_SPEED_MULTIPLIER;
+			delta *= FAST_MOVEMENT_SPEED_MULTIPLIER;
 		}
 
 		updateCameraRotation();

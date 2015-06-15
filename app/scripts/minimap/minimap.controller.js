@@ -27,7 +27,10 @@
     var projectionNL = ol.proj.get('EPSG:28992');
     projectionNL.setExtent([646.36, 308975.28, 276050.82, 636456.31]);
 
-    var Rotterdam = ol.proj.transform([4.5000, 51.9167], 'EPSG:4326', 'EPSG:28992');
+    //var Rotterdam = ol.proj.transform([4.5000, 51.9167], 'EPSG:4326', 'EPSG:28992');
+    var startLocation = ol.proj.transform([4.451,51.777], 'EPSG:4326', 'EPSG:28992');
+
+    this.osmLayer = {};
 
     var baseLayers = new ol.layer.Group({
       'title': 'Base maps',
@@ -54,7 +57,7 @@
             })
           })
         }),
-        new ol.layer.Tile({
+        this.osmLayer = new ol.layer.Tile({
           title: 'Luchtfotos',
           type: 'base',
           visible: true,
@@ -75,6 +78,11 @@
       ]
     });
 
+    //this.osmLayer.on('postcompose', function(event) {
+    //  console.log('postcompose');
+		//	project();
+		//});
+
     this.map = new ol.Map({
       maxExtent: projectionExtent,
       layers: baseLayers,
@@ -85,10 +93,15 @@
       units: 'm',
       displayProjection: projection,
       view: new ol.View({
-        center: Rotterdam,
+        center: startLocation,
         zoom: 14
       })
     });
+
+    this.map.on('render', function(event) {
+      console.log('render');
+		//	project();
+		});
 
     this.setupResizeControl = function() {
       function ResizeControl(optOptions) {

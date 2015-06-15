@@ -20,6 +20,7 @@ module.exports = function(config) {
     files: [
       // PhantomJS has no function() {}.bind(this) functionality, so polyfill it
       'node_modules/phantomjs-polyfill/bind-polyfill.js',
+      'node_modules/jasmine-utils/src/jasmine-utils.js',
       'test/polyfills/string.includes.js',
       'test/polyfills/canvas.webgl.js',
       'bower_components/angular/angular.js',
@@ -66,13 +67,13 @@ module.exports = function(config) {
     // - IE (only Windows)
     browsers: [
       'PhantomJS'
-      // 'Chrome'
+      //'Chrome'
     ],
 
     // Which plugins to enable
     plugins: [
       'karma-phantomjs-launcher',
-      // 'karma-chrome-launcher',
+      //'karma-chrome-launcher',
       'karma-jasmine',
       'karma-coverage',
       'karma-junit-reporter',
