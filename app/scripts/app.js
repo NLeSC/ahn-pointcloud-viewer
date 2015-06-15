@@ -88,5 +88,5 @@
   angular.module('pattyApp.settings', ['pattyApp.pointcloud']);
   angular.module('pattyApp.help', ['pattyApp.templates']);
   angular.module('pattyApp.cameramodes', ['pattyApp.pointcloud']);
-  angular.module('pattyApp.searchbox', ['pattyApp.core', 'pattyApp.pointcloud']);
+  angular.module('pattyApp.searchbox', ['pattyApp.core', 'pattyApp.pointcloud', 'toastr']);
 })();

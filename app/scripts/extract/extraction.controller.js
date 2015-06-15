@@ -35,6 +35,7 @@
         toastr.success('Will send e-mail to "' + request.email + '" when completed', 'Point extraction job submitted');
       }.bind(this)).error(function() {
         console.log(arguments);
+        toastr.error('Submit failed', 'for some reason');
       });
       this.showForm = false;
     };

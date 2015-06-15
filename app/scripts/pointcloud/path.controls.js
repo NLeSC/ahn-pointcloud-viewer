@@ -200,6 +200,10 @@
 		yAngle = camera.rotation.x;
 	};
 
+	PathControls.prototype.moveTo = function(center) {
+		bodyPosition.copy(center);
+	};
+
 	function addBalls(scene, pointsArray, colorHex) {
 		var sphereGeo;
 		var meshMat;

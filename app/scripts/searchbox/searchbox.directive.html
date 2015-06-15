@@ -1,55 +1,10 @@
 <div class="form-group clickable">
     <div class="input-group">
-        <div class="glyphicon glyphicon-search input-group-addon"></div>
-        <input type="text" class="form-control" placeholder="Search..." ng-model="sp.SitesService.query" ng-model-options="{ updateOn: 'default', debounce: { default: 500 } }" ng-change="sp.onQueryChange()">
-        <div class="input-group-addon" ng-show="sp.SitesService.query">
-            <button class="btn btn-default btn-xs close" aria-label="Close" ng-click="sp.SitesService.query=''" ><span aria-hidden="true">&times;</span></button>
-        </div>
-    </div>
-    <div class="panel panel-default search-results scroll-panel" ng-show="sp.SitesService.query">
-        <div ng-if="sp.SitesService.searched.length > 1" ng-cloak>
-          <div class="search-result" ng-repeat="site in sp.SitesService.searched|startFrom:(sp.currentPage-1)*sp.pageSize|limitTo:sp.pageSize">
-            <h3>Site {{ site.id }}</h3>
-            <div>
-              <img class="site-thumb" ng-src="{{ site.thumbnail ? site.thumbnail : 'http://placehold.it/120x80'}}" width="120" align="left">
-              <strong>{{ site.description_site }}</strong>
-            </div>
-            <div class="form-group btn-group pull-right">
-              <label class="btn btn-primary" ng-click="sp.lookAtSite(site)">Go to site {{ site.id }}</label>
-            </div>
-          </div>
-          <pager total-items="sp.SitesService.searched.length" items-per-page="sp.pageSize" ng-model="sp.currentPage" align="false"></pager>
-        </div>
-        <div ng-if="sp.SitesService.searched.length == 0" ng-cloak>No results.</div>
-        <div ng-if="sp.SitesService.searched.length == 1" class="site-details" ng-cloak>
-          <div class="form-group btn-group">
-            <label class="btn btn-primary" ng-click="sp.lookAtSite(sp.currentSite)">Go to site</label>
-            <label class="btn btn-primary" ng-click="sp.enterOrbitMode(sp.currentSite)">Inspect site</label>
-          </div>
-          <div class="form-group btn-group" dropdown>
-            <button class="btn btn-primary" ng-disabled="sp.disabledButtons.sitePc" ng-model="sp.toggleButtons.sitePc" btn-checkbox>Site point cloud</button>
-            <label class="btn btn-primary" ng-model="sp.toggleButtons.driveMap" btn-checkbox>Drive map</label>
-            <label class="btn btn-primary" ng-model="sp.toggleButtons.siteMesh" btn-checkbox>Site mesh</label>
-            <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle disabled>
-              Reconstruction meshes <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu pull-right" role="menu">
-              <li ng-repeat="mesh in sp.currentSite.reconstruction_mesh">{{ mesh.id }}</li>
-            </ul>
-          </div>
-          <p>
-            <img class="site-thumb" ng-src="{{sp.currentSite.thumbnail ? sp.currentSite.thumbnail : 'http://placehold.it/120x80'}}" width="120" align="left">
-            <strong>{{ sp.currentSite.description_site }}</strong>
-          </p>
-          <p>
-            Site interpretation: {{ sp.currentSite.site_interpretation }}
-          </p>
-          <p>
-            Site context: {{ sp.currentSite.site_context }}
-          </p>
-          <h4>Objects</h4>
-          <ul>
-            <li ng-repeat="obj in sp.currentSite.objects">{{ obj.description_object }}</li>
-          </ul>
+        <input type="text" class="form-control" placeholder="Search location..." ng-model="sp.query" ng-keypress="sp.onQueryKeyPress($event)">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" ng-click="sp.clear()" ng-show="sp.query" title="Clear"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+          <button class="btn btn-default" type="button" ng-click="sp.search()" ng-disabled="!sp.query" title="Search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+          <button class="btn btn-default" type="button" ng-click="sp.gotoCurrentLocation()" ng-show="sp.hasGeoLocation" title="Current location"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></button>
+        </span>
     </div>
 </div>
