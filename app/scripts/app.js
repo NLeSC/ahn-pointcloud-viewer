@@ -64,7 +64,7 @@
       'pattyApp.logos',
       'pattyApp.searchbox',
       'pattyApp.minimap',
-      'pattyApp.maximap',
+      //'pattyApp.maximap',
       'pattyApp.measuring',
       'pattyApp.settings',
       'pattyApp.help',
@@ -82,9 +82,9 @@
   angular.module('pattyApp.utils', ['pattyApp.templates']);
   angular.module('pattyApp.core', ['pattyApp.utils']);
   angular.module('pattyApp.minimap', ['pattyApp.core']);
-  angular.module('pattyApp.maximap', ['pattyApp.core', 'pattyApp.three']);
+  //angular.module('pattyApp.maximap', ['pattyApp.core', 'pattyApp.three']);
   angular.module('pattyApp.measuring', ['pattyApp.potree', 'pattyApp.three']);
-  angular.module('pattyApp.pointcloud', ['pattyApp.core', 'pattyApp.potree', 'pattyApp.three', 'pattyApp.measuring', 'pattyApp.maximap']);
+  angular.module('pattyApp.pointcloud', ['pattyApp.core', 'pattyApp.potree', 'pattyApp.three', 'pattyApp.measuring']);
   angular.module('pattyApp.settings', ['pattyApp.pointcloud']);
   angular.module('pattyApp.help', ['pattyApp.templates']);
   angular.module('pattyApp.cameramodes', ['pattyApp.pointcloud']);

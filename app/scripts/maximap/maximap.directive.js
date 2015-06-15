@@ -4,8 +4,9 @@
   function pattyMaximap() {
     return {
       restrict: 'E',
+      templateUrl: 'scripts/maximap/maximap.directive.html',
       link: function(scope, element) {
-        scope.maximap.service.addCanvas(element[0]);
+        scope.maximap.service.setTarget();
       },
       controller: 'MaximapController',
       controllerAs: 'maximap'
