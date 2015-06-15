@@ -63,7 +63,7 @@
 			OFF: 'off'
 		};
 
-		this.mode = this.modes.ONRAILS;
+		this.mode = this.modes.FLY;
 	};
 
 	PathControls.prototype.initCamera = function(cam, startPos) {
