@@ -132,7 +132,7 @@ describe('searchbox.controller', function() {
     });
 
     it('should have moved the camera to a location up and to the north in gl space', function() {
-      var expected = new THREE.Vector3(86166.29908053015, 434714.07917005575, 1000);
+      var expected = new THREE.Vector3(86166.29908053015, 432714.07917005575, 1000);
       expect(this.PathControls.moveTo).toHaveBeenCalledWith(expected);
     });
   });

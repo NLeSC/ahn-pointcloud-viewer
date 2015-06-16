@@ -53,7 +53,7 @@
 
       // move camera to location
       var moveOffsetX = 0;
-      var moveOffsetY = 1000;
+      var moveOffsetY = -1000;
       var moveOffsetZ = 1000;
       var geoLocationMove = [geoLocation[0] + moveOffsetX, geoLocation[1] + moveOffsetY];
       var sceneLocationMove = SceneService.toLocal(new THREE.Vector3(geoLocationMove[0], geoLocationMove[1], altitude + moveOffsetZ));
