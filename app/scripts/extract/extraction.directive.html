@@ -7,27 +7,29 @@
     <form class="form-inline" role="search" name="extractForm">
       <div class="form-group">
         <label for="email">Email</label>
-        <input required type="email" ng-minlength="4" class="form-control" name="email" placeholder="" ng-model="ec.email" compute-selection-size>
+        <input type="email" ng-minlength="4" class="form-control" name="email" placeholder="" ng-model="ec.email" compute-selection-size>
       </div>
       <fieldset>
         <div class="form-group">
-          <label for="lon1">Lon 1</label>
-          <input required type="number" step=0.01 class="form-control" name="lon1" placeholder="" ng-model="ec.selection.lon1">
+          <label for="left">Left</label>
+          <input required type="number" step=0.01 class="form-control" name="left" placeholder="" ng-model="ec.selection.left">
         </div>
         <div class="form-group">
-          <label for="lat1">Lat 1</label>
-          <input required type="number" step=0.01 class="form-control" name="lat1" placeholder="" ng-model="ec.selection.lat1">
+          <label for="top">Top</label>
+          <input required type="number" step=0.01 class="form-control" name="top" placeholder="" ng-model="ec.selection.top">
         </div>
+        <button ng-click="ec.setBottomLeft()" type="submit" class="btn btn-default">set</button>
       </fieldset>
       <fieldset>
         <div class="form-group">
-          <label for="lon2">Lon 2</label>
-          <input required type="number" step=0.01 class="form-control" name="lon2" placeholder="" ng-model="ec.selection.lon2">
+          <label for="right">Right</label>
+          <input required type="number" step=0.01 class="form-control" name="right" placeholder="" ng-model="ec.selection.right">
         </div>
         <div class="form-group">
-          <label for="lat2">Lat 2</label>
-          <input required type="number" step=0.01 class="form-control" name="lat2" placeholder="" ng-model="ec.selection.lat2">
+          <label for="bottom">Bottom</label>
+          <input required type="number" step=0.01 class="form-control" name="bottom" placeholder="" ng-model="ec.selection.bottom">
         </div>
+        <button ng-click="ec.setTopRight()" type="submit" class="btn btn-default">set</button>
       </fieldset>
       <div >
         Selected number of points:
