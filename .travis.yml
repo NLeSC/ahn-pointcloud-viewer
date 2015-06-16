@@ -8,6 +8,7 @@ addons:
 before_install:
   - gem install compass
 install:
+  - 'npm install -g npm@2'
   - 'npm install'
   - 'npm install -g bower grunt-cli'
   - 'bower install'
