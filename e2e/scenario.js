@@ -26,32 +26,33 @@ describe('pattyApp', function() {
       var panel = element(by.css('.toolbox-tools'));
       expect(panel.isDisplayed()).toBeFalsy();
     });
-  });
 
-  describe('searched on "site:162"', function() {
-    beforeEach(function() {
-      element(by.model('sp.SitesService.query')).sendKeys('site:162');
-      // wait for search to complete
-      browser.sleep(600);
+    it('should hide the clear button', function() {
+      var results = element(by.css('.glyphicon-remove'));
+      expect(results.isDisplayed()).toBeFalsy();
     });
 
-    it('should have details of site 162 displayed', function() {
-      var results = element(by.css('.site-details'));
+  });
+
+  describe('searched on "roosendaal"', function() {
+    beforeEach(function() {
+      element(by.model('sp.query')).sendKeys('roosendaal');
+    });
+
+    it('should show the clear button', function() {
+      var results = element(by.css('.glyphicon-remove'));
       expect(results.isDisplayed()).toBeTruthy();
-      expect(results.getText()).toContain('Inspect site');
     });
   });
 
-  describe('search on "zzzz"', function() {
+  describe('click on extract icon', function() {
     beforeEach(function() {
-      element(by.model('sp.SitesService.query')).sendKeys('zzzz');
-      // wait for search to complete
-      browser.sleep(600);
+      element(by.css('.icon-big.extract-icon')).click();
     });
 
-    it('should have no results', function() {
-      var results = element(by.css('.search-results'));
-      expect(results.getText()).toContain('No results');
+    it('should show extract panel', function() {
+      var panel = element(by.css('.extract-panel'));
+      expect(panel.isDisplayed()).toBeTruthy();
     });
   });
 
