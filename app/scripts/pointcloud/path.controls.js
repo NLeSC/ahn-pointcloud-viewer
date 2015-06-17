@@ -18,6 +18,7 @@
 	var path;
 	var lookatPath;
 	var drag = false;
+	var focus = false;
 	var lookatPathFactor = 1.08;
 
 	var bodyPosition;
@@ -86,6 +87,9 @@
 
 		element.addEventListener('mouseleave', onBlur, false);
 		element.addEventListener('mouseout', onBlur, false);
+
+		element.addEventListener('mouseenter', onFocus, false);
+		element.addEventListener('mouseover', onFocus, false);
 
 		element.addEventListener('mousemove', mousemove, false);
 		element.addEventListener('mousedown', mousedown, false);
@@ -410,26 +414,39 @@
 	};
 
 	function onKeyDown(event) {
+		if (!focus) {
+			return;
+		}
+
 		keys[event.keyCode] = true;
 
-		if (event.keyCode === 32) {
+		var spacebarKeyCode = 32;
+		if (event.keyCode === spacebarKeyCode) {
 			event.preventDefault();
 		}
 	}
 
 	function onKeyUp(event) {
+		if (!focus) {
+			return;
+		}
 		keys[event.keyCode] = false;
 	}
 
 	//a blur event is fired when we lose focus
 	//in such an event we want to turn off all keys
 	function onBlur() {
+		focus = false;
 		drag = false;
 
 		var i;
 		for (i=0; i < keys.length; i++) {
 			keys[i] = false;
 		}
+	}
+
+	function onFocus() {
+		focus = true;
 	}
 
 	function mousedown(event) {
