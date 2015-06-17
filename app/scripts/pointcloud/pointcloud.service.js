@@ -20,6 +20,7 @@
       interpolate: true,
       showStats: false,
       highQuality: false,
+      showBoundingBox: false,
       pointSizeType: Potree.PointSizeType.ADAPTIVE,
       pointSizeTypes: Potree.PointSizeType,
       pointColorType: Potree.PointColorType.HEIGHT,
@@ -286,10 +287,11 @@
         pointcloud.material.intensityMax = 65000;
         //pointcloud.material.weighted = true;
         pointcloud.material.minSize = 2;
+        pointcloud.showBoundingBox = me.settings.showBoundingBox;
 
         pointcloud.update(camera, me.renderer);
 
- 
+
         // update progress bar
         var progress = pointcloud.visibleNodes.length / pointcloud.visibleGeometry.length;
         if (progress === 1 && cfpLoadingBar.status() < 1){
