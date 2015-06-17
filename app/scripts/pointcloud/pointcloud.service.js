@@ -5,7 +5,8 @@
   function PointcloudService(THREE, Potree, POCLoader, $window, $rootScope,
     DrivemapService,
     CameraService, SceneService,
-    PathControls, MeasuringService) {
+    PathControls, MeasuringService,
+    cfpLoadingBar) {
 
     var me = this;
 
@@ -288,6 +289,20 @@
 
         pointcloud.update(camera, me.renderer);
 
+ 
+        // update progress bar
+        var progress = pointcloud.visibleNodes.length / pointcloud.visibleGeometry.length;
+        if (progress === 1 && cfpLoadingBar.status() < 1){
+            cfpLoadingBar.complete();
+        } else if (progress < 1){
+            cfpLoadingBar.start();
+            cfpLoadingBar.set(progress);
+        } else if (progress === Infinity && cfpLoadingBar.status() < 1) {
+          cfpLoadingBar.complete();
+        }
+      } else {
+        // loading metadata
+        cfpLoadingBar.start();
       }
 
       if (me.isInOrbitMode) {

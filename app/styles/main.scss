@@ -314,3 +314,12 @@ patty-pointcloud-stats {
 .logo-custom-nlesc {
   max-width:100%;
 }
+
+#loading-bar-spinner {
+  display: block;
+  position: fixed;
+  z-index: 10002;
+  // below seach box
+  top: 50px;
+  left: 20px;
+}
