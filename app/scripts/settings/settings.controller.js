@@ -1,26 +1,14 @@
 (function() {
   'use strict';
 
-  function SettingsController(PointcloudService, CameraService) {
+  function SettingsController(PointcloudService, CameraService, MeasuringService) {
     this.showSettings = false;
-    this.showSiteSettings = false;
-
     this.settings = PointcloudService.settings;
-    this.siteSettings = PointcloudService.siteSettings;
-
     this.PointcloudService = PointcloudService;
+    this.measure = MeasuringService;
 
     this.recordCameraLocation = function() {
       CameraService.recordLocation();
-    };
-
-    this.toggleSettings = function() {
-      this.showSettings = !this.showSettings;
-      this.showSiteSettings = false;
-
-      if (this.showSettings && PointcloudService.isInOrbitMode) {
-        this.showSiteSettings = true;
-      }
     };
   }
 
