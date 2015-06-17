@@ -44,11 +44,11 @@ describe('minimap.CamFrustumService', function() {
           if (actualArray instanceof Array && expectedArray instanceof Array) {
             result.pass = arrayIsCloseEnough(actualArray, expectedArray, 0.0001);
             if (result.pass === false) {
-              result.message = 'Expected' +actualArray + ' and '+ expectedArray +' to have the same elements. They did not.';
+              result.message = 'Expected ' + JSON.stringify(actualArray) + ' and '+ JSON.stringify(expectedArray) +' to have the same elements. They did not.';
             }
           } else {
             result.pass = false;
-            result.message = 'Expected' +actualArray + ' and '+ expectedArray +' to be an array. They were not.';
+            result.message = 'Expected ' + JSON.stringify(actualArray) + ' and '+ JSON.stringify(expectedArray) +' to be an array. They were not.';
           }
 
           return result;
@@ -109,6 +109,17 @@ describe('minimap.CamFrustumService', function() {
       var expected = [93440.63638977094, 436669.4687500017, 94431.34984060988, 436973.96993015957];
 
       expect(extent).toBeCloseEnoughTo(expected);
+    });
+  });
+
+  describe('getCameraPosition() function', function() {
+    it('should return center of frustum', function() {
+      service.onCameraMove(mockFrustum);
+
+      var center = service.getCameraPosition();
+
+      var expected = [93938.7265625, 436669.4687500017];
+      expect(center).toBeCloseEnoughTo(expected);
     });
   });
 
