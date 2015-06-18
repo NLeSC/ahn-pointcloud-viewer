@@ -1,41 +1,61 @@
 (function() {
   'use strict';
 
-  function ExtractionSelectionService() {
+  function ExtractionSelectionService(Messagebus, debounce) {
+    this._active = false;
+
     this._left = 93720.22;
     this._bottom = 436899.97;
     this._right = 94428.37;
     this._top = 438334.32;
 
+    this.sendUpdate = debounce(2000, function () {
+      Messagebus.publish('extractionSelectionChanged', this.toRequest());
+    }.bind(this));
+
+    this.updateValue = function(name, newValue) {
+      if (newValue !== this[name]) {
+        this[name] = newValue;
+        this.checkSwapCoordinates();
+        this.sendUpdate();
+      }
+    };
+
+    Object.defineProperty(this, 'active', {
+      get: function() { return this._active; },
+      set: function(newValue) {
+        if (newValue !== this._active) {
+          Messagebus.publish('extractionSelectionActivationChanged', newValue);
+        }
+        this._active = newValue;        
+      }
+    });
+
     Object.defineProperty(this, 'left', {
       get: function() { return this._left; },
       set: function(newValue) {
-        this._left = newValue;
-        this.checkSwapCoordinates();
+        this.updateValue('_left', newValue);
       }
     });
 
     Object.defineProperty(this, 'top', {
       get: function() { return this._top; },
       set: function(newValue) {
-        this._top = newValue;
-        this.checkSwapCoordinates();
+        this.updateValue('_top', newValue);
       }
     });
 
     Object.defineProperty(this, 'right', {
       get: function() { return this._right; },
       set: function(newValue) {
-        this._right = newValue;
-        this.checkSwapCoordinates();
+        this.updateValue('_right', newValue);
       }
     });
 
     Object.defineProperty(this, 'bottom', {
       get: function() { return this._bottom; },
       set: function(newValue) {
-        this._bottom = newValue;
-        this.checkSwapCoordinates();
+        this.updateValue('_bottom', newValue);
       }
     });
 

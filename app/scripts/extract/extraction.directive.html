@@ -1,7 +1,7 @@
-<button ng-click="ec.showForm=!ec.showForm" ng-class="{active: ec.showForm}" class="icon-big extract-icon" title="Extract points"></button>
-<div collapse='!ec.showForm' class="panel panel-default extract-panel">
+<button ng-click="ec.selection.active=!ec.selection.active" ng-class="{active: ec.selection.active}" class="icon-big extract-icon" title="Extract points"></button>
+<div collapse='!ec.selection.active' class="panel panel-default extract-panel">
   <div class="panel-heading">Extract points
-    <button ng-click="ec.showForm=!ec.showForm" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <button ng-click="ec.selection.active=!ec.selection.active" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   </div>
   <div class="panel-body">
     <form class="form-inline" role="search" name="extractForm">
