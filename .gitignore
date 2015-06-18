@@ -15,3 +15,5 @@ project.exvim
 
 /doc
 /npm-debug.log
+
+.grunt

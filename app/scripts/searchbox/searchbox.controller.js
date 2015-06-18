@@ -3,7 +3,6 @@
 
   function SearchPanelController(BingGeoCoderService, SceneService, PathControls, Messagebus, $window, toastr, THREE, proj4) {
     this.query = '';
-    this.bingMapsKey = 'Am6kAyf_AScih8y3ElNRSDpQ9xMJ8jn4yeePDKdHzhsNU4u7Jm-Ac8LJooYKmhbY';
     this.hasGeoLocation = 'geolocation' in $window.navigator;
 
     this.clear = function() {
