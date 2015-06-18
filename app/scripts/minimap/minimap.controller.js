@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function MinimapController(ol, proj4, CamFrustumService, Messagebus) {
+  function MinimapController(ol, proj4, CamFrustumService, Messagebus, MinimapExtractionSelectionService) {
     proj4.defs('EPSG:28992','+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +no_defs');
 
     var projection = new ol.proj.Projection('EPSG:28992');
@@ -151,12 +151,14 @@
 
     this.updateFrustrumAndCenterMap = function(event, frustum) {
       CamFrustumService.onCameraMove(frustum);
-      
+
       var pos = CamFrustumService.getCameraPosition();
       this.centerMap(pos);
     };
 
     Messagebus.subscribe('cameraMoved', this.updateFrustrumAndCenterMap.bind(this));
+
+    MinimapExtractionSelectionService.init(this.map);
   }
 
   angular.module('pattyApp.minimap')

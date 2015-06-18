@@ -45,6 +45,7 @@ module.exports = function(config) {
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-toastr/dist/angular-toastr.tpls.js',
       'bower_components/angular-loading-bar/build/loading-bar.js',
+      'bower_components/angular-debounce/dist/angular-debounce.js',
       'app/scripts/**/*.js',
       // test for directives need the templates, inside test load pattyApp.templates module to get templates
       '.tmp/template.js',

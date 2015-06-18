@@ -3,7 +3,7 @@
 describe('minimap.controller', function() {
 
   // load the module
-  beforeEach(module('pattyApp.minimap', 'mockedDrivemap'));
+  beforeEach(module('pattyApp.minimap', 'pattyApp.extract', 'mockedDrivemap'));
 
   var $controller;
   var $rootScope;

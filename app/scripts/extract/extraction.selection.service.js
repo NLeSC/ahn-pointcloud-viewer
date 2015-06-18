@@ -9,7 +9,7 @@
     this._right = 94428.37;
     this._top = 438334.32;
 
-    this.sendUpdate = debounce(2000, function () {
+    this.sendUpdate = debounce(50, function () {
       Messagebus.publish('extractionSelectionChanged', this.toRequest());
     }.bind(this));
 
@@ -27,7 +27,7 @@
         if (newValue !== this._active) {
           Messagebus.publish('extractionSelectionActivationChanged', newValue);
         }
-        this._active = newValue;        
+        this._active = newValue;
       }
     });
 
