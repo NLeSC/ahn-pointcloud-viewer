@@ -151,3 +151,13 @@ Use Chrome FPS plotting to get the frame rate.
 1. Open developer tools
 2. On Console tab goto Rendering tab (bottom screen)
 3. Check the Show FPS meter checkbox
+
+### Deploy to Github pages
+
+Deploy distribution to `gh-pages` branch.
+Make it available as http://nlesc.github.io/ahn-pointcloud-viewer
+
+```
+grunt build
+grunt gh-pages
+```
