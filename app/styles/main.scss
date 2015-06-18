@@ -322,3 +322,36 @@ patty-pointcloud-stats {
   top: 50px;
   left: 20px;
 }
+
+#loading-bar-spinner .spinner-icon {
+  width: 14px;
+  height: 14px;
+
+  border:  solid 2px transparent;
+  border-top-color:  #0f0;
+  border-left-color: #0f0;
+  border-radius: 10px;
+
+  -webkit-animation: loading-bar-spinner 400ms linear infinite;
+  -moz-animation:    loading-bar-spinner 400ms linear infinite;
+  -ms-animation:     loading-bar-spinner 400ms linear infinite;
+  -o-animation:      loading-bar-spinner 400ms linear infinite;
+  animation:         loading-bar-spinner 400ms linear infinite;
+}
+
+#loading-bar .bar {
+  -webkit-transition: width 350ms;
+  -moz-transition: width 350ms;
+  -o-transition: width 350ms;
+  transition: width 350ms;
+
+  background: #0f0;
+  position: fixed;
+  z-index: 10002;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-bottom-right-radius: 1px;
+  border-top-right-radius: 1px;
+}

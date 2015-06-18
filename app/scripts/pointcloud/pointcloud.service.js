@@ -294,12 +294,13 @@
 
         // update progress bar
         var progress = pointcloud.visibleNodes.length / pointcloud.visibleGeometry.length;
-        if (progress === 1 && cfpLoadingBar.status() < 1){
-            cfpLoadingBar.complete();
-        } else if (progress < 1){
-            cfpLoadingBar.start();
-            cfpLoadingBar.set(progress);
-        } else if (progress === Infinity && cfpLoadingBar.status() < 1) {
+        var prevProgress = cfpLoadingBar.status();
+        if (progress === 1 && prevProgress < 1){
+          cfpLoadingBar.complete();
+        } else if (progress < 1 && progress !== prevProgress){
+          cfpLoadingBar.start();
+          cfpLoadingBar.set(progress);
+        } else if (progress === Infinity && prevProgress < 1) {
           cfpLoadingBar.complete();
         }
       } else {
