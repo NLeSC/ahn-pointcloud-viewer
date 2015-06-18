@@ -34,6 +34,10 @@
       return featureVector.getExtent();
     };
 
+    this.getCameraPosition = function() {
+      return this.camFrustum.getFirstCoordinate();
+    };
+
     this.onCameraMove = function(frustum) {
       var camPos = proj4(siteProjectionCode, olProjectionCode, [
         frustum.cam.x, frustum.cam.y
