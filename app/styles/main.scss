@@ -69,17 +69,11 @@ patty-pointcloud-canvas {
   z-index: -100;
   width: 100%;
   height: 100%;
-  tabindex: 1;
 }
 
 .settings-panel {
   position: absolute;
   left: 5px;
-  bottom: 70px;
-}
-.site-settings-panel {
-  position: absolute;
-  left: 165px;
   bottom: 70px;
 }
 .help-panel {
@@ -135,9 +129,17 @@ patty-pointcloud-stats {
   width: 100px;
 }
 .settings-panel .panel-body {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 5px;
+  width: 285px;
 }
+.settings-panel form {
+    padding-top: 5px;
+}
+
+.settings-panel .misc {
+    padding-left: 10px;
+}
+
 .help-panel .panel-body {
   width: 700px;
   height: 500px;
@@ -310,4 +312,13 @@ patty-pointcloud-stats {
 
 .logo-custom-nlesc {
   max-width:100%;
+}
+
+#loading-bar-spinner {
+  display: block;
+  position: fixed;
+  z-index: 10002;
+  // below seach box
+  top: 50px;
+  left: 20px;
 }

@@ -45,4 +45,35 @@ describe('minimap.controller', function() {
       expect(controller.map.getLayers().getArray()).toContain(CamFrustumService.layer);
     });
   });
+
+  describe('centerMap() function', function() {
+    it('should center map', function() {
+      spyOn(controller.map.getView(), 'setCenter');
+
+      var center = [10, 20];
+      controller.centerMap(center);
+
+      expect(controller.map.getView().setCenter).toHaveBeenCalledWith(center);
+    });
+  });
+
+  describe('updateFrustrumAndCenterMap() function', function() {
+    beforeEach(function() {
+      this.frustum = {cam:{x:10, y:20}, left: {x:15, y:5}, right: {x:15, y:35}};
+      controller.updateFrustrumAndCenterMap(null, this.frustum);
+    });
+
+    it('should update frustrum', function() {
+      var pos = CamFrustumService.getCameraPosition();
+      expect(pos[0]).toBeCloseTo(10, 8);
+      expect(pos[1]).toBeCloseTo(20, 8);
+    });
+
+    it('should center map', function() {
+      var pos = controller.map.getView().getCenter();
+      expect(pos[0]).toBeCloseTo(10, 8);
+      expect(pos[1]).toBeCloseTo(20, 8);
+    });
+  });
+
 });

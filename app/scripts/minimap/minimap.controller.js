@@ -73,7 +73,7 @@
               matrixIds: matrixIdsLuchtfotos
             }),
             style: 'default'
-          })
+          }),
         })
       ]
     });
@@ -97,11 +97,6 @@
         zoom: 14
       })
     });
-
-    this.map.on('render', function(event) {
-      console.log('render');
-		//	project();
-		});
 
     this.setupResizeControl = function() {
       function ResizeControl(optOptions) {
@@ -150,17 +145,18 @@
 
     this.map.addLayer(CamFrustumService.layer);
 
-    // this.fitMapToExtent = function(extent) {
-    //   var mapSize = me.map.getSize();
-    //   me.map.getView().fitExtent(extent, mapSize);
-    // };
-
-    // Possible improvement: http://stackoverflow.com/a/26381201
-    this.fitMapToFrustrumAndSearchedSites = function(event, frustum) {
-      CamFrustumService.onCameraMove(frustum);
+    this.centerMap = function(center) {
+      this.map.getView().setCenter(center);
     };
 
-    Messagebus.subscribe('cameraMoved', this.fitMapToFrustrumAndSearchedSites);
+    this.updateFrustrumAndCenterMap = function(event, frustum) {
+      CamFrustumService.onCameraMove(frustum);
+      
+      var pos = CamFrustumService.getCameraPosition();
+      this.centerMap(pos);
+    };
+
+    Messagebus.subscribe('cameraMoved', this.updateFrustrumAndCenterMap.bind(this));
   }
 
   angular.module('pattyApp.minimap')

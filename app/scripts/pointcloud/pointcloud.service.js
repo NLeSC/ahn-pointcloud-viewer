@@ -5,7 +5,8 @@
   function PointcloudService(THREE, Potree, POCLoader, $window, $rootScope,
     DrivemapService,
     CameraService, SceneService,
-    PathControls, MeasuringService) {
+    PathControls, MeasuringService,
+    cfpLoadingBar) {
 
     var me = this;
 
@@ -19,6 +20,7 @@
       interpolate: true,
       showStats: false,
       highQuality: false,
+      showBoundingBox: false,
       pointSizeType: Potree.PointSizeType.ADAPTIVE,
       pointSizeTypes: Potree.PointSizeType,
       pointColorType: Potree.PointColorType.HEIGHT,
@@ -285,9 +287,24 @@
         pointcloud.material.intensityMax = 65000;
         //pointcloud.material.weighted = true;
         pointcloud.material.minSize = 2;
+        pointcloud.showBoundingBox = me.settings.showBoundingBox;
 
         pointcloud.update(camera, me.renderer);
 
+
+        // update progress bar
+        var progress = pointcloud.visibleNodes.length / pointcloud.visibleGeometry.length;
+        if (progress === 1 && cfpLoadingBar.status() < 1){
+            cfpLoadingBar.complete();
+        } else if (progress < 1){
+            cfpLoadingBar.start();
+            cfpLoadingBar.set(progress);
+        } else if (progress === Infinity && cfpLoadingBar.status() < 1) {
+          cfpLoadingBar.complete();
+        }
+      } else {
+        // loading metadata
+        cfpLoadingBar.start();
       }
 
       if (me.isInOrbitMode) {

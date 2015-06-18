@@ -1,6 +1,6 @@
 <div class="form-group clickable">
     <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search location..." ng-model="sp.query" ng-keypress="sp.onQueryKeyPress($event)">
+        <input type="search" class="form-control" placeholder="Search location..." ng-model="sp.query" ng-keypress="sp.onQueryKeyPress($event)">
         <span class="input-group-btn">
           <button class="btn btn-default" type="button" ng-click="sp.clear()" ng-show="sp.query" title="Clear"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
           <button class="btn btn-default" type="button" ng-click="sp.search()" ng-disabled="!sp.query" title="Search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>

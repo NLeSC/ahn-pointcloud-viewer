@@ -19,6 +19,7 @@
 	var lookatPath;
 	var drag = false;
 	var lookatPathFactor = 1.08;
+	var el;
 
 	var bodyPosition;
 	var xAngle = 0;
@@ -80,9 +81,12 @@
 	};
 
 	PathControls.prototype.initListeners = function(element) {
-		document.addEventListener('keydown', onKeyDown, false);
+		el = element;
+		// make element focusable, see https://developer.mozilla.org/en-US/docs/Web/HTML/Focus_management_in_HTML
+		element.setAttribute('tabindex', 1);
 
-		document.addEventListener('keyup', onKeyUp, false);
+		element.addEventListener('keydown', onKeyDown, false);
+		element.addEventListener('keyup', onKeyUp, false);
 
 		element.addEventListener('mouseleave', onBlur, false);
 		element.addEventListener('mouseout', onBlur, false);
@@ -96,8 +100,8 @@
 	};
 
 	PathControls.prototype.disableListeners = function(element) {
-		document.removeEventListener('keydown', onKeyDown, false);
-		document.removeEventListener('keyup', onKeyUp, false);
+		element.removeEventListener('keydown', onKeyDown, false);
+		element.removeEventListener('keyup', onKeyUp, false);
 
 		element.removeEventListener('mouseleave', onBlur, false);
 		element.removeEventListener('mouseout', onBlur, false);
@@ -412,7 +416,8 @@
 	function onKeyDown(event) {
 		keys[event.keyCode] = true;
 
-		if (event.keyCode === 32) {
+		var spacebarKeyCode = 32;
+		if (event.keyCode === spacebarKeyCode) {
 			event.preventDefault();
 		}
 	}
@@ -435,6 +440,11 @@
 	function mousedown(event) {
 		//right mouse button going down!!
 		if (event.button === 2) {
+
+			// claim focus when right click on canvas and not yet focused
+			if (document.activeElement !== el) {
+				el.focus();
+			}
 
 			event.preventDefault();
 

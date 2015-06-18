@@ -27,6 +27,7 @@ describe('pointcloud.service', function() {
         interpolate: true,
         showStats: false,
         highQuality: false,
+        showBoundingBox: false,
         pointSizeType: Potree.PointSizeType.ADAPTIVE,
         pointSizeTypes: Potree.PointSizeType,
         pointColorType: Potree.PointColorType.HEIGHT,

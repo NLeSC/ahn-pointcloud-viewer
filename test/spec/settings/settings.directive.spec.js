@@ -10,8 +10,8 @@ describe('settings.directive', function() {
   beforeEach(function() {
     inject(function($compile, $rootScope) {
       scope = $rootScope.$new();
-      var html = '<patty-settings></patty-settings>';
-      result = $compile(html)(scope);
+      var template = angular.element('<patty-settings></patty-settings>');
+      result = $compile(template)(scope);
       scope.$digest();
     });
   });
