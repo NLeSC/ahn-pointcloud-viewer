@@ -209,6 +209,9 @@ module.exports = function(grunt) {
           '<%= yeoman.dist %>/scripts/{,*/}*.js',
           '<%= yeoman.dist %>/styles/{,*/}*.css',
           '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          // skybox file name get generated with js, so cant be filerev-ed
+          '!<%= yeoman.dist %>/images/skybox/*.jpg',
+          '!<%= yeoman.dist %>/images/ESCIENCE_logo.png',
           '<%= yeoman.dist %>/styles/fonts/*'
         ]
       }
@@ -318,13 +321,6 @@ module.exports = function(grunt) {
           src: ['*.js', '!oldieshim.js'],
           dest: '.tmp/concat/scripts'
         }]
-      }
-    },
-
-    // Replace Google CDN references
-    cdnify: {
-      dist: {
-        html: ['<%= yeoman.dist %>/*.html']
       }
     },
 
@@ -495,7 +491,6 @@ module.exports = function(grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
-    'cdnify',
     'cssmin',
     'uglify',
     'filerev',
