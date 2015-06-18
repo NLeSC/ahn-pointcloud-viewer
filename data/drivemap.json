@@ -1,0 +1,29 @@
+{
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [90274.02636518252,421299.04945495195,376.97828640638454],
+        [90274.02636518252,421299.04945495195,376.97828640638454]
+      ]
+    },
+    "properties": {
+      "pointcloud": "http://131.180.126.49/tiled_ahn2_dirty_2tiles_potree_merged/cloud.js",
+      "proj4": "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +no_defs",
+      "lookatpath": [
+        [90274.02636518252,421299.04945495195,376.97828640638454],
+        [90274.02636518252,421299.04945495195,376.97828640638454]
+      ]
+    },
+    "id": "DRIVE_1_V3"
+  }],
+
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::28992"
+    }
+  }
+}

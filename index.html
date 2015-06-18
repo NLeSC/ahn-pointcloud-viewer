@@ -1,0 +1,43 @@
+<!doctype html> <html class="no-js"> <head> <meta charset="utf-8"> <title>Project Patty Visualisation</title> <meta name="description" content=""> <meta name="viewport" content="width=device-width"> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel="stylesheet" href="styles/vendor.2fc8a9bf.css"> <link rel="stylesheet" href="styles/main.59484383.css">  <script id="vs" type="x-shader/x-vertex">varying vec2 vUv;
+void main() {
+    vUv = uv;
+    gl_Position =   projectionMatrix *
+                    modelViewMatrix *
+                    vec4(position,1.0);
+}</script> <script id="fs" type="x-shader/x-vertex">#extension GL_EXT_frag_depth : enable
+uniform sampler2D depthMap;
+uniform sampler2D texture;
+varying vec2 vUv;
+void main() {
+    vec4 color = texture2D(texture, vUv);
+    float depth = texture2D(depthMap, vUv).g;
+	color = color / color.w;
+    gl_FragColor = color;
+
+	gl_FragDepthEXT = depth;
+}</script> <body ng-app="pattyApp"> <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]--> <!--
+    <script>
+      var invocation = new XMLHttpRequest();
+      var url = 'http://geodata1.nationaalgeoregister.nl/luchtfoto/wms?';
+      var body = '<?xml version="1.0"?><person><name>Arun</name></person>';
+
+      function handler() {
+        console.log('finished');
+      }
+
+      function callOtherDomain() {
+        if(invocation) {
+          console.log('calling');
+
+          invocation.open('GET', url+'REQUEST=GetCapabilities', true);
+          invocation.onreadystatechange = handler;
+          invocation.send();
+        }
+      }
+      callOtherDomain();
+    </script>
+  --> <!-- Add your site or application content here --> <patty-search-panel class="clickable"></patty-search-panel> <patty-minimap class="clickable"></patty-minimap> <!--<patty-maximap class="clickable"></patty-maximap>--> <patty-pointcloud-canvas></patty-pointcloud-canvas> <patty-pointcloud-stats></patty-pointcloud-stats> <div class="controls"> <extraction-panel></extraction-panel> <patty-settings></patty-settings> <patty-help></patty-help> </div> <patty-camera-modes></patty-camera-modes> <measuring-directive class="clickable"></measuring-directive> <logo-box-directive></logo-box-directive> <!--[if lt IE 9]>
+  <script src="scripts/oldieshim.dd0049a7.js"></script>
+  <![endif]--> <script src="scripts/vendor.c4d43442.js"></script> <script src="scripts/scripts.b4434e3c.js"></script>  
