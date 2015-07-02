@@ -2,53 +2,146 @@
   'use strict';
 
   function MinimapExtractionSelectionService(ExtractionSelectionService, ol, proj4, Messagebus) {
-    this.dragBox = new ol.interaction.DragBox({
-      // condition: ol.events.condition.shiftKeyOnly,
+    this.source = new ol.source.Vector({
+      wrapX: false
+    });
+
+    this.layer = new ol.layer.Vector({
+      source: this.source,
       style: new ol.style.Style({
+        fill: new ol.style.Fill({
+          color: 'rgba(255, 255, 255, 0.2)'
+        }),
         stroke: new ol.style.Stroke({
-          color: [0, 255, 0, 1]
+          color: '#0f0',
+          width: 2
+        })
+      }),
+      visible: false
+    });
+    this.drawing = false;
+
+    this.geometryFunction = function(coordinates, geometry) {
+      if (!geometry) {
+        geometry = new ol.geom.Polygon(null);
+      }
+      var start = coordinates[0];
+      var end = coordinates[1];
+      geometry.setCoordinates([
+        [start, [start[0], end[1]], end, [end[0], start[1]], start]
+      ]);
+      return geometry;
+    };
+
+    this.drawer = new ol.interaction.Draw({
+      source: this.source,
+      type: 'LineString',
+      geometryFunction: this.geometryFunction,
+      maxPoints: 2,
+      style: new ol.style.Style({
+        fill: new ol.style.Fill({
+          color: 'rgba(255, 255, 255, 0.2)'
+        }),
+        stroke: new ol.style.Stroke({
+          color: '#0f0',
+          width: 3
+        }),
+        // cross as mouse pointer
+        image: new ol.style.RegularShape({
+          stroke: new ol.style.Stroke({
+            color: '#0f0',
+            width: 2
+          }),
+          points: 4,
+          radius: 10,
+          radius2: 0,
+          angle: 0
         })
       })
     });
-    this.dragBox.setActive(false);
 
-    this.dragBox.on('boxend', function() {
-      var coordinates = this.dragBox.getGeometry().getCoordinates();
-      var topright = {lon: coordinates[0][3][0], lat: coordinates[0][3][1]};
-      var bottomleft = {lon: coordinates[0][1][0], lat: coordinates[0][1][1]};
+    this.onDrawStart = function() {
+      // only one selection can be drawn at one time
+      this.source.clear();
+      this.drawing = true;
+    };
+
+    this.onDrawEnd = function(interaction) {
+      var coordinates = interaction.feature.getGeometry().getCoordinates();
+      var topright = {
+        lon: coordinates[0][3][0],
+        lat: coordinates[0][3][1]
+      };
+      var bottomleft = {
+        lon: coordinates[0][1][0],
+        lat: coordinates[0][1][1]
+      };
       ExtractionSelectionService.setTopRightCoordinates(topright);
       ExtractionSelectionService.setBottomLeftCoordinates(bottomleft);
-    }.bind(this));
+      this.drawing = false;
+    };
 
     this.remoteSelectionChanged = function(event, bbox) {
+      if (this.drawing) {
+        // dont listen to changes we made ourselves
+        return;
+      }
+      this.drawSelection(bbox);
+    };
+
+    this.drawSelection = function(bbox) {
       // resize dragbox
-      var geom = this.dragBox.getGeometry();
-      var coordinates = [[
-        bbox.left, bbox.top
-      ], [
-        bbox.right, bbox.top
-      ], [
-        bbox.right, bbox.bottom
-      ], [
-        bbox.left, bbox.bottom
-      ], [
-        bbox.left, bbox.top
-      ]];
-      console.log(coordinates);
-      // geom.setCoordinates(coordinates);
+      var coordinates = [
+        [
+          [
+            bbox.left, bbox.top
+          ],
+          [
+            bbox.left, bbox.bottom
+          ],
+          [
+            bbox.right, bbox.bottom
+          ],
+          [
+            bbox.right, bbox.top
+          ],
+          [
+            bbox.left, bbox.top
+          ]
+        ]
+      ];
+      var feature = this.source.getFeatures()[0];
+      if (feature) {
+        var geom = feature.getGeometry();
+        geom.setCoordinates(coordinates);
+      } else {
+        // no selection has been made in minimap before
+        feature = new ol.Feature({
+          geometry: new ol.geom.Polygon(coordinates)
+        });
+        this.source.addFeature(feature);
+      }
     };
 
     this.activationChanged = function(event, active) {
-      // hide dragbox or show dragbox
-      this.dragBox.setActive(active);
+      this.layer.setVisible(active);
+      this.drawer.setActive(active);
+      if (active) {
+        // draw existing selection
+        this.drawSelection(ExtractionSelectionService);
+      }
     };
-
-    Messagebus.subscribe('extractionSelectionChanged', this.remoteSelectionChanged.bind(this));
-    Messagebus.subscribe('extractionSelectionActivationChanged', this.activationChanged.bind(this));
 
     this.init = function(map) {
-      map.addInteraction(this.dragBox);
+      map.addLayer(this.layer);
+      map.addInteraction(this.drawer);
     };
+
+    this.drawer.setActive(false);
+    this.drawer.on('drawstart', this.onDrawStart.bind(this));
+    this.drawer.on('drawend', this.onDrawEnd.bind(this));
+    Messagebus.subscribe('extractionSelectionChanged', this.remoteSelectionChanged.bind(this));
+    Messagebus.subscribe('extractionSelectionActivationChanged', this.activationChanged.bind(this));
   }
 
   angular.module('pattyApp.extract')
