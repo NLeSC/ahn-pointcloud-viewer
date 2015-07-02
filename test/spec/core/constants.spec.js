@@ -9,6 +9,10 @@ describe('core.constants', function() {
       expect(_proj4_).toBeDefined();
   }));
 
+  it('should have ol defined', inject(function(_ol_) {
+      expect(_ol_).toBeDefined();
+  }));
+
   describe('pattyConf constant', function() {
     var pattyConf;
 
