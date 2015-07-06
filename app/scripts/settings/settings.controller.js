@@ -1,10 +1,11 @@
 (function() {
   'use strict';
 
-  function SettingsController(PointcloudService, CameraService, MeasuringService) {
+  function SettingsController(PointcloudService, CameraService, MeasuringService, PathControls) {
     this.showSettings = false;
     this.settings = PointcloudService.settings;
     this.PointcloudService = PointcloudService;
+    this.PathControls = PathControls;
     this.measure = MeasuringService;
 
     this.recordCameraLocation = function() {

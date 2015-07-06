@@ -8,11 +8,6 @@
 (function() {
 	'use strict';
 
-	var NORMAL_MOVEMENT_SPEED_MULTIPLIER = 30;
-	var FAST_MOVEMENT_SPEED_MULTIPLIER = 10;
-
-	var me;
-
 	var camera;
 	var clock;
 	var path;
@@ -45,8 +40,8 @@
 
 	var PathControls = function($window) {
 		THREE = $window.THREE;
-
-		me = this;
+		this.NORMAL_MOVEMENT_SPEED_MULTIPLIER = 30;
+		this.FAST_MOVEMENT_SPEED_MULTIPLIER = 10;
 
 		for (var i = 0; i < 130; i++) {
 			keys.push(false);
@@ -121,7 +116,7 @@
 		var definedPath = new THREE.SplineCurve3(cameraPath);
 		path = new THREE.SplineCurve3(definedPath.getSpacedPoints(100));
 
-        this.initCamera(cam, path.getPointAt(0));
+    this.initCamera(cam, path.getPointAt(0));
 
 		this.lookat(lookatPath.getPointAt(0.05));
 		camera.updateProjectionMatrix();
@@ -372,9 +367,9 @@
 		}
 
 		var delta = clock.getDelta();
-		delta *= NORMAL_MOVEMENT_SPEED_MULTIPLIER;
+		delta *= this.NORMAL_MOVEMENT_SPEED_MULTIPLIER;
 		if (keys[32]) {
-			delta *= FAST_MOVEMENT_SPEED_MULTIPLIER;
+			delta *= this.FAST_MOVEMENT_SPEED_MULTIPLIER;
 		}
 
 		updateCameraRotation();

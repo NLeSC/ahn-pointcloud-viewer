@@ -20,6 +20,8 @@
     this.recordLocation = function() {
       this.waypoints.push(SceneService.toGeo(this.camera.position.clone()).toArray());
       $log.log(JSON.stringify(this.waypoints));
+      // TODO refactor to own service 
+	  // also record look at position from x y angles + distance
     };
 
     this.getCameraOrientation = function() {
