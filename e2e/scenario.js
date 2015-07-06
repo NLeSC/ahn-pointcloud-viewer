@@ -9,8 +9,8 @@ describe('pattyApp', function() {
     browser.get('index.html');
   });
 
-  it('should have patty title', function() {
-    expect(browser.getTitle()).toMatch('Project Patty Visualisation');
+  it('should have a title', function() {
+    expect(browser.getTitle()).toMatch('AHN2 pointcloud viewer');
   });
 
   describe('initial state', function() {
