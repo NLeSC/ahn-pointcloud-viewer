@@ -125,11 +125,11 @@ describe('extract.MinimapExtractionSelectionService', function() {
     beforeEach(function() {
       var coordinates = [
         [
-          [77000, 466899.97],
-          [77000, 425345],
-          [112000, 425345],
-          [112000, 466899.97],
-          [77000, 466899.97]
+          [77000.789, 466899.971524],
+          [77000.789, 425345.123],
+          [112000.654, 425345.123],
+          [112000.654, 466899.971524],
+          [77000.789, 466899.971524]
         ]
       ];
       var feature = new ol.Feature({
@@ -148,9 +148,9 @@ describe('extract.MinimapExtractionSelectionService', function() {
     it('should update extraction selection', function() {
       var sel = this.ExtractionSelectionService.toRequest();
       var expected = {
-        left: 77000,
-        bottom: 425345,
-        right: 112000,
+        left: 77000.79,
+        bottom: 425345.12,
+        right: 112000.65,
         top: 466899.97
       };
       expect(sel).toEqual(expected);

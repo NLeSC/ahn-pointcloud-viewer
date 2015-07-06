@@ -68,13 +68,18 @@
 
     this.onDrawEnd = function(interaction) {
       var coordinates = interaction.feature.getGeometry().getCoordinates();
+
+      function round2Dec(value) {
+        return Math.round(value * 100) / 100;
+      }
+
       var topright = {
-        lon: coordinates[0][3][0],
-        lat: coordinates[0][3][1]
+        lon: round2Dec(coordinates[0][3][0]),
+        lat: round2Dec(coordinates[0][3][1])
       };
       var bottomleft = {
-        lon: coordinates[0][1][0],
-        lat: coordinates[0][1][1]
+        lon: round2Dec(coordinates[0][1][0]),
+        lat: round2Dec(coordinates[0][1][1])
       };
       ExtractionSelectionService.setTopRightCoordinates(topright);
       ExtractionSelectionService.setBottomLeftCoordinates(bottomleft);
