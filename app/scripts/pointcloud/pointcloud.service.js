@@ -28,7 +28,9 @@
       pointShapes: Potree.PointShape,
       pointShape: Potree.PointShape.CIRCLE,
       clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
-      clipModes: Potree.ClipMode
+      clipModes: Potree.ClipMode,
+      heightMin: 0,
+      heightMax: 8
     };
 
     me.stats = {
@@ -281,8 +283,8 @@
         pointcloud.material.pointColorType = me.settings.pointColorType;
         pointcloud.material.pointShape = me.settings.pointShape;
         pointcloud.material.interpolate = me.settings.interpolate;
-        pointcloud.material.heightMin = 0;
-        pointcloud.material.heightMax = 8;
+        pointcloud.material.heightMin = me.settings.heightMin;
+        pointcloud.material.heightMax = me.settings.heightMax;
         pointcloud.material.intensityMin = 0;
         pointcloud.material.intensityMax = 65000;
         //pointcloud.material.weighted = true;

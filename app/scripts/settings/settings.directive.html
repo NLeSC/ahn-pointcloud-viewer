@@ -44,6 +44,17 @@
                             <select class="form-control" id="pointColorType" ng-model="sc.settings.pointColorType" ng-options="value as key|lowercase for (key, value) in sc.settings.pointColorTypes | orderBy:value"></select>
                         </div>
                     </div>
+                    <div class="form-group" ng-show="sc.settings.pointColorType != 'HEIGHT'">
+                      <label class="col-sm-4 control-label" for="heightMin">
+                          Height range
+                      </label>
+                      <div class="col-sm-4">
+                        <input id="pc-height-min" class="form-control" type="number" ng-model="sc.settings.heightMin">
+                      </div>
+                        <div class="col-sm-4">
+                        <input id="pc-height-max" class="form-control" type="number" ng-model="sc.settings.heightMax">
+                      </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="pointShape">
                             Shape

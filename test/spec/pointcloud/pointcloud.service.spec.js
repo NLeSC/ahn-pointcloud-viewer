@@ -35,7 +35,9 @@ describe('pointcloud.service', function() {
         pointShapes: Potree.PointShape,
         pointShape: Potree.PointShape.CIRCLE,
         clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
-        clipModes: Potree.ClipMode
+        clipModes: Potree.ClipMode,
+        heightMin: 0,
+        heightMax: 8
       };
 
       expect(PointcloudService.settings).toEqual(expected);
