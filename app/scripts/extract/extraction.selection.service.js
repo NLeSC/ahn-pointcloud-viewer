@@ -16,6 +16,8 @@
     this.updateValue = function(name, newValue) {
       if (newValue !== this[name]) {
         this[name] = newValue;
+        // TODO do not swap when whole selection must be set
+        // the swapping can overwrite new data with old data
         this.checkSwapCoordinates();
         this.sendUpdate();
       }
