@@ -11,18 +11,9 @@
     var far = 100000;
 
     this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    this.toGeo = null;
-    this.waypoints = [];
     $window.addEventListener('resize', function() {
       me.onWindowResize();
     });
-
-    this.recordLocation = function() {
-      this.waypoints.push(SceneService.toGeo(this.camera.position.clone()).toArray());
-      $log.log(JSON.stringify(this.waypoints));
-      // TODO refactor to own service 
-	  // also record look at position from x y angles + distance
-    };
 
     this.getCameraOrientation = function() {
       return new THREE.Matrix4().multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorld).determinant();

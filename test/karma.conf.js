@@ -23,6 +23,7 @@ module.exports = function(config) {
       'node_modules/jasmine-utils/src/jasmine-utils.js',
       'test/polyfills/string.includes.js',
       'test/polyfills/canvas.webgl.js',
+      'test/polyfills/Blob.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/angular-animate/angular-animate.js',
@@ -46,6 +47,7 @@ module.exports = function(config) {
       'bower_components/angular-toastr/dist/angular-toastr.tpls.js',
       'bower_components/angular-loading-bar/build/loading-bar.js',
       'bower_components/angular-debounce/dist/angular-debounce.js',
+      'bower_components/ng-file-upload/ng-file-upload.js',
       'app/scripts/**/*.js',
       // test for directives need the templates, inside test load pattyApp.templates module to get templates
       '.tmp/template.js',

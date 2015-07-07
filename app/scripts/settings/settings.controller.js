@@ -1,16 +1,13 @@
 (function() {
   'use strict';
 
-  function SettingsController(PointcloudService, CameraService, MeasuringService, PathControls) {
+  function SettingsController(PointcloudService, MeasuringService, PathControls, RailService) {
     this.showSettings = false;
     this.settings = PointcloudService.settings;
     this.PointcloudService = PointcloudService;
     this.PathControls = PathControls;
+    this.RailService = RailService;
     this.measure = MeasuringService;
-
-    this.recordCameraLocation = function() {
-      CameraService.recordLocation();
-    };
   }
 
   angular.module('pattyApp.settings').controller('SettingsController', SettingsController);

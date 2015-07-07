@@ -35,7 +35,8 @@
     "ol3-layerswitcher": "~1.0.1",
     "angular-toastr": "~1.4.1",
     "angular-loading-bar": "~0.7.1",
-    "angular-debounce": "~1.0.3"
+    "angular-debounce": "~1.0.3",
+    "ng-file-upload": "~5.0.9"
   },
   "overrides": {
     "openlayers3": {

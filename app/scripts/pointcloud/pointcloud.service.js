@@ -6,6 +6,7 @@
     DrivemapService,
     CameraService, SceneService,
     PathControls, MeasuringService,
+    RailService,
     cfpLoadingBar) {
 
     var me = this;
@@ -223,16 +224,9 @@
         ));
         referenceFrame.updateMatrixWorld(true);
 
-        var cameraPath = DrivemapService.getCameraPath().map(
-          function(coord) {
-            return SceneService.toLocal(new THREE.Vector3(coord[0], coord[1], coord[2]));
-          }
-        );
-
-        var lookPath = DrivemapService.getLookPath().map(
-          function(coord) {
-            return SceneService.toLocal(new THREE.Vector3(coord[0], coord[1], coord[2]));
-          }
+        RailService.setCameraAndLookAtWaypoints(
+          DrivemapService.getCameraPath(),
+          DrivemapService.getLookPath()
         );
 
         //var miny = 306740, maxy = 615440, minx = 13420, maxx = 322120;
@@ -255,12 +249,8 @@
         //SceneService.addMaximap(planeMesh);
 				//scene.add( planeMesh );
 
-        //PathControls.init(camera, myPath, lookPath, me.renderer.domElement);
-        PathControls.init(camera, cameraPath, lookPath, me.elRenderArea);
+        PathControls.init(me.elRenderArea);
 
-        me.pathMesh = PathControls.createPath();
-        scene.add(me.pathMesh);
-        me.pathMesh.visible = false; // disabled by default
         MeasuringService.setPointcloud(pointcloud);
       });
     };
