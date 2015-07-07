@@ -449,5 +449,5 @@
 	}
 
 	  angular.module('pattyApp.pointcloud')
-	    .service('PathControls', PathControls);
+	    .service('PathControls', ['THREE', 'RailService', 'CameraService', PathControls]);
 })();
