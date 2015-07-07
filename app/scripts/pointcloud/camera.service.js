@@ -8,7 +8,7 @@
     var height = $window.innerHeight;
     var aspect = width / height;
     var near = 0.1;
-    var far = 100000;
+    var far = 100 * 1000 * 6;
 
     this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
     $window.addEventListener('resize', function() {

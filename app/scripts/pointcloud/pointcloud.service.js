@@ -14,7 +14,7 @@
     this.elRenderArea = null;
 
     me.settings = {
-      pointCountTarget: 5.0,
+      pointCountTarget: 2.5,
       pointSize: 0.01,
       opacity: 1,
       showSkybox: true,
@@ -31,7 +31,7 @@
       clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
       clipModes: Potree.ClipMode,
       heightMin: 0,
-      heightMax: 8
+      heightMax: 30
     };
 
     me.stats = {

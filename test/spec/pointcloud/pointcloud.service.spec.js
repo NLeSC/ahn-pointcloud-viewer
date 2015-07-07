@@ -20,7 +20,7 @@ describe('pointcloud.service', function() {
     it('should have settings', function() {
 
       var expected = {
-        pointCountTarget: 5.0,
+        pointCountTarget: 2.5,
         pointSize: 0.01,
         opacity: 1,
         showSkybox: true,
@@ -37,7 +37,7 @@ describe('pointcloud.service', function() {
         clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
         clipModes: Potree.ClipMode,
         heightMin: 0,
-        heightMax: 8
+        heightMax: 30
       };
 
       expect(PointcloudService.settings).toEqual(expected);

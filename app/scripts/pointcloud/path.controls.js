@@ -41,7 +41,7 @@
 		THREE = _THREE_;
 		RailService = _RailService_;
 		this.NORMAL_MOVEMENT_SPEED_MULTIPLIER = 30;
-		this.FAST_MOVEMENT_SPEED_MULTIPLIER = 10;
+		this.FAST_MOVEMENT_SPEED_MULTIPLIER = 50;
 
 		for (var i = 0; i < 130; i++) {
 			keys.push(false);
