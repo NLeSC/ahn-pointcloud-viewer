@@ -301,7 +301,7 @@ patty-pointcloud-stats {
 .logobox {
   position:absolute;
   bottom: 10px;
-  right: 10%;
+  right: 12%;
 }
 
 #loading-bar-spinner {
@@ -352,4 +352,10 @@ patty-pointcloud-stats {
 
 #pc-height-max {
   border-color: #f00;
+}
+
+.inverted-glyphicon {
+  background-color: black;
+  color: white;
+  padding: 2px;
 }
