@@ -42,6 +42,7 @@
 		RailService = _RailService_;
 		this.NORMAL_MOVEMENT_SPEED_MULTIPLIER = 30;
 		this.FAST_MOVEMENT_SPEED_MULTIPLIER = 50;
+		this.cameraEasing = 10.0;
 
 		for (var i = 0; i < 130; i++) {
 			keys.push(false);
@@ -299,7 +300,7 @@
 		camera.position.copy(path.getPointAt(positionOnRoad / looptime));
 
 		//slowly adjust the factor over time to the local factor
-		lookatPathFactor = (1.0 - delta/3.0) * lookatPathFactor + (delta/3.0) * getLocalFactor();
+		lookatPathFactor = (1.0 - delta/this.cameraEasing) * lookatPathFactor + (delta/this.cameraEasing) * getLocalFactor();
 		//console.log('f=' + lookatPathFactor);
 
 		var lookatPath = RailService.lookatCurve;

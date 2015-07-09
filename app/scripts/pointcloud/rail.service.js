@@ -22,7 +22,7 @@
      * @type {Number}
      */
     this.curveSegments = 100;
-    this.lookatDistance = 10;
+    this.lookatDistance = 100;
     /**
      * Data url for waypoints.
      * Can be used as a hyperlink to download the waypoints.
