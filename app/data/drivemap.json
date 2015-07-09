@@ -10,7 +10,7 @@
       ]
     },
     "properties": {
-      "pointcloud": "http://131.180.126.49/potree_data/tile_1_2_6_7/cloud.js",
+      "pointcloud": "http://131.180.126.49/potree_data/tile_0-3_5-7/cloud.js",
       "proj4": "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +no_defs",
       "lookatpath": [
         [91427.83011109184,361155.72904160345,62441.36280769526],
