@@ -36,6 +36,9 @@
       'title': 'Base maps',
       layers: [
         new ol.layer.Tile({
+          source: new ol.source.OSM()
+        }),
+        new ol.layer.Tile({
           title: 'NederlandBRT',
           type: 'base',
           visible: false,
@@ -60,7 +63,7 @@
         this.osmLayer = new ol.layer.Tile({
           title: 'Luchtfotos',
           type: 'base',
-          visible: true,
+          visible: false,
           source: new ol.source.WMTS({
             url: 'http://geodata1.nationaalgeoregister.nl/luchtfoto/wmts',
             layer: 'luchtfoto',

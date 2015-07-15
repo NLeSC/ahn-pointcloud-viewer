@@ -39,16 +39,11 @@
     };
 
     this.onCameraMove = function(frustum) {
-      var camPos = proj4(siteProjectionCode, olProjectionCode, [
-        frustum.cam.x, frustum.cam.y
-      ]);
-      var left = proj4(siteProjectionCode, olProjectionCode, [
-        frustum.left.x, frustum.left.y
-      ]);
-      var right = proj4(siteProjectionCode, olProjectionCode, [
-        frustum.right.x, frustum.right.y
-      ]);
-      this.camFrustum.setCoordinates([camPos, left, right, camPos]);
+      var frustumGeo = frustum.map(function(corner) {
+          return proj4(siteProjectionCode, olProjectionCode, [corner.x, corner.y]);
+      });
+      frustumGeo.push(frustumGeo[0]);
+      this.camFrustum.setCoordinates(frustumGeo);
     };
   }
 
