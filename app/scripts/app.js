@@ -9,7 +9,6 @@
 
   angular.module('pattyApp.potree', [])
     .constant('Potree', Potree)
-    .constant('POCLoader', POCLoader)
     /*
     .run(function(Potree, THREE) {
       Potree.TextSprite.prototype.setTextOriginal = Potree.TextSprite.prototype.setText;

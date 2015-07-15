@@ -21,7 +21,7 @@ describe('pointcloud.service', function() {
 
       var expected = {
         pointCountTarget: 2.5,
-        pointSize: 0.01,
+        pointSize: 1.00,
         opacity: 1,
         showSkybox: true,
         interpolate: true,

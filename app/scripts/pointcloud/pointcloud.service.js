@@ -2,7 +2,7 @@
 (function() {
   'use strict';
 
-  function PointcloudService(THREE, Potree, POCLoader, $window, $rootScope,
+  function PointcloudService(THREE, Potree, $window, $rootScope,
     DrivemapService,
     CameraService, SceneService,
     PathControls, MeasuringService,
@@ -15,7 +15,7 @@
 
     me.settings = {
       pointCountTarget: 2.5,
-      pointSize: 0.01,
+      pointSize: 1.00,
       opacity: 1,
       showSkybox: true,
       interpolate: true,
@@ -202,7 +202,7 @@
       var pointcloudPath = DrivemapService.getPointcloudUrl();
       me.stats.lasCoordinates.crs = DrivemapService.getCrs();
 
-      POCLoader.load(pointcloudPath, function(geometry) {
+      Potree.POCLoader.load(pointcloudPath, function(geometry) {
         pointcloud = new Potree.PointCloudOctree(geometry, drivemapMaterial);
 
         pointcloud.material.pointSizeType = Potree.PointSizeType.ADAPTIVE;

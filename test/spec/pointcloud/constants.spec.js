@@ -9,10 +9,6 @@ describe('pointcloud.constants', function() {
       expect(_THREE_).toBeDefined();
   }));
 
-  it('should have POCLoader defined', inject(function(_POCLoader_) {
-      expect(_POCLoader_).toBeDefined();
-  }));
-
   it('should have Potree defined', inject(function(_Potree_) {
       expect(_Potree_).toBeDefined();
   }));
