@@ -94,7 +94,8 @@
       displayProjection: projection,
       view: new ol.View({
         center: startLocation,
-        zoom: 14
+        zoom: 12,
+        minZoom:6
       })
     });
 
@@ -155,7 +156,7 @@
       // TODO center of bottom of frustrum + zoom on bottom of frustum
       var extent = CamFrustumService.getExtent();
       // console.log(extent);
-      this.map.getView().fit(extent, this.map.getSize());
+      this.map.getView().fit(extent, this.map.getSize(), {'padding':[20,20,20,20]});
       var pos = CamFrustumService.getCameraPosition();
       this.centerMap(pos);
     };

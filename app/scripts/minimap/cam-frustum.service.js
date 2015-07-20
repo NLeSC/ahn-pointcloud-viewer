@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function CamFrustumService(ol) {
+  function CamFrustumService(ol, THREE) {
     this.camFrustum = new ol.geom.LineString([[0, 0], [1, 0], [0, 1]]);
     var featureVector = new ol.source.Vector({
       features: [new ol.Feature(this.camFrustum)]
@@ -21,12 +21,26 @@
     };
 
     this.getCameraPosition = function() {
+      var maxlength = 100 * 1000;
+
       var coordinates =  this.camFrustum.getCoordinates();
-      var middlebottom = [
-        (coordinates[0][0] + coordinates[1][0]) / 2,
-        (coordinates[0][1] + coordinates[1][1]) / 2
-      ];
-      return middlebottom;
+      var leftBottom  = new THREE.Vector3(coordinates[0][0], coordinates[0][1], 0);
+      var rightBottom = new THREE.Vector3(coordinates[1][0], coordinates[1][1], 0);
+      var leftTop  = new THREE.Vector3(coordinates[2][0], coordinates[2][1], 0);
+      var rightTop  = new THREE.Vector3(coordinates[3][0], coordinates[3][1], 0);
+
+      var middleBottom = leftBottom.clone().lerp(rightBottom, 0.5);
+      var middleTop = leftTop.clone().lerp(rightTop, 0.5);
+
+      var dist = middleBottom.clone().sub(middleTop).length();
+
+      if (dist > maxlength) {
+        dist = maxlength;
+      }
+      var frac = 1 - (dist / maxlength);
+
+      var mapCameraPos = middleBottom.clone().lerp(middleTop, frac);
+      return mapCameraPos.toArray();
     };
 
     this.onCameraMove = function(frustum) {

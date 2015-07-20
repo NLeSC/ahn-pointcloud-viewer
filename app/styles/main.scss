@@ -359,3 +359,67 @@ patty-pointcloud-stats {
   color: white;
   padding: 2px;
 }
+
+#bigLegendCanvas {
+  position:absolute;
+  top:0px;
+  right:0px;
+  width:70%;
+  height:100%;
+}
+
+.bigLegendContainer {
+  display: block;
+  position: absolute;
+  right: 0%;
+  top: 30%;
+  width: 6%;
+  height: 50%;
+}
+
+.bigLegendFlexMobileContainer {
+  height: 100%;
+}
+
+.bigLegendFlexContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 90%;
+  width: 35%
+}
+
+.bigLegendFlexSection {
+  flex: 1 1 20%;
+}
+
+.bigLegendFormTextField {
+  width: 100%;
+  min-width: 50px;
+  font-size: 10px;
+  color: #000000;
+  align-self: flex-start;
+}
+
+.bigLegendFlexText {
+  font-size: 10px;
+  color: #ffffff;
+  align-self: flex-start;
+}
+
+.bigLegendImg {
+  position:absolute;
+  top:0px;
+  right: 0%;
+  height:90%;
+  width: 50%;
+}
+
+.bigLegendUnits {
+  position: relative;
+  float: right;
+  font-size: large;
+  color: #ffffff;
+  margin-top:5%;
+}

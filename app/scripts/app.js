@@ -69,7 +69,8 @@
       'pattyApp.help',
       'pattyApp.cameramodes',
       'pattyApp.pointcloud',
-      'pattyApp.extract'
+      'pattyApp.extract',
+      'pattyApp.biglegend'
     ])
     .config(function($compileProvider) {
        // data urls are not allowed by default, so whitelist them
@@ -92,4 +93,5 @@
   angular.module('pattyApp.help', ['pattyApp.templates']);
   angular.module('pattyApp.cameramodes', ['pattyApp.pointcloud']);
   angular.module('pattyApp.searchbox', ['pattyApp.core', 'pattyApp.pointcloud']);
+  angular.module('pattyApp.biglegend', ['pattyApp.utils']);
 })();

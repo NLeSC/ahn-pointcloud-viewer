@@ -102,8 +102,8 @@ var thecamera;
           var directionToViewport3 = new THREE.Vector3().subVectors(viewport[3], this.camera.position);
 
           //Look out, this is intentionally cross-eyed
-          viewport[2] = directionToViewport3.multiplyScalar(100000);
-          viewport[3] = directionToViewport2.multiplyScalar(100000);
+          viewport[2] = directionToViewport3.multiplyScalar(1000);
+          viewport[3] = directionToViewport2.multiplyScalar(1000);
 
           viewport[2].y = 0;
           viewport[3].y = 0;
@@ -115,8 +115,8 @@ var thecamera;
           var directionToViewport1 = new THREE.Vector3().subVectors(viewport[1], this.camera.position);
 
           //Look out, this is intentionally cross-eyed
-          viewport[2] = directionToViewport1.multiplyScalar(100000);
-          viewport[3] = directionToViewport0.multiplyScalar(100000);
+          viewport[2] = directionToViewport1.multiplyScalar(1000);
+          viewport[3] = directionToViewport0.multiplyScalar(1000);
 
           viewport[2].y = 0;
           viewport[3].y = 0;
