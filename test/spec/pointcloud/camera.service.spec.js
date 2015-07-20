@@ -40,6 +40,11 @@ describe('pointcloud.CameraService', function() {
     var listener, unsubscriber;
     beforeEach(function() {
       inject(function(Messagebus) {
+        service.camera.position.copy(new THREE.Vector3(140183.36973145982, 351353.9722696242, 80588.82034192001));
+        service.camera.lookAt(new THREE.Vector3(0.8400271569613131, -0.5345354465470192, -0.09287751047628326));
+        service.camera.updateMatrixWorld();
+        service.update();
+
         listener = jasmine.createSpy('listener');
         unsubscriber = Messagebus.subscribe('cameraMoved', listener);
       });
@@ -47,6 +52,19 @@ describe('pointcloud.CameraService', function() {
 
     afterEach(function() {
       unsubscriber();
+    });
+
+    it('should publish "cameraMoved" message with camera 2d frustum when camera has moved', function() {
+      service.camera.position.copy(new THREE.Vector3(140183.36973145982, 3888888.0, 80588.82034192001));
+      service.camera.updateMatrixWorld();
+
+      service.update();
+
+      // comparing floats fails, so serialize
+      var result = JSON.stringify(listener.calls.argsFor(0)[1]);
+      var expected = '[{"x":-140183.36973145982,"y":-3888888,"z":-80588.82034192001},{"x":230970.5373948199,"y":0,"z":-843344.3357521717},{"x":965363.4566517072,"y":0,"z":-322072.600759929},{"x":212424.7532911271,"y":0,"z":987646.4667043848}]';
+      expect(listener).toHaveBeenCalled();
+      expect(result).toEqual(expected);
     });
 
     it('should publish "cameraMoved" message with camera 2d frustum when camera has rotated', function() {
@@ -57,7 +75,7 @@ describe('pointcloud.CameraService', function() {
 
       // comparing floats fails, so serialize
       var result = JSON.stringify(listener.calls.argsFor(0)[1]);
-      var expected = '{"cam":{"x":0,"y":0,"z":0},"left":{"x":-433.6444891528704,"y":-173.20508153198415,"z":87.23433385654471},"right":{"x":87.23433385654471,"y":-173.20507376434153,"z":-433.6444891528704}}';
+      var expected = '[{"x":-140183.36973145982,"y":-351353.9722696242,"z":-80588.82034192001},{"x":-6796701.543238078,"y":0,"z":3167591.346057139},{"x":-140183.36973145982,"y":-351353.9722696242,"z":-80588.82034192001},{"x":811876.7059218518,"y":0,"z":-399214.4336573684}]';
       expect(listener).toHaveBeenCalled();
       expect(result).toEqual(expected);
     });
@@ -70,7 +88,7 @@ describe('pointcloud.CameraService', function() {
 
       // comparing floats fails, so serialize
       var result = JSON.stringify(listener.calls.argsFor(0)[1]);
-      var expected = '{"cam":{"x":0,"y":0,"z":0},"left":{"x":223.82767591439935,"y":0,"z":300},"right":{"x":-223.82767591439935,"y":0,"z":300}}';
+      var expected = '[{"x":140183.36973145982,"y":351353.9722696242,"z":80588.82034192001},{"x":-37837.61145812042,"y":0,"z":-708717.7105740967},{"x":5374389.258166685,"y":0,"z":-2462338.1685317094},{"x":628150.325004511,"y":0,"z":5793636.799007997}]';
       expect(listener).toHaveBeenCalled();
       expect(result).toEqual(expected);
     });

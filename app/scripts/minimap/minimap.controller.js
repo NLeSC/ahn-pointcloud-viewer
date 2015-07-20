@@ -36,12 +36,9 @@
       'title': 'Base maps',
       layers: [
         new ol.layer.Tile({
-          source: new ol.source.OSM()
-        }),
-        new ol.layer.Tile({
           title: 'NederlandBRT',
           type: 'base',
-          visible: false,
+          visible: true,
           extent: projectionExtent,
           source: new ol.source.WMTS({
             //http://geodata.nationaalgeoregister.nl/tiles/service/wmts/aan?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=aan&STYLE=_null&TILEMATRIXSET=EPSG%3A28992&TILEMATRIX=EPSG%3A28992%3A8&TILEROW=129&TILECOL=127&FORMAT=image%2Fpng
@@ -76,7 +73,7 @@
               matrixIds: matrixIdsLuchtfotos
             }),
             style: 'default'
-          }),
+          })
         })
       ]
     });
@@ -155,6 +152,10 @@
     this.updateFrustrumAndCenterMap = function(event, frustum) {
       CamFrustumService.onCameraMove(frustum);
 
+      // TODO center of bottom of frustrum + zoom on bottom of frustum
+      // var extent = CamFrustumService.camFrustum;
+      // console.log(extent);
+      // this.map.getView().fit(extent);
       var pos = CamFrustumService.getCameraPosition();
       this.centerMap(pos);
     };

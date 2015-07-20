@@ -39,21 +39,20 @@ var thecamera;
     };
 
     this.update2DFrustum = function() {
-      // See THREE.CameraHelper
       var corners = [
-        new THREE.Vector3().set(-1, -1, 1).unproject(this.camera).normalize(),
-        new THREE.Vector3().set(1, -1, 1).unproject(this.camera).normalize(),
-        new THREE.Vector3().set(-1, 1, 1).unproject(this.camera).normalize(),
-        new THREE.Vector3().set(1, 1, 1).unproject(this.camera).normalize()
+        new THREE.Vector3(1, -1, 1).unproject(this.camera).normalize(),
+        new THREE.Vector3(-1, -1, 1).unproject(this.camera).normalize(),
+        new THREE.Vector3(-1, 1, 1).unproject(this.camera).normalize(),
+        new THREE.Vector3(1, 1, 1).unproject(this.camera).normalize()
       ];
 
       var cameraFloorViewport = corners.map(function(corner) {
         var ray = new THREE.Ray(this.camera.position, corner);
         var intersection = ray.intersectPlane(this.floor);
         if (intersection) {
-          return intersection;
+          return SceneService.toGeo(intersection);
         } else {
-          // TODO no intersection with plane so need to find a alternative corner.
+          return SceneService.toGeo(this.camera.position);
         }
       }.bind(this));
 

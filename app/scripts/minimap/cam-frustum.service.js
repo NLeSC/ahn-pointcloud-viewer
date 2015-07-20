@@ -1,18 +1,8 @@
 (function() {
   'use strict';
 
-  function CamFrustumService(ol, proj4, DrivemapService) {
-    var olProjectionCode = 'urn:ogc:def:crs:EPSG::28992';
-    var siteProjectionCode = null;
-
-    DrivemapService.ready.then(function() {
-      siteProjectionCode = DrivemapService.getCrs();
-    });
-
-    this.camFrustum = new ol.geom.LineString([
-      [0, 0],
-      [0, 0]
-    ]);
+  function CamFrustumService(ol) {
+    this.camFrustum = new ol.geom.LineString([[0, 0], [1, 0], [0, 1]]);
     var featureVector = new ol.source.Vector({
       features: [new ol.Feature(this.camFrustum)]
     });
@@ -20,29 +10,33 @@
       source: featureVector,
       style: new ol.style.Style({
         stroke: new ol.style.Stroke({
-          color: '#FFFFFF',
+          color: 'red',
           width: 2
         })
       })
     });
 
-    /**
-     * [getExtent description]
-     * @return {array} min_lon, min_lat, max_lon, max_lat
-     */
     this.getExtent = function() {
       return featureVector.getExtent();
     };
 
     this.getCameraPosition = function() {
-      return this.camFrustum.getFirstCoordinate();
+      var coordinates =  this.camFrustum.getCoordinates();
+      var middlebottom = [
+        (coordinates[0][0] + coordinates[1][0]) / 2,
+        (coordinates[0][1] + coordinates[1][1]) / 2
+      ];
+      return middlebottom;
     };
 
     this.onCameraMove = function(frustum) {
       var frustumGeo = frustum.map(function(corner) {
-          return proj4(siteProjectionCode, olProjectionCode, [corner.x, corner.y]);
+        return [corner.x, corner.y];
       });
+
+      // polygon should be a ring so duplicate start to end of ring
       frustumGeo.push(frustumGeo[0]);
+
       this.camFrustum.setCoordinates(frustumGeo);
     };
   }
