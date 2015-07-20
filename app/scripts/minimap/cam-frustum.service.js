@@ -30,9 +30,15 @@
     };
 
     this.onCameraMove = function(frustum) {
-      var frustumGeo = frustum.map(function(corner) {
+      var frustumGeo = frustum.viewport.map(function(corner) {
         return [corner.x, corner.y];
       });
+
+      if (frustum.floorInSight) {
+        this.layer.getStyle().getStroke().setLineDash([]);
+      } else {
+        this.layer.getStyle().getStroke().setLineDash([6]);
+      }
 
       // polygon should be a ring so duplicate start to end of ring
       frustumGeo.push(frustumGeo[0]);

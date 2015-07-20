@@ -4,11 +4,10 @@
     <button ng-click="ec.selection.active=!ec.selection.active" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   </div>
   <div class="panel-body">
+    <div class="extraction-text">
+      To select points, please click on the minimap, or drag to select in the 3d view.
+    </div>
     <form class="form-inline" role="search" name="extractForm">
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" required ng-minlength="4" class="form-control" name="email" placeholder="" ng-model="ec.email" compute-selection-size>
-      </div>
       <fieldset>
         <div class="form-group">
           <label for="left">Left</label>
@@ -18,7 +17,6 @@
           <label for="top">Top</label>
           <input required type="number" step=0.01 class="form-control" name="top" placeholder="" ng-model="ec.selection.top" ng-model-options="{ debounce: 1000 }">
         </div>
-        <button ng-click="ec.setBottomLeft()" type="submit" class="btn btn-default">set</button>
       </fieldset>
       <fieldset>
         <div class="form-group">
@@ -29,7 +27,6 @@
           <label for="bottom">Bottom</label>
           <input required type="number" step=0.01 class="form-control" name="bottom" placeholder="" ng-model="ec.selection.bottom" ng-model-options="{ debounce: 1000 }">
         </div>
-        <button ng-click="ec.setTopRight()" type="submit" class="btn btn-default">set</button>
       </fieldset>
       <div >
         Selected number of points:
@@ -40,6 +37,11 @@
         <span>{{ec.size.coverage}}</span>
       </div>
       <button ng-click="ec.count()" type="submit" class="btn btn-default">Count points</button>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" ng-minlength="4" class="form-control" name="email" placeholder="" ng-model="ec.email">
+      </div>
       <button ng-disabled="extractForm.$invalid" ng-click="ec.submit()" type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
