@@ -30,6 +30,6 @@
        * @type {String}
        * @memberof core.pattyConf
        */
-      AHN_API_ENDPOINT: 'http://localhost/ahn-pointcloud-viewer/api',
+      AHN_API_ENDPOINT: 'http://ahn2.pointclouds.nl/api',
     });
 })();
