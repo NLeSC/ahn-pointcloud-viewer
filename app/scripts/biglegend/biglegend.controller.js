@@ -1,7 +1,9 @@
 (function() {
   'use strict';
 
-  function BigLegendController($scope, DecimalAdjust, Messagebus, UserAgent) {
+  function BigLegendController($scope, DecimalAdjust, Messagebus, UserAgent, PointcloudService) {
+    this.settings = PointcloudService.settings;
+
     this.mobile = UserAgent.mobile;
 
     this.logarithmic = false;
@@ -13,43 +15,37 @@
     this.legendText = [40, 30, 20, 10];
 
     //Define the legend max initial value
-    this.legendMin = 0;
-    //Subscribe to the message bus for changes to this value.
-    Messagebus.subscribe('legendMinChange', function(event, value) {
-      this.legendMin = value;
-      this.setLegendText();
-    }.bind(this));
+    this.legendMin = this.settings.heightMin;
+
     // Set watcher for change on the legend min setting, use it to publish changes.
     $scope.$watch('blc.legendMin', function(newValue, oldValue) {
       if (newValue === oldValue) {
         //Initialization, so we ignore this event.
       } else {
-        Messagebus.publish('legendMinChange', newValue);
+        this.setLegendText();
+        this.settings.heightMin = newValue;
       }
-    });
+    }.bind(this));
 
     //Define the legend max initial value
-    this.legendMax = 50;
-    //Subscribe to the message bus for changes to this value.
-    Messagebus.subscribe('legendMaxChange', function(event, value) {
-      this.legendMax = value;
-      this.setLegendText();
-    }.bind(this));
+    this.legendMax = this.settings.heightMax;
+
     // Set watcher for change on the legend max setting, use it to publish changes.
     $scope.$watch('blc.legendMax', function(newValue, oldValue) {
       if (newValue === oldValue) {
         //Initialization, so we ignore this event.
       } else {
-        Messagebus.publish('legendMaxChange', newValue);
+        this.setLegendText();
+        this.settings.heightMax = newValue;
       }
-    });
+    }.bind(this));
 
     Messagebus.subscribe('ncwmsPaletteSelected', function(event, value) {
       this.setOnload(value.graphic);
     }.bind(this));
 
 
-    this.selectedUnits = 'cm above average';
+    this.selectedUnits = 'meters above sea level';
     Messagebus.subscribe('ncwmsUnitsChange', function(event, value) {
       this.selectedUnits = value;
     }.bind(this));
@@ -80,12 +76,14 @@
       img.src = imgURL;
 
       img.onload = function() {
-        context.canvas.width = 10;
-        context.canvas.height = 150;
+        context.canvas.width = 5;
+        context.canvas.height = 255;
 
         context.drawImage(img, 0, 0);
       };
     };
+
+    this.setOnload('images/rainbow_colormap.png');
   }
 
   angular.module('pattyApp.biglegend').controller('BigLegendController', BigLegendController);

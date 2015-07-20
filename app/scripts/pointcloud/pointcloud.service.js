@@ -30,8 +30,8 @@
       pointShape: Potree.PointShape.CIRCLE,
       clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
       clipModes: Potree.ClipMode,
-      heightMin: 0,
-      heightMax: 30
+      heightMin: -5,
+      heightMax: 45
     };
 
     me.stats = {

@@ -42,6 +42,7 @@ patty-minimap {
   height: 25%;
   min-width: 200px;
   min-height: 200px;
+  z-index: 100;
 }
 
 .big-minimap {
@@ -113,18 +114,18 @@ patty-pointcloud-stats {
 }
 .toolbox {
   position: absolute;
-  right: 5px;
+  left: 260px;
   bottom: 5px;
 }
 .toolbox-tray {
   position: absolute;
-  right: 5px;
+  left: 260px;
   bottom: 44px;
   width: 80px;
 }
 .transformation-toolbox-tray {
   position: absolute;
-  right: 87px;
+  left: 345px;
   bottom: 13px;
   width: 100px;
 }
@@ -301,7 +302,7 @@ patty-pointcloud-stats {
 .logobox {
   position:absolute;
   bottom: 10px;
-  right: 12%;
+  right: 0%;
 }
 
 #loading-bar-spinner {
@@ -371,9 +372,9 @@ patty-pointcloud-stats {
 .bigLegendContainer {
   display: block;
   position: absolute;
-  right: 0%;
+  right: 1%;
   top: 30%;
-  width: 6%;
+  width: 4%;
   height: 50%;
 }
 
@@ -413,13 +414,13 @@ patty-pointcloud-stats {
   top:0px;
   right: 0%;
   height:90%;
-  width: 50%;
+  width: 25%;
 }
 
 .bigLegendUnits {
   position: relative;
   float: right;
-  font-size: large;
+  font-size: small;
   color: #ffffff;
   margin-top:5%;
 }
