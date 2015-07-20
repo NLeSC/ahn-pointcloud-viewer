@@ -1,167 +1,113 @@
 (function() {
   'use strict';
 
-  function PointcloudExtractionSelectionService(THREE, SceneService) {
-    this.color = new THREE.Color( 0xffffff );
-    var edges = [];
+  function PointcloudExtractionSelectionService(THREE, SceneService, ExtractionSelectionService, Messagebus, Potree) {
+    var me = this;
 
-    this.init = function(scene, camera, renderer) {
-    	this.scene = scene;
-    	this.camera = camera;
-    	this.renderer = renderer;
+    this.selectionActive = false;
+    this.topRightPoint = null;
+    this.bottomLeftPoint = null;
+
+    this.renderer = null;
+    this.scene = null;
+    this.camera = null;
+    this.mesh = null;
+
+	  this.mouse = {x: 0, y: 0};
+
+    this.init = function(renderer, scene, camera) {
+      this.renderer = renderer;
+      this.scene = scene;
+      this.camera = camera;
+
+      me.renderer.domElement.addEventListener( 'mousemove', onMouseMove, false );
+    	me.renderer.domElement.addEventListener( 'mousedown', onMouseDown, false );
+    	me.renderer.domElement.addEventListener( 'mouseup', onMouseUp, true );
     };
 
-    this.buildSelectionGeometry = function(zCoord) {
-      var leftTopLocal     = SceneService.toLocal({x:this.selection.left,  y: this.selection.top, z:zCoord});
-      var rightTopLocal    = SceneService.toLocal({x:this.selection.right, y: this.selection.top, z:zCoord});
-      var rightBottomLocal = SceneService.toLocal({x:this.selection.right, y: this.selection.bottom, z:zCoord});
-      var leftBottomLocal  = SceneService.toLocal({x:this.selection.left,  y: this.selection.bottom, z:zCoord});
+    this.getMousePointCloudIntersection = function(){
+  		var vector = new THREE.Vector3( me.mouse.x, me.mouse.y, 0.5 );
+  		vector.unproject(me.camera);
+  		var direction = vector.sub(me.camera.position).normalize();
+  		var ray = new THREE.Ray(me.camera.position, direction);
 
-      var points = [];
+  		var pointClouds = [];
+  		me.scene.traverse(function(object){
+  			if(object instanceof Potree.PointCloudOctree){
+  				pointClouds.push(object);
+  			}
+  		});
 
-      points.add(leftTopLocal);
-      points.add(rightTopLocal);
-      points.add(rightBottomLocal);
-      points.add(leftBottomLocal);
+  		var closestPoint = null;
+  		var closestPointDistance = null;
 
-      var edge, i, i2;
+  		for(var i = 0; i < pointClouds.length; i++){
+  			var pointcloud = pointClouds[i];
+  			var point = pointcloud.pick(me.renderer, me.camera, ray, {accuracy: 0.5});
 
-      if (edges.length === 0) {
-        for (i = 0; i < points.length; i++) {
-          var lineGeometry = new THREE.Geometry();
-          lineGeometry.vertices.push(new THREE.Vector3(), new THREE.Vector3());
-          lineGeometry.colors.push(this.color, this.color, this.color);
-          var lineMaterial = new THREE.LineBasicMaterial( {
-            linewidth: 1
-          });
-          lineMaterial.depthTest = false;
-          edge = new THREE.Line(lineGeometry, lineMaterial);
+  			if(!point){
+  				continue;
+  			}
 
-          edges.add(edge);
-        }
-      }
+  			var distance = me.camera.position.distanceTo(point.position);
 
-      for (i = 0; i < points.length; i++) {
-        i2 = i+1;
-        if (i2 > points.length) {
-          i2 = 0;
-        }
-        edge = edges[i];
-
-        edge.geometry.vertices[0].copy(points[i]);
-        edge.geometry.vertices[1].copy(points[i2]);
-
-        edge.geometry.verticesNeedUpdate = true;
-        edge.geometry.computeBoundingSphere();
-
-        edge.visible = true;
-      }
-    };
-
-  	this.raycast = function(raycaster, intersects) {
-  		for(var i = 0; i < this.points.length; i++){
-  			var sphere = this.spheres[i];
-
-  			sphere.raycast(raycaster, intersects);
+  			if(!closestPoint || distance < closestPointDistance){
+  				closestPoint = point;
+  				closestPointDistance = distance;
+  			}
   		}
 
-  		// recalculate distances because they are not necessarely correct
-  		// for scaled objects.
-  		// see https://github.com/mrdoob/three.js/issues/5827
-  		// TODO: remove this once the bug has been fixed
-  		for(var j= 0; j < intersects.length; i++){
-  			var I = intersects[j];
-  			I.distance = raycaster.ray.origin.distanceTo(I.point);
-  		}
-
-  		intersects.sort( function ( a, b ) { return a.distance - b.distance;} );
-  	};
+  		return closestPoint ? closestPoint.position : null;
+  	}
 
     var scope = this;
 
     function onMouseDown(event){
-  		if(event.which === 1){
+      if(me.selectionActive) {
+        if(event.which === 1) {
+          var I = scope.getMousePointCloudIntersection();
+          console.log('Down!');
+          console.log(I);
 
-  			if(state !== STATE.DEFAULT){
-  				event.stopImmediatePropagation();
-  			}
-
-  			var I = getHoveredElement();
-
-  			if(I){
-
-  				scope.dragstart = {
-  					object: I.object,
-  					sceneClickPos: I.point,
-  					sceneStartPos: scope.sceneRoot.position.clone(),
-  					mousePos: {x: scope.mouse.x, y: scope.mouse.y}
-  				};
-
-  				event.stopImmediatePropagation();
-  			}
-
-  		}else if(event.which === 3){
-  			onRightClick(event);
-  		}
-  	}
-
-  	function onMouseMove(event){
-  		var rect = scope.domElement.getBoundingClientRect();
-  		scope.mouse.x = ((event.clientX - rect.left) / scope.domElement.clientWidth) * 2 - 1;
-          scope.mouse.y = -((event.clientY - rect.top) / scope.domElement.clientHeight) * 2 + 1;
-
-  		if(scope.dragstart){
-  			var arg = {
-  				type: "drag",
-  				event: event,
-  				tool: scope
-  			};
-  			scope.dragstart.object.dispatchEvent(arg);
-
-  		}else if(state === STATE.INSERT && scope.activeMeasurement){
-  			var I = scope.getMousePointCloudIntersection();
-
-  			if(I){
-
-  				var lastIndex = scope.activeMeasurement.points.length-1;
-  				scope.activeMeasurement.setPosition(lastIndex, I);
-  			}
-
-  		} else if (state === STATE.DEFAULT || state === STATE.INSERT && !scope.activeMeasurement){
-  			var I = getHoveredElement();
-
-  			if(I){
-
-  				I.object.dispatchEvent({type: "move", target: I.object, event: event});
-
-  				if(scope.hoveredElement && scope.hoveredElement !== I.object){
-  					scope.hoveredElement.dispatchEvent({type: "leave", target: scope.hoveredElement, event: event});
-  				}
-
-  				scope.hoveredElement = I.object;
-
-  			}else{
-
-  				if(scope.hoveredElement){
-  					scope.hoveredElement.dispatchEvent({type: "leave", target: scope.hoveredElement, event: event});
-  				}
-
-  				scope.hoveredElement = null;
-
-  			}
-  		}
+    			if(I){
+    				me.topRightPoint = SceneService.toGeo(I);
+            console.log(me.topRightPoint);
+    			}
+        }
+      }
   	}
 
   	function onMouseUp(event) {
-  		if(scope.dragstart){
-  			scope.dragstart.object.dispatchEvent({type: "drop", event: event});
-  			scope.dragstart = null;
-  		}
+      if(me.selectionActive) {
+        if(event.which === 1) {
+          var I = scope.getMousePointCloudIntersection();
+          console.log('Up!');
+          console.log(I);
+
+    			if(I){
+    				me.bottomLeftPoint = SceneService.toGeo(I);
+            console.log(me.bottomLeftPoint);
+
+            var topRight = {lat:me.topRightPoint.y, lon:me.topRightPoint.x};
+            var bottomLeft = {lat:me.bottomLeftPoint.y, lon:me.bottomLeftPoint.x};
+
+            ExtractionSelectionService.setTopRightCoordinates(topRight);
+            ExtractionSelectionService.setBottomLeftCoordinates(bottomLeft);
+    			}
+        }
+      }
   	}
 
-  	this.domElement.addEventListener( 'mousemove', onMouseMove, false );
-  	this.domElement.addEventListener( 'mousedown', onMouseDown, false );
-  	this.domElement.addEventListener( 'mouseup', onMouseUp, true );
+    function onMouseMove(event){
+  		me.mouse.x = ( event.clientX / me.renderer.domElement.clientWidth ) * 2 - 1;
+  		me.mouse.y = - ( event.clientY / me.renderer.domElement.clientHeight ) * 2 + 1;
+  	}
+
+    this.activationChanged = function(event, active) {
+      this.selectionActive = active;
+    };
+
+    Messagebus.subscribe('extractionSelectionActivationChanged', this.activationChanged.bind(this));
 
   }
 

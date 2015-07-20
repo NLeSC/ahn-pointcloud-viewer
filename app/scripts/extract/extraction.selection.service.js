@@ -9,16 +9,14 @@
     this._right = 94428.37;
     this._top = 438334.32;
 
-    this.sendUpdate = debounce(50, function () {
+    this.sendUpdate = debounce(500, function () {
+      this.checkSwapCoordinates();
       Messagebus.publish('extractionSelectionChanged', this.toRequest());
     }.bind(this));
 
     this.updateValue = function(name, newValue) {
       if (newValue !== this[name]) {
         this[name] = newValue;
-        // TODO do not swap when whole selection must be set
-        // the swapping can overwrite new data with old data
-        this.checkSwapCoordinates();
         this.sendUpdate();
       }
     };

@@ -6,7 +6,7 @@
     DrivemapService,
     CameraService, SceneService,
     PathControls, MeasuringService,
-    RailService,
+    RailService, ExtractionDrawingService, PointcloudExtractionSelectionService,
     cfpLoadingBar) {
 
     var me = this;
@@ -188,6 +188,9 @@
       me.renderer.domElement.addEventListener('mousemove', onMouseMove, false);
 
       MeasuringService.init(me.renderer, scene, camera);
+
+      PointcloudExtractionSelectionService.init(me.renderer, scene, camera);
+      ExtractionDrawingService.init(me.renderer, scene, camera);
 
       skybox = loadSkybox('images/skybox/');
 
@@ -480,9 +483,7 @@
 				pointcloud.update(camera, me.renderer);
 				me.renderer.render(scene, camera, rtNormalize);
 
-
         me.renderer.render(sceneNormalize, cameraBG);
-
 
         me.renderer.clearDepth();
 

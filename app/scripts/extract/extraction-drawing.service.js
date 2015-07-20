@@ -1,63 +1,114 @@
 (function() {
   'use strict';
 
-  function ExtractionDrawingService(THREE, SceneService) {
+  function ExtractionDrawingService(THREE, SceneService, Messagebus) {
     this.color = new THREE.Color( 0xffffff );
 
-    var edges = [];
-  
-    this.init = function(scene, camera, renderer) {
-    	this.scene = scene;
-    	this.camera = camera;
-    	this.renderer = renderer;
+    this.renderer = null;
+    this.scene = null;
+    this.camera = null;
+    this.mesh = null;
+
+    this.init = function(renderer, scene, camera) {
+      this.renderer = renderer;
+      this.scene = scene;
+      this.camera = camera;
     };
 
-    function buildSelectionGeometry(zCoord) {
-      var leftTopLocal     = SceneService.toLocal({x:scope.selection.left,  y: scope.selection.top, z:zCoord});
-      var rightTopLocal    = SceneService.toLocal({x:scope.selection.right, y: scope.selection.top, z:zCoord});
-      var rightBottomLocal = SceneService.toLocal({x:scope.selection.right, y: scope.selection.bottom, z:zCoord});
-      var leftBottomLocal  = SceneService.toLocal({x:scope.selection.left,  y: scope.selection.bottom, z:zCoord});
+    this.remoteSelectionChanged = function(event, bbox) {
+      this.scene.remove(this.mesh);
+      this.mesh = this.buildSelectionGeometry(bbox);
+      this.scene.add(this.mesh);
+    };
 
-      var points = [];
+    Messagebus.subscribe('extractionSelectionChanged', this.remoteSelectionChanged.bind(this));
 
-      points.add(leftTopLocal);
-      points.add(rightTopLocal);
-      points.add(rightBottomLocal);
-      points.add(leftBottomLocal);
+    this.buildSelectionGeometry = function(bbox) {
+      var leftTopLocal     = SceneService.toLocal(new THREE.Vector3(bbox.left,  bbox.top, 0));
+      var rightTopLocal    = SceneService.toLocal(new THREE.Vector3(bbox.right, bbox.top, 0));
+      var rightBottomLocal = SceneService.toLocal(new THREE.Vector3(bbox.right, bbox.bottom, 0));
+      var leftBottomLocal  = SceneService.toLocal(new THREE.Vector3(bbox.left,  bbox.bottom, 0));
 
-      var edge, i, i2;
+      var boxMaterial = new THREE.MeshBasicMaterial({
+        color: 0x00FF00,
+        side: THREE.DoubleSide,
+        transparent: true,
+        wireframe: false,
+        opacity: 0.5
+        // overdraw: 0.5
+      });
 
-      if (edges.length === 0) {
-        for (i = 0; i < points.length; i++) {
-          var lineGeometry = new THREE.Geometry();
-          lineGeometry.vertices.push(new THREE.Vector3(), new THREE.Vector3());
-          lineGeometry.colors.push(scope.color, scope.color, scope.color);
-          var lineMaterial = new THREE.LineBasicMaterial( {
-            linewidth: 1
-          });
-          lineMaterial.depthTest = false;
-          edge = new THREE.Line(lineGeometry, lineMaterial);
+      var geometry = new THREE.Geometry();
+      var counter = 0;
 
-          edges.add(edge);
-        }
+      //Top Square
+      geometry.vertices.push(new THREE.Vector3(leftTopLocal.x,  -10, leftTopLocal.z));
+      geometry.vertices.push(new THREE.Vector3(leftTopLocal.x,  300, leftTopLocal.z));
+      geometry.vertices.push(new THREE.Vector3(rightTopLocal.x, -10, rightTopLocal.z));
+
+      geometry.faces.push( new THREE.Face3( counter++, counter++, counter++ ) );
+
+      geometry.vertices.push(new THREE.Vector3(leftTopLocal.x,  300, leftTopLocal.z));
+      geometry.vertices.push(new THREE.Vector3(rightTopLocal.x, 300, rightTopLocal.z));
+      geometry.vertices.push(new THREE.Vector3(rightTopLocal.x, -10, rightTopLocal.z));
+
+      geometry.faces.push( new THREE.Face3( counter++, counter++, counter++ ) );
+
+      //Right Square
+      geometry.vertices.push(new THREE.Vector3(rightTopLocal.x,    -10, rightTopLocal.z));
+      geometry.vertices.push(new THREE.Vector3(rightTopLocal.x,    300, rightTopLocal.z));
+      geometry.vertices.push(new THREE.Vector3(rightBottomLocal.x, -10, rightBottomLocal.z));
+
+      geometry.faces.push( new THREE.Face3( counter++, counter++, counter++ ) );
+
+      geometry.vertices.push(new THREE.Vector3(rightTopLocal.x,    300, rightTopLocal.z));
+      geometry.vertices.push(new THREE.Vector3(rightBottomLocal.x, 300, rightBottomLocal.z));
+      geometry.vertices.push(new THREE.Vector3(rightBottomLocal.x, -10, rightBottomLocal.z));
+
+      geometry.faces.push( new THREE.Face3( counter++, counter++, counter++ ) );
+
+
+      //Bottom Square
+      geometry.vertices.push(new THREE.Vector3(rightBottomLocal.x, -10, rightBottomLocal.z));
+      geometry.vertices.push(new THREE.Vector3(rightBottomLocal.x, 300, rightBottomLocal.z));
+      geometry.vertices.push(new THREE.Vector3(leftBottomLocal.x,  -10, leftBottomLocal.z));
+
+      geometry.faces.push( new THREE.Face3( counter++, counter++, counter++ ) );
+
+      geometry.vertices.push(new THREE.Vector3(rightBottomLocal.x, 300, rightBottomLocal.z));
+      geometry.vertices.push(new THREE.Vector3(leftBottomLocal.x,  300, leftBottomLocal.z));
+      geometry.vertices.push(new THREE.Vector3(leftBottomLocal.x,  -10, leftBottomLocal.z));
+
+      geometry.faces.push( new THREE.Face3( counter++, counter++, counter++ ) );
+
+      //Left Square
+      geometry.vertices.push(new THREE.Vector3(leftBottomLocal.x, -10, leftBottomLocal.z));
+      geometry.vertices.push(new THREE.Vector3(leftBottomLocal.x, 300, leftBottomLocal.z));
+      geometry.vertices.push(new THREE.Vector3(leftTopLocal.x,    -10, leftTopLocal.z));
+
+      geometry.faces.push( new THREE.Face3( counter++, counter++, counter++ ) );
+
+      geometry.vertices.push(new THREE.Vector3(leftBottomLocal.x, 300, leftBottomLocal.z));
+      geometry.vertices.push(new THREE.Vector3(leftTopLocal.x,    300, leftTopLocal.z));
+      geometry.vertices.push(new THREE.Vector3(leftTopLocal.x,    -10, leftTopLocal.z));
+
+      geometry.faces.push( new THREE.Face3( counter++, counter++, counter++ ) );
+
+      var mesh = new THREE.Mesh(geometry, boxMaterial);
+      return mesh;
+    };
+
+    this.activationChanged = function(event, active) {
+      if (active && this.mesh !== null) {
+        this.scene.add(this.mesh);
+        this.show = true;
+      } else {
+        this.scene.remove(this.mesh);
+        this.show = false;
       }
+    };
 
-      for (i = 0; i < points.length; i++) {
-        i2 = i+1;
-        if (i2 > points.length) {
-          i2 = 0;
-        }
-        edge = edges[i];
-
-        edge.geometry.vertices[0].copy(points[i]);
-        edge.geometry.vertices[1].copy(points[i2]);
-
-        edge.geometry.verticesNeedUpdate = true;
-        edge.geometry.computeBoundingSphere();
-
-        edge.visible = true;
-      }
-    }
+    Messagebus.subscribe('extractionSelectionActivationChanged', this.activationChanged.bind(this));
 
   }
 
