@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function MinimapExtractionSelectionService(ExtractionSelectionService, ol, proj4, Messagebus) {
+  function MinimapExtractionSelectionService(ExtractionSelectionService, ol, Messagebus) {
     this.source = new ol.source.Vector({
       wrapX: false
     });

@@ -38,7 +38,7 @@ describe('extract.ExtractionController', function() {
         'coverage': 100.0
       };
       var fakeResponse = JSON.stringify(expected);
-      this.$httpBackend.expectPOST('http://localhost/ahn-pointcloud-viewer/api/size', expectedRequest).respond(200, fakeResponse);
+      this.$httpBackend.expectPOST('http://ahn2.pointclouds.nl/api/size', expectedRequest).respond(200, fakeResponse);
 
       this.ctrl.count();
 
@@ -65,7 +65,7 @@ describe('extract.ExtractionController', function() {
         'level': 8,
         'coverage': 100.0
       };
-      this.$httpBackend.expectPOST('http://localhost/ahn-pointcloud-viewer/api/laz', expectedRequest).respond(200, expected);
+      this.$httpBackend.expectPOST('http://ahn2.pointclouds.nl/api/laz', expectedRequest).respond(200, expected);
 
       this.ctrl.submit();
 

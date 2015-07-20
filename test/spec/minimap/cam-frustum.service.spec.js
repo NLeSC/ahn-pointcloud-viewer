@@ -11,12 +11,9 @@ describe('minimap.CamFrustumService', function() {
 
   var ol;
 
-
-
-
   var customMatchers = {
     toBeCloseEnoughTo: function() {
-      function arrayIsCloseEnough(inputArray1,inputArray2, maxDiff) {
+      function arrayIsCloseEnough(inputArray1, inputArray2, maxDiff) {
         var result = true;
         if (inputArray1.length !== inputArray2.length) {
           return false;
@@ -44,11 +41,11 @@ describe('minimap.CamFrustumService', function() {
           if (actualArray instanceof Array && expectedArray instanceof Array) {
             result.pass = arrayIsCloseEnough(actualArray, expectedArray, 0.0001);
             if (result.pass === false) {
-              result.message = 'Expected ' + JSON.stringify(actualArray) + ' and '+ JSON.stringify(expectedArray) +' to have the same elements. They did not.';
+              result.message = 'Expected ' + JSON.stringify(actualArray) + ' and ' + JSON.stringify(expectedArray) + ' to have the same elements. They did not.';
             }
           } else {
             result.pass = false;
-            result.message = 'Expected ' + JSON.stringify(actualArray) + ' and '+ JSON.stringify(expectedArray) +' to be an array. They were not.';
+            result.message = 'Expected ' + JSON.stringify(actualArray) + ' and ' + JSON.stringify(expectedArray) + ' to be an array. They were not.';
           }
 
           return result;
@@ -71,7 +68,19 @@ describe('minimap.CamFrustumService', function() {
       $rootScope.$digest();
 
       ol = _ol_;
-      mockFrustum = {'cam':{'x':93938.7265625,'y':436669.46875,'z':149.99999999990305},'left':{'x':93440.63638977098,'y':436964.9426789419,'z':149.999999999903},'right':{'x':94431.34984060985,'y':436973.96993015846,'z':149.999999999903}};
+      mockFrustum = [{
+        x: 267664.56118855654,
+        y: 367057.2162330316
+      }, {
+        x: 50434.57857780314,
+        y: 341598.10235807305
+      }, {
+        x: -405953.6735302854,
+        y: 785493.5449968544
+      }, {
+        x: 777696.5008112825,
+        y: 924216.0372352933
+      }];
     });
   });
 
@@ -85,15 +94,38 @@ describe('minimap.CamFrustumService', function() {
       expect(service.camFrustum instanceof ol.geom.LineString).toBeTruthy();
     });
 
-    it('should have a camFrustum with coordinates [[0,0],[0,0]]', function() {
-      // expect(service.camFrustum).toBeDefined();
-      expect(service.camFrustum.getCoordinates()).toEqual([[0,0],[0,0]]);
+    it('should have a camFrustum with initial coordinates', function() {
+      expect(service.camFrustum.getCoordinates()).toEqual([
+        [0, 0],
+        [1, 0],
+        [0, 1]
+      ]);
     });
   });
 
   describe('onCameraMove() function', function() {
     it('should set coordinates for camFrustum', function() {
-      var mockCamFrustumCoordinates = [[93938.7265625, 436669.4687500017],[93440.63638977094, 436964.9426789425],[94431.34984060988, 436973.96993015957],[93938.7265625, 436669.4687500017]];
+      var mockCamFrustumCoordinates = [
+        [
+          267664.56118855654,
+          367057.2162330316
+        ],
+        [
+          50434.57857780314,
+          341598.10235807305
+        ],
+        [-405953.6735302854,
+          785493.5449968544
+        ],
+        [
+          777696.5008112825,
+          924216.0372352933
+        ],
+        [
+          267664.56118855654,
+          367057.2162330316
+        ]
+      ];
 
       service.onCameraMove(mockFrustum);
       var expectedCoordinates = service.camFrustum.getCoordinates();
@@ -106,7 +138,7 @@ describe('minimap.CamFrustumService', function() {
     it('should set coordinates for camFrustum', function() {
       service.onCameraMove(mockFrustum);
       var extent = service.getExtent();
-      var expected = [93440.63638977094, 436669.4687500017, 94431.34984060988, 436973.96993015957];
+      var expected = [-405953.6735302854,341598.10235807305,777696.5008112825,924216.0372352933];
 
       expect(extent).toBeCloseEnoughTo(expected);
     });
@@ -118,7 +150,7 @@ describe('minimap.CamFrustumService', function() {
 
       var center = service.getCameraPosition();
 
-      var expected = [93938.7265625, 436669.4687500017];
+      var expected = [159049.56988317985,354327.6592955523];
       expect(center).toBeCloseEnoughTo(expected);
     });
   });

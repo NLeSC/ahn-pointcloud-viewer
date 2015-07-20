@@ -1,3 +1,5 @@
+var thecamera;
+
 (function() {
   'use strict';
 
@@ -10,7 +12,13 @@
     var near = 0.1;
     var far = 100 * 1000 * 6;
 
+
     this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+    this.floor = new THREE.Plane(
+      new THREE.Vector3(0, 1, 0),
+      0
+    );
+
     $window.addEventListener('resize', function() {
       me.onWindowResize();
     });
@@ -31,29 +39,24 @@
     };
 
     this.update2DFrustum = function() {
-      var camera = this.camera;
-      var aspect = camera.aspect;
-      var top = Math.tan(THREE.Math.degToRad(camera.fov * 0.5)) * camera.near;
-      var bottom = -top;
-      var left = aspect * bottom;
-      var right = aspect * top;
+      var corners = [
+        new THREE.Vector3(1, -1, 1).unproject(this.camera).normalize(),
+        new THREE.Vector3(-1, -1, 1).unproject(this.camera).normalize(),
+        new THREE.Vector3(-1, 1, 1).unproject(this.camera).normalize(),
+        new THREE.Vector3(1, 1, 1).unproject(this.camera).normalize()
+      ];
 
-      var camPos = new THREE.Vector3(0, 0, 0);
-      left = new THREE.Vector3(left, 0, -camera.near).multiplyScalar(3000);
-      right = new THREE.Vector3(right, 0, -camera.near).multiplyScalar(3000);
-      camPos.applyMatrix4(camera.matrixWorld);
-      left.applyMatrix4(camera.matrixWorld);
-      right.applyMatrix4(camera.matrixWorld);
+      var cameraFloorViewport = corners.map(function(corner) {
+        var ray = new THREE.Ray(this.camera.position, corner);
+        var intersection = ray.intersectPlane(this.floor);
+        if (intersection) {
+          return SceneService.toGeo(intersection);
+        } else {
+          return SceneService.toGeo(this.camera.position);
+        }
+      }.bind(this));
 
-      camPos = SceneService.toGeo(camPos);
-      left = SceneService.toGeo(left);
-      right = SceneService.toGeo(right);
-
-      Messagebus.publish('cameraMoved', {
-        cam: camPos,
-        left: left,
-        right: right
-      });
+      Messagebus.publish('cameraMoved', cameraFloorViewport);
     };
 
     this.onWindowResize = function() {
