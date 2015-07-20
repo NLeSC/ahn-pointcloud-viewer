@@ -153,9 +153,9 @@
       CamFrustumService.onCameraMove(frustum);
 
       // TODO center of bottom of frustrum + zoom on bottom of frustum
-      // var extent = CamFrustumService.camFrustum;
+      var extent = CamFrustumService.getExtent();
       // console.log(extent);
-      // this.map.getView().fit(extent);
+      this.map.getView().fit(extent, this.map.getSize());
       var pos = CamFrustumService.getCameraPosition();
       this.centerMap(pos);
     };
