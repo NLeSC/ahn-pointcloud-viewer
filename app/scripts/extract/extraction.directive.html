@@ -1,48 +1,56 @@
-<button ng-click="ec.selection.active=!ec.selection.active" ng-class="{active: ec.selection.active}" class="icon-big extract-icon" title="Extract points"></button>
-<div collapse='!ec.selection.active' class="panel panel-default extract-panel">
+<button class="icon-big extract-icon" ng-class="{active: ec.selection.active}" ng-click="ec.selection.active=!ec.selection.active" title="Extract points"></button>
+<div class="panel panel-default extract-panel" collapse='!ec.selection.active'>
   <div class="panel-heading">Extract points
-    <button ng-click="ec.selection.active=!ec.selection.active" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <button aria-label="Close" class="close" ng-click="ec.selection.active=!ec.selection.active">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
   <div class="panel-body">
     <div class="extraction-text">
       To select points, please click on the minimap, or drag to select in the 3d view.
     </div>
-    <form class="form-inline" role="search" name="extractForm">
-      <fieldset>
-        <div class="form-group">
-          <label for="left">Left</label>
-          <input required type="number" step=0.01 class="form-control" name="left" placeholder="" ng-model="ec.selection.left" ng-model-options="{ debounce: 1000 }">
+    <form name="extractForm" class="form-inline" role="search">
+      <div class="row">
+        <div class="col-xs-12 form-group">
+          <label for="email">Email</label>
+          <input class="form-control" name="email" ng-minlength="4" ng-model="ec.email" placeholder="" type="email">
         </div>
-        <div class="form-group">
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-offset-3 col-xs-6">
           <label for="top">Top</label>
-          <input required type="number" step=0.01 class="form-control" name="top" placeholder="" ng-model="ec.selection.top" ng-model-options="{ debounce: 1000 }">
+          <input class="form-control" name="top" ng-model-options="{ debounce: 1000 }" ng-model="ec.selection.top" placeholder="" required step=0.01 type="number">
         </div>
-      </fieldset>
-      <fieldset>
-        <div class="form-group">
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-6">
+          <label for="left">Left</label>
+          <input class="form-control" name="left" ng-model-options="{ debounce: 1000 }" ng-model="ec.selection.left" placeholder="" required step=0.01 type="number">
+        </div>
+        <div class="form-group col-xs-6">
           <label for="right">Right</label>
-          <input required type="number" step=0.01 class="form-control" name="right" placeholder="" ng-model="ec.selection.right" ng-model-options="{ debounce: 1000 }">
+          <input class="form-control" name="right" ng-model-options="{ debounce: 1000 }" ng-model="ec.selection.right" placeholder="" required step=0.01 type="number">
         </div>
-        <div class="form-group">
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-offset-3 col-xs-6">
           <label for="bottom">Bottom</label>
-          <input required type="number" step=0.01 class="form-control" name="bottom" placeholder="" ng-model="ec.selection.bottom" ng-model-options="{ debounce: 1000 }">
+          <input class="form-control" name="bottom" ng-model-options="{ debounce: 1000 }" ng-model="ec.selection.bottom" placeholder="" required step=0.01 type="number">
         </div>
-      </fieldset>
-      <div >
-        Selected number of points:
-        <span>{{ec.size.points}}</span>
-        Level:
-        <span>{{ec.size.level}}</span>
-        Coverage (%):
-        <span>{{ec.size.coverage}}</span>
       </div>
-      <button ng-click="ec.count()" type="submit" class="btn btn-default">Count points</button>
-
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" ng-minlength="4" class="form-control" name="email" placeholder="" ng-model="ec.email">
+      <button class="btn btn-default" ng-click="ec.count()" type="button">Count points</button>
+      <button class="btn btn-primary" ng-click="ec.submit()" ng-disabled="extractForm.$invalid" type="submit">Submit</button>
+      <div class="row">
+        <div class="col-xs-12">
+          Selected number of points:
+          <span>{{ec.size.points}}</span>
+          Level:
+          <span>{{ec.size.level}}</span>
+          Coverage (%):
+          <span>{{ec.size.coverage}}</span>
+        </div>
       </div>
-      <button ng-disabled="extractForm.$invalid" ng-click="ec.submit()" type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
+    </div>
+  </form>
+</div>
 </div>
