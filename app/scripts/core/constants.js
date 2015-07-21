@@ -4,11 +4,13 @@
  * @namespace core
  */
 /* global proj4:false */
+/* global ol:false */
 (function() {
   'use strict';
 
   angular.module('pattyApp.core')
     .constant('proj4', proj4)
+    .constant('ol', ol)
     /**
      * @class core.pattyConf
      * @memberOf core
@@ -28,6 +30,6 @@
        * @type {String}
        * @memberof core.pattyConf
        */
-      AHN_API_ENDPOINT: 'http://localhost/ahn-pointcloud-viewer/api',
+      AHN_API_ENDPOINT: 'http://ahn2.pointclouds.nl/api',
     });
 })();

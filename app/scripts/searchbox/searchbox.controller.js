@@ -65,7 +65,7 @@
       $window.navigator.geolocation.getCurrentPosition(function(position) {
         var c = position.coords;
         this.gotoLocation(c.longitude, c.latitude);
-      }, function() {
+      }.bind(this), function() {
         toastr.error('Unable to get current location');
       });
     };

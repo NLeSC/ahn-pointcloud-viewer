@@ -1,114 +1,177 @@
-<button class="icon-big gear-icon" ng-class="{active: sc.showSettings}" ng-click="sc.showSettings=!sc.showSettings" title="Settings"></button>
+<button class="icon-big gear-icon" ng-class="{active: sc.showSettings}" ng-click="sc.showSettings=!sc.showSettings" title="Settings"/>
 <div class="panel panel-default settings-panel" collapse='!sc.showSettings'>
-    <div class="panel-heading">Settings</div>
-    <div class="panel-body">
-        <tabset>
-            <tab heading="Point">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="pointCountTarget">
-                            Points(m)</label>
-                        <div class="col-sm-8">
-                            <input class="form-control" id="pointCountTarget" max="10.0" min="0.1" ng-model="sc.settings.pointCountTarget" step="0.1" type="number"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="pointSize">
-                            PointSize
-                        </label>
-                        <div class="col-sm-8">
-                            <input class="form-control" id="pointSize" max="3.0" min="0.01" ng-model="sc.settings.pointSize" step="0.01" type="number"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="pointCountTarget">
-                            Opacity
-                        </label>
-                        <div class="col-sm-8">
-                            <input class="form-control" id="pointCountTarget" max="2.0" min="0.0" ng-model="sc.settings.opacity" step="0.1" type="number"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="pointSizeType">
-                            Size type
-                        </label>
-                        <div class="col-sm-8">
-                            <select class="form-control" id="pointSizeType" ng-model="sc.settings.pointSizeType" ng-options="value as key|lowercase for (key, value) in sc.settings.pointSizeTypes | orderBy:value"></select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="pointColorType">
-                            Color type
-                        </label>
-                        <div class="col-sm-8">
-                            <select class="form-control" id="pointColorType" ng-model="sc.settings.pointColorType" ng-options="value as key|lowercase for (key, value) in sc.settings.pointColorTypes | orderBy:value"></select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="pointShape">
-                            Shape
-                        </label>
-                        <div class="col-sm-8">
-                            <select class="form-control" id="pointShape" ng-model="sc.settings.pointShape" ng-options="value as key|lowercase for (key, value) in sc.settings.pointShapes | orderBy:value"></select>
-                        </div>
-                    </div>
-                </form>
-            </tab>
-            <tab heading="Measurement">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="clipMode">
-                            Clip mode
-                        </label>
-                        <div class="col-sm-8">
-                            <select class="form-control" id="clipMode" ng-model="sc.settings.clipMode" ng-options="value as key|lowercase for (key, value) in sc.settings.clipModes | orderBy:value"></select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="profileWidth">
-                            Profile width
-                        </label>
-                        <div class="col-sm-8">
-                            <input class="form-control" id="profileWidth" max="50" min="0.1" ng-model="sc.measure.profileWidth" step="0.1" type="number"/>
-                        </div>
-                    </div>
-                </form>
-            </tab>
-            <tab heading="Misc">
-                <form class="form-horizontal misc">
-                    <div class="checkbox">
-                        <label>
-                            <input ng-model="sc.settings.showSkybox" type="checkbox">
-                            Skybox
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input ng-model="sc.settings.highQuality" type="checkbox">
-                            High Quality
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input ng-model="sc.settings.showStats" type="checkbox">
-                            Stats
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label title="Show bounding box of pointcloud octree nodes">
-                            <input ng-model="sc.settings.showBoundingBox" type="checkbox">
-                            Bounding boxes
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input ng-model="sc.PointcloudService.pathMesh.visible" type="checkbox">
-                            Path
-                        </label>
-                        <button class="btn btn-sm btn-trans glyphicon glyphicon-record" ng-click="sc.recordCameraLocation()" title="Record camera location"></button>
-                    </div>
-                </form>
-            </tab>
-        </tabs>
-    </div>
+  <div class="panel-heading">
+    Settings</div>
+  <div class="panel-body">
+    <tabset>
+      <tab heading="Point">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-4 control-label" for="pointCountTarget">
+              Points(m)
+            </label>
+            <div class="col-sm-8">
+              <input class="form-control" id="pointCountTarget" max="10.0" min="0.1" ng-model="sc.settings.pointCountTarget" step="0.1" type="number"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label" for="pointSize">
+              PointSize
+            </label>
+            <div class="col-sm-8">
+              <input class="form-control" id="pointSize" max="3.0" min="0.01" ng-model="sc.settings.pointSize" step="0.01" type="number"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label" for="pointCountTarget">
+              Opacity
+            </label>
+            <div class="col-sm-8">
+              <input class="form-control" id="pointCountTarget" max="2.0" min="0.0" ng-model="sc.settings.opacity" step="0.1" type="number"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label" for="pointSizeType">
+              Size type
+            </label>
+            <div class="col-sm-8">
+              <select class="form-control" id="pointSizeType" ng-model="sc.settings.pointSizeType" ng-options="value as key|lowercase for (key, value) in sc.settings.pointSizeTypes | orderBy:value"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label" for="pointColorType">
+              Color type
+            </label>
+            <div class="col-sm-8">
+              <select class="form-control" id="pointColorType" ng-model="sc.settings.pointColorType" ng-options="value as key|lowercase for (key, value) in sc.settings.pointColorTypes | orderBy:value"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label" for="pointShape">
+              Shape
+            </label>
+            <div class="col-sm-8">
+              <select class="form-control" id="pointShape" ng-model="sc.settings.pointShape" ng-options="value as key|lowercase for (key, value) in sc.settings.pointShapes | orderBy:value"/>
+            </div>
+          </div>
+        </form>
+      </tab>
+      <tab heading="Measurement">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-4 control-label" for="clipMode">
+              Clip mode
+            </label>
+            <div class="col-sm-8">
+              <select class="form-control" id="clipMode" ng-model="sc.settings.clipMode" ng-options="value as key|lowercase for (key, value) in sc.settings.clipModes | orderBy:value"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label" for="profileWidth">Profile width
+            </label>
+            <div class="col-sm-8">
+              <input class="form-control" id="profileWidth" max="50" min="0.1" ng-model="sc.measure.profileWidth" step="0.1" type="number"/>
+            </div>
+          </div>
+        </form>
+      </tab>
+      <tab heading="Demo">
+        <form class="form-horizontal demo">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">
+              Play
+            </label>
+            <div class="col-sm-7">
+              <button ng-disabled="sc.PathControls.mode == sc.PathControls.modes.DEMO" class="btn btn-default glyphicon glyphicon-play" ng-click="sc.PathControls.enableDemoMode()" title="Play demo"/>
+              <button ng-disabled="sc.PathControls.mode != sc.PathControls.modes.DEMO" class="btn btn-default glyphicon glyphicon-stop" ng-click="sc.PathControls.enableFlightMode()" title="Stop demo"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="show-demo-path">
+              Show</label>
+            <div class="col-sm-9">
+              <input id="show-demo-path" ng-model="sc.RailService.scene.visible" type="checkbox">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">
+              Edit
+            </label>
+            <div class="col-sm-9">
+              <button class="btn btn-default glyphicon glyphicon-plus" ng-click="sc.RailService.addCameraLocation()" title="Add current camera location"/>
+              <button class="btn btn-default glyphicon glyphicon-minus" ng-click="sc.RailService.removeLast()" title="Remove last location"/>
+              <button class="btn btn-default glyphicon glyphicon-trash" ng-click="sc.RailService.clear()" title="Clear"/>
+              <a class="btn btn-default" role="button" title="Download" download="demo-waypoints.json" draggable="true" data-downloadurl="demo-waypoints.json" target="_blank" ng-href="{{sc.RailService.dataUrl}}"><span class="glyphicon glyphicon-download"></span><a/>
+              <button ngf-select class="btn btn-default glyphicon glyphicon-upload" title="Upload" ngf-change="sc.RailService.upload($files, $event)"/>
+            </div>
+          </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label" for="look-at-distance">
+            Look at distance</label>
+          <div class="col-sm-9">
+            <input id="look-at-distance" ng-model="sc.RailService.lookatDistance" type="number">
+          </div>
+        </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label" for="camera-easing" title="How fast the camera rotates to the next location">
+          Camera easing</label>
+        <div class="col-sm-9">
+          <input id="camera-easing" ng-model="sc.PathControls.cameraEasing" type="number">
+        </div>
+      </div>
+        </form>
+      </tab>
+      <tab heading="Misc">
+        <form class="form-horizontal misc">
+          <div class="form-group">
+            <label class="col-sm-8 control-label" for="showSkybox">Sky box
+            </label>
+            <div class="col-sm-4">
+              <input id="showSkybox" ng-model="sc.settings.showSkybox" type="checkbox">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-8 control-label" for="highQuality">
+              High Quality
+            </label>
+            <div class="col-sm-4">
+              <input id="highQuality" ng-model="sc.settings.highQuality" type="checkbox">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-8 control-label" for="showStats">
+              Show statistics
+            </label>
+            <div class="col-sm-4">
+              <input id="showStats" ng-model="sc.settings.showStats" type="checkbox">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-8 control-label" for="showBoundingBox" title="Show bounding box of pointcloud octree nodes">
+              Bounding boxes
+            </label>
+            <div class="col-sm-4">
+              <input id="showBoundingBox" ng-model="sc.settings.showBoundingBox" type="checkbox">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-8 control-label" for="normalSpeedMultiplier">
+              Normal Movement Speed multipier
+            </label>
+            <div class="col-sm-4">
+              <input class="form-control" id="normalSpeedMultiplier" ng-model="sc.PathControls.NORMAL_MOVEMENT_SPEED_MULTIPLIER" type="number"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-8 control-label" for="fastSpeedMultiplier">
+              Fast Movement Speed multipier
+            </label>
+            <div class="col-sm-4">
+              <input class="form-control" id="fastSpeedMultiplier" ng-model="sc.PathControls.FAST_MOVEMENT_SPEED_MULTIPLIER" type="number"/>
+            </div>
+          </div>
+        </form>
+      </tab>
+    </tabs>
+  </div>
 </div>

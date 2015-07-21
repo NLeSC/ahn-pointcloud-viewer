@@ -1,10 +1,10 @@
 (function() {
   'use strict';
 
-  function MinimapController(ol, proj4, CamFrustumService, Messagebus) {
+  function MinimapController(ol, proj4, CamFrustumService, Messagebus, MinimapExtractionSelectionService) {
     proj4.defs('EPSG:28992','+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +no_defs');
 
-    var projection = new ol.proj.Projection('EPSG:28992');
+    var projection = ol.proj.get('EPSG:28992');
     var projectionExtent = [-285401.92,22598.08,595401.9199999999,903401.9199999999];
 
     var resolutions = [3440.64, 1720.32, 860.16, 430.08, 215.04, 107.52, 53.76, 26.88, 13.44, 6.72, 3.36, 1.68, 0.84, 0.42];
@@ -38,7 +38,7 @@
         new ol.layer.Tile({
           title: 'NederlandBRT',
           type: 'base',
-          visible: false,
+          visible: true,
           extent: projectionExtent,
           source: new ol.source.WMTS({
             //http://geodata.nationaalgeoregister.nl/tiles/service/wmts/aan?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=aan&STYLE=_null&TILEMATRIXSET=EPSG%3A28992&TILEMATRIX=EPSG%3A28992%3A8&TILEROW=129&TILECOL=127&FORMAT=image%2Fpng
@@ -60,7 +60,7 @@
         this.osmLayer = new ol.layer.Tile({
           title: 'Luchtfotos',
           type: 'base',
-          visible: true,
+          visible: false,
           source: new ol.source.WMTS({
             url: 'http://geodata1.nationaalgeoregister.nl/luchtfoto/wmts',
             layer: 'luchtfoto',
@@ -73,7 +73,7 @@
               matrixIds: matrixIdsLuchtfotos
             }),
             style: 'default'
-          }),
+          })
         })
       ]
     });
@@ -94,7 +94,8 @@
       displayProjection: projection,
       view: new ol.View({
         center: startLocation,
-        zoom: 14
+        zoom: 12,
+        minZoom:6
       })
     });
 
@@ -149,14 +150,20 @@
       this.map.getView().setCenter(center);
     };
 
-    this.updateFrustrumAndCenterMap = function(event, frustum) {
-      CamFrustumService.onCameraMove(frustum);
-      
+    this.updateFrustrumAndCenterMap = function(event, frustum, floorInSight) {
+      CamFrustumService.onCameraMove(frustum, floorInSight);
+
+      // TODO center of bottom of frustrum + zoom on bottom of frustum
+      var extent = CamFrustumService.getExtent();
+      // console.log(extent);
+      this.map.getView().fit(extent, this.map.getSize(), {'padding':[20,20,20,20]});
       var pos = CamFrustumService.getCameraPosition();
       this.centerMap(pos);
     };
 
     Messagebus.subscribe('cameraMoved', this.updateFrustrumAndCenterMap.bind(this));
+
+    MinimapExtractionSelectionService.init(this.map);
   }
 
   angular.module('pattyApp.minimap')

@@ -20,8 +20,8 @@ describe('pointcloud.service', function() {
     it('should have settings', function() {
 
       var expected = {
-        pointCountTarget: 5.0,
-        pointSize: 0.01,
+        pointCountTarget: 2.5,
+        pointSize: 1.00,
         opacity: 1,
         showSkybox: true,
         interpolate: true,
@@ -35,7 +35,9 @@ describe('pointcloud.service', function() {
         pointShapes: Potree.PointShape,
         pointShape: Potree.PointShape.CIRCLE,
         clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
-        clipModes: Potree.ClipMode
+        clipModes: Potree.ClipMode,
+        heightMin: -5,
+        heightMax: 45
       };
 
       expect(PointcloudService.settings).toEqual(expected);

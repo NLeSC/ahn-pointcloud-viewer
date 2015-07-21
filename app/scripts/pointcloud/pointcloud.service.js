@@ -2,10 +2,11 @@
 (function() {
   'use strict';
 
-  function PointcloudService(THREE, Potree, POCLoader, $window, $rootScope,
+  function PointcloudService(THREE, Potree, $window, $rootScope,
     DrivemapService,
     CameraService, SceneService,
     PathControls, MeasuringService,
+    RailService, ExtractionDrawingService, PointcloudExtractionSelectionService,
     cfpLoadingBar) {
 
     var me = this;
@@ -13,8 +14,8 @@
     this.elRenderArea = null;
 
     me.settings = {
-      pointCountTarget: 5.0,
-      pointSize: 0.01,
+      pointCountTarget: 2.5,
+      pointSize: 1.00,
       opacity: 1,
       showSkybox: true,
       interpolate: true,
@@ -28,7 +29,9 @@
       pointShapes: Potree.PointShape,
       pointShape: Potree.PointShape.CIRCLE,
       clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
-      clipModes: Potree.ClipMode
+      clipModes: Potree.ClipMode,
+      heightMin: -5,
+      heightMax: 45
     };
 
     me.stats = {
@@ -186,6 +189,9 @@
 
       MeasuringService.init(me.renderer, scene, camera);
 
+      PointcloudExtractionSelectionService.init(me.renderer, scene, camera);
+      ExtractionDrawingService.init(me.renderer, scene, camera);
+
       skybox = loadSkybox('images/skybox/');
 
       // enable frag_depth extension for the interpolation shader, if available
@@ -199,7 +205,7 @@
       var pointcloudPath = DrivemapService.getPointcloudUrl();
       me.stats.lasCoordinates.crs = DrivemapService.getCrs();
 
-      POCLoader.load(pointcloudPath, function(geometry) {
+      Potree.POCLoader.load(pointcloudPath, function(geometry) {
         pointcloud = new Potree.PointCloudOctree(geometry, drivemapMaterial);
 
         pointcloud.material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
@@ -221,16 +227,9 @@
         ));
         referenceFrame.updateMatrixWorld(true);
 
-        var cameraPath = DrivemapService.getCameraPath().map(
-          function(coord) {
-            return SceneService.toLocal(new THREE.Vector3(coord[0], coord[1], coord[2]));
-          }
-        );
-
-        var lookPath = DrivemapService.getLookPath().map(
-          function(coord) {
-            return SceneService.toLocal(new THREE.Vector3(coord[0], coord[1], coord[2]));
-          }
+        RailService.setCameraAndLookAtWaypoints(
+          DrivemapService.getCameraPath(),
+          DrivemapService.getLookPath()
         );
 
         //var miny = 306740, maxy = 615440, minx = 13420, maxx = 322120;
@@ -253,12 +252,8 @@
         //SceneService.addMaximap(planeMesh);
 				//scene.add( planeMesh );
 
-        //PathControls.init(camera, myPath, lookPath, me.renderer.domElement);
-        PathControls.init(camera, cameraPath, lookPath, me.elRenderArea);
+        PathControls.init(me.elRenderArea);
 
-        me.pathMesh = PathControls.createPath();
-        scene.add(me.pathMesh);
-        me.pathMesh.visible = false; // disabled by default
         MeasuringService.setPointcloud(pointcloud);
       });
     };
@@ -281,8 +276,8 @@
         pointcloud.material.pointColorType = me.settings.pointColorType;
         pointcloud.material.pointShape = me.settings.pointShape;
         pointcloud.material.interpolate = me.settings.interpolate;
-        pointcloud.material.heightMin = 0;
-        pointcloud.material.heightMax = 8;
+        pointcloud.material.heightMin = me.settings.heightMin;
+        pointcloud.material.heightMax = me.settings.heightMax;
         pointcloud.material.intensityMin = 0;
         pointcloud.material.intensityMax = 65000;
         //pointcloud.material.weighted = true;
@@ -488,9 +483,7 @@
 				pointcloud.update(camera, me.renderer);
 				me.renderer.render(scene, camera, rtNormalize);
 
-
         me.renderer.render(sceneNormalize, cameraBG);
-
 
         me.renderer.clearDepth();
 

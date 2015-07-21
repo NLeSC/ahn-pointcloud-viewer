@@ -42,6 +42,7 @@ patty-minimap {
   height: 25%;
   min-width: 200px;
   min-height: 200px;
+  z-index: 100;
 }
 
 .big-minimap {
@@ -113,24 +114,24 @@ patty-pointcloud-stats {
 }
 .toolbox {
   position: absolute;
-  right: 5px;
+  left: 260px;
   bottom: 5px;
 }
 .toolbox-tray {
   position: absolute;
-  right: 5px;
+  left: 260px;
   bottom: 44px;
   width: 80px;
 }
 .transformation-toolbox-tray {
   position: absolute;
-  right: 87px;
+  left: 345px;
   bottom: 13px;
   width: 100px;
 }
 .settings-panel .panel-body {
   padding: 5px;
-  width: 285px;
+  width: 340px;
 }
 .settings-panel form {
     padding-top: 5px;
@@ -146,7 +147,7 @@ patty-pointcloud-stats {
   overflow-y: auto;
 }
 .extract-panel .panel-body {
-  width: 510px;
+  width: 580px;
 }
 .icon-inline {
   width: 28px;
@@ -299,19 +300,9 @@ patty-pointcloud-stats {
 }
 
 .logobox {
-    position:absolute;
-    bottom:3%;
-    right:14%;
-    max-width:20%;
-    max-height:15%
-}
-
-.logobox-bottom {
-    position:relative;
-}
-
-.logo-custom-nlesc {
-  max-width:100%;
+  position:absolute;
+  bottom: 10px;
+  right: 0%;
 }
 
 #loading-bar-spinner {
@@ -354,4 +345,86 @@ patty-pointcloud-stats {
   height: 2px;
   border-bottom-right-radius: 1px;
   border-top-right-radius: 1px;
+}
+
+#pc-height-min {
+  border-color: #30a;
+}
+
+#pc-height-max {
+  border-color: #f00;
+}
+
+.inverted-glyphicon {
+  background-color: black;
+  color: white;
+  padding: 2px;
+}
+
+#bigLegendCanvas {
+  position:absolute;
+  top:0px;
+  right:0px;
+  width:70%;
+  height:100%;
+}
+
+.bigLegendContainer {
+  display: block;
+  position: absolute;
+  right: 1%;
+  top: 30%;
+  width: 4%;
+  height: 50%;
+}
+
+.bigLegendFlexMobileContainer {
+  height: 100%;
+}
+
+.bigLegendFlexContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 90%;
+  width: 35%
+}
+
+.bigLegendFlexSection {
+  flex: 1 1 20%;
+}
+
+.bigLegendFormTextField {
+  width: 100%;
+  min-width: 50px;
+  font-size: 10px;
+  color: #000000;
+  align-self: flex-start;
+}
+
+.bigLegendFlexText {
+  font-size: 10px;
+  color: #ffffff;
+  align-self: flex-start;
+}
+
+.bigLegendImg {
+  position:absolute;
+  top:0px;
+  right: 0%;
+  height:90%;
+  width: 25%;
+}
+
+.bigLegendUnits {
+  position: relative;
+  float: right;
+  font-size: small;
+  color: #ffffff;
+  margin-top:5%;
+}
+
+extraction-panel .form-group {
+  margin-bottom: 5px !important;
 }

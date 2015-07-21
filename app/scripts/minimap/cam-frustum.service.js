@@ -1,18 +1,8 @@
 (function() {
   'use strict';
 
-  function CamFrustumService(ol, proj4, DrivemapService) {
-    var olProjectionCode = 'urn:ogc:def:crs:EPSG::28992';
-    var siteProjectionCode = null;
-
-    DrivemapService.ready.then(function() {
-      siteProjectionCode = DrivemapService.getCrs();
-    });
-
-    this.camFrustum = new ol.geom.LineString([
-      [0, 0],
-      [0, 0]
-    ]);
+  function CamFrustumService(ol, THREE) {
+    this.camFrustum = new ol.geom.LineString([[0, 0], [1, 0], [0, 1]]);
     var featureVector = new ol.source.Vector({
       features: [new ol.Feature(this.camFrustum)]
     });
@@ -20,35 +10,56 @@
       source: featureVector,
       style: new ol.style.Style({
         stroke: new ol.style.Stroke({
-          color: '#FFFFFF',
+          color: 'red',
           width: 2
         })
       })
     });
 
-    /**
-     * [getExtent description]
-     * @return {array} min_lon, min_lat, max_lon, max_lat
-     */
     this.getExtent = function() {
       return featureVector.getExtent();
     };
 
     this.getCameraPosition = function() {
-      return this.camFrustum.getFirstCoordinate();
+      var maxlength = 100 * 1000;
+
+      var coordinates =  this.camFrustum.getCoordinates();
+      var leftBottom  = new THREE.Vector3(coordinates[0][0], coordinates[0][1], 0);
+      var rightBottom = new THREE.Vector3(coordinates[1][0], coordinates[1][1], 0);
+      var leftTop  = new THREE.Vector3(coordinates[2][0], coordinates[2][1], 0);
+      var rightTop  = new THREE.Vector3(coordinates[3][0], coordinates[3][1], 0);
+
+      var middleBottom = leftBottom.clone().lerp(rightBottom, 0.5);
+      var middleTop = leftTop.clone().lerp(rightTop, 0.5);
+
+      var dist = middleBottom.clone().sub(middleTop).length();
+
+      if (dist > maxlength) {
+        dist = maxlength;
+      }
+      var frac = 1 - (dist / maxlength);
+
+      var mapCameraPos = middleBottom.clone().lerp(middleTop, frac);
+      return mapCameraPos.toArray().slice(0, 2);
     };
 
-    this.onCameraMove = function(frustum) {
-      var camPos = proj4(siteProjectionCode, olProjectionCode, [
-        frustum.cam.x, frustum.cam.y
-      ]);
-      var left = proj4(siteProjectionCode, olProjectionCode, [
-        frustum.left.x, frustum.left.y
-      ]);
-      var right = proj4(siteProjectionCode, olProjectionCode, [
-        frustum.right.x, frustum.right.y
-      ]);
-      this.camFrustum.setCoordinates([camPos, left, right, camPos]);
+    this.onCameraMove = function(frustum, floorInSight) {
+      var frustumGeo = frustum.map(function(corner) {
+        return [corner.x, corner.y];
+      });
+
+      if (floorInSight) {
+        // solid line
+        this.layer.getStyle().getStroke().setLineDash([]);
+      } else {
+        // dashed line
+        this.layer.getStyle().getStroke().setLineDash([6]);
+      }
+
+      // polygon should be a ring so duplicate start to end of ring
+      frustumGeo.push(frustumGeo[0]);
+
+      this.camFrustum.setCoordinates(frustumGeo);
     };
   }
 

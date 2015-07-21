@@ -9,8 +9,8 @@ describe('pattyApp', function() {
     browser.get('index.html');
   });
 
-  it('should have patty title', function() {
-    expect(browser.getTitle()).toMatch('Project Patty Visualisation');
+  it('should have a title', function() {
+    expect(browser.getTitle()).toMatch('AHN2 pointcloud viewer');
   });
 
   describe('initial state', function() {
@@ -28,7 +28,7 @@ describe('pattyApp', function() {
     });
 
     it('should hide the clear button', function() {
-      var results = element(by.css('.glyphicon-remove'));
+      var results = element(by.css('patty-search-panel .glyphicon-remove'));
       expect(results.isDisplayed()).toBeFalsy();
     });
 
@@ -40,7 +40,7 @@ describe('pattyApp', function() {
     });
 
     it('should show the clear button', function() {
-      var results = element(by.css('.glyphicon-remove'));
+      var results = element(by.css('patty-search-panel .glyphicon-remove'));
       expect(results.isDisplayed()).toBeTruthy();
     });
   });

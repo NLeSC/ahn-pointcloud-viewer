@@ -5,9 +5,11 @@ describe('extract.ExtractionController', function() {
   beforeEach(module('pattyApp.core'));
   beforeEach(module('pattyApp.extract'));
 
-  beforeEach(inject(function ($controller, $httpBackend) {
+  beforeEach(inject(function($controller, $httpBackend) {
     this.toastr = jasmine.createSpyObj('toastr', ['success', 'error']);
-    this.ctrl = $controller('ExtractionController', {toastr: this.toastr});
+    this.ctrl = $controller('ExtractionController', {
+      toastr: this.toastr
+    });
     this.$httpBackend = $httpBackend;
   }));
 
@@ -16,7 +18,12 @@ describe('extract.ExtractionController', function() {
   });
 
   it('should have an empty size', function() {
-    expect(this.ctrl.size).toEqual({});
+    expect(this.ctrl.size).toEqual({
+      coverage: 1,
+      returnedPoints: 0,
+      rawPoints: 0,
+      level: 14
+    });
   });
 
   it('should have an empty email', function() {
@@ -33,12 +40,13 @@ describe('extract.ExtractionController', function() {
         top: 438334.32
       });
       var expected = {
-        'points': 42132530,
+        'rawPoints': 10193813,
+        'returnedPoints': 9234324,
         'level': 8,
-        'coverage': 100.0
+        'coverage': 0.9058
       };
       var fakeResponse = JSON.stringify(expected);
-      this.$httpBackend.expectPOST('http://localhost/ahn-pointcloud-viewer/api/size', expectedRequest).respond(200, fakeResponse);
+      this.$httpBackend.expectPOST('http://ahn2.pointclouds.nl/api/size', expectedRequest).respond(200, fakeResponse);
 
       this.ctrl.count();
 
@@ -57,15 +65,15 @@ describe('extract.ExtractionController', function() {
         bottom: 436899.97,
         right: 94428.37,
         top: 438334.32,
-        email: 'someone@example.com',
-        level: 13
+        email: 'someone@example.com'
       };
       var expected = {
-        'points': 42132530,
+        'rawPoints': 10193813,
+        'returnedPoints': 9234324,
         'level': 8,
-        'coverage': 100.0
+        'coverage': 0.9058
       };
-      this.$httpBackend.expectPOST('http://localhost/ahn-pointcloud-viewer/api/laz', expectedRequest).respond(200, expected);
+      this.$httpBackend.expectPOST('http://ahn2.pointclouds.nl/api/laz', expectedRequest).respond(200, expected);
 
       this.ctrl.submit();
 

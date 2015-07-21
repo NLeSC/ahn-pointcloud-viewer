@@ -3,7 +3,7 @@
 describe('minimap.directive', function() {
 
   // load the module
-  beforeEach(module('pattyApp.minimap'));
+  beforeEach(module('pattyApp.minimap', 'pattyApp.extract'));
 
   var $compile;
   var $rootScope;

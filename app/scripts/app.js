@@ -9,7 +9,6 @@
 
   angular.module('pattyApp.potree', [])
     .constant('Potree', Potree)
-    .constant('POCLoader', POCLoader)
     /*
     .run(function(Potree, THREE) {
       Potree.TextSprite.prototype.setTextOriginal = Potree.TextSprite.prototype.setText;
@@ -70,23 +69,29 @@
       'pattyApp.help',
       'pattyApp.cameramodes',
       'pattyApp.pointcloud',
-      'pattyApp.extract'
+      'pattyApp.extract',
+      'pattyApp.biglegend'
     ])
+    .config(function($compileProvider) {
+       // data urls are not allowed by default, so whitelist them
+       $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob):/);
+    })
     .run(function(DrivemapService) {
       DrivemapService.load();
     });
 
   angular.module('pattyApp.templates', []);
   angular.module('pattyApp.logos', []);
-  angular.module('pattyApp.extract', ['toastr', 'pattyApp.core', 'angular-loading-bar']);
-  angular.module('pattyApp.utils', ['pattyApp.templates']);
+  angular.module('pattyApp.extract', ['pattyApp.core', 'angular-loading-bar', 'rt.debounce']);
+  angular.module('pattyApp.utils', ['pattyApp.templates', 'toastr']);
   angular.module('pattyApp.core', ['pattyApp.utils']);
-  angular.module('pattyApp.minimap', ['pattyApp.core']);
+  angular.module('pattyApp.minimap', ['pattyApp.core', 'pattyApp.three']);
   //angular.module('pattyApp.maximap', ['pattyApp.core', 'pattyApp.three']);
   angular.module('pattyApp.measuring', ['pattyApp.potree', 'pattyApp.three']);
-  angular.module('pattyApp.pointcloud', ['pattyApp.core', 'pattyApp.potree', 'pattyApp.three', 'pattyApp.measuring', 'cfp.loadingBar']);
-  angular.module('pattyApp.settings', ['pattyApp.pointcloud']);
+  angular.module('pattyApp.pointcloud', ['pattyApp.core', 'pattyApp.potree', 'pattyApp.three', 'pattyApp.measuring', 'cfp.loadingBar', 'pattyApp.extract']);
+  angular.module('pattyApp.settings', ['pattyApp.pointcloud', 'ngFileUpload']);
   angular.module('pattyApp.help', ['pattyApp.templates']);
   angular.module('pattyApp.cameramodes', ['pattyApp.pointcloud']);
-  angular.module('pattyApp.searchbox', ['pattyApp.core', 'pattyApp.pointcloud', 'toastr']);
+  angular.module('pattyApp.searchbox', ['pattyApp.core', 'pattyApp.pointcloud']);
+  angular.module('pattyApp.biglegend', ['pattyApp.utils']);
 })();

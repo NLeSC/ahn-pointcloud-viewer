@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Project Patty Visualisation</title>
+  <title>AHN2 pointcloud viewer</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -73,6 +73,18 @@ void main() {
     </script>
   -->
 
+  <!-- Google Analytics tracking code -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-61775345-2', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
   <!-- Add your site or application content here -->
   <patty-search-panel class="clickable"></patty-search-panel>
   <patty-minimap class="clickable"></patty-minimap>
@@ -84,8 +96,8 @@ void main() {
     <patty-settings></patty-settings>
     <patty-help></patty-help>
   </div>
-  <patty-camera-modes></patty-camera-modes>
   <measuring-directive class="clickable"></measuring-directive>
+  <big-legend-directive></big-legend-directive>
   <logo-box-directive></logo-box-directive>
 
   <!-- build:js(.) scripts/oldieshim.js -->
@@ -123,11 +135,15 @@ void main() {
   <script src="bower_components/ol3-layerswitcher/src/ol3-layerswitcher.js"></script>
   <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
   <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+  <script src="bower_components/angular-debounce/dist/angular-debounce.js"></script>
+  <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
   <script src="scripts/app.js"></script>
+  <script src="scripts/utils/MeasuringTool.js"></script>
+  <script src="scripts/utils/TextSprite.js"></script>
   <script src="scripts/utils/messagebus.service.js"></script>
   <script src="scripts/utils/startfrom.filter.js"></script>
   <script src="scripts/utils/binggeocoder.service.js"></script>
@@ -140,26 +156,31 @@ void main() {
   <script src="scripts/settings/settings.controller.js"></script>
   <script src="scripts/help/help.directive.js"></script>
   <script src="scripts/help/help.controller.js"></script>
-  <script src="scripts/minimap/constants.js"></script>
   <script src="scripts/minimap/cam-frustum.service.js"></script>
   <script src="scripts/minimap/minimap.directive.js"></script>
   <script src="scripts/minimap/minimap.controller.js"></script>
   <script src="scripts/pointcloud/pointcloud.service.js"></script>
   <script src="scripts/pointcloud/scene.service.js"></script>
   <script src="scripts/pointcloud/camera.service.js"></script>
+  <script src="scripts/pointcloud/rail.service.js"></script>
   <script src="scripts/pointcloud/path.controls.js"></script>
   <script src="scripts/pointcloud/pointcloud-canvas.directive.js"></script>
   <script src="scripts/pointcloud/pointcloud-canvas.controller.js"></script>
-  <script src="scripts/cameramodes/cameramodes.directive.js"></script>
-  <script src="scripts/cameramodes/cameramodes.controller.js"></script>
   <script src="scripts/pointcloud/pointcloud-stats.directive.js"></script>
   <script src="scripts/pointcloud/pointcloud-stats.controller.js"></script>
   <script src="scripts/measuring/measuring.service.js"></script>
   <script src="scripts/measuring/measuring.directive.js"></script>
   <script src="scripts/measuring/measuring.controller.js"></script>
-  <script src="scripts/extract/extraction-selection.service.js"></script>
+  <script src="scripts/extract/extraction.selection.service.js"></script>
+  <script src="scripts/extract/minimap.extraction.selection.service.js"></script>
+  <script src="scripts/extract/pointcloud.extraction.selection.service.js"></script>
+  <script src="scripts/extract/pointcloud.extraction.drawing.service.js"></script>
   <script src="scripts/extract/extraction.directive.js"></script>
   <script src="scripts/extract/extraction.controller.js"></script>
+  <script src="scripts/utils/decimaladjust.service.js"></script>
+  <script src="scripts/utils/userAgent.service.js"></script>
+  <script src="scripts/biglegend/biglegend.directive.js"></script>
+  <script src="scripts/biglegend/biglegend.controller.js"></script>
 
   <!-- endbuild -->
 </body>

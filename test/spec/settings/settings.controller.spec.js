@@ -19,7 +19,6 @@ describe('settings.controller', function() {
   });
 
   describe('initial state', function() {
-
     it('should set showSettings to false', function() {
       expect(ctrl.showSettings).toBe(false);
     });
@@ -27,15 +26,5 @@ describe('settings.controller', function() {
     it('should have settings same as Pointcloud Service', function() {
       expect(ctrl.settings).toBe(PointcloudService.settings);
     });
-  });
-
-  describe('recordCameraLocation() function', function() {
-    it('should call recordLocation() of CameraService', inject(function(CameraService) {
-      spyOn(CameraService, 'recordLocation');
-
-      ctrl.recordCameraLocation();
-
-      expect(CameraService.recordLocation).toHaveBeenCalledWith();
-    }));
   });
 });

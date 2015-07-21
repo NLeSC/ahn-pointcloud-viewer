@@ -8,15 +8,8 @@
 (function() {
 	'use strict';
 
-	var NORMAL_MOVEMENT_SPEED_MULTIPLIER = 30;
-	var FAST_MOVEMENT_SPEED_MULTIPLIER = 10;
-
-	var me;
-
 	var camera;
 	var clock;
-	var path;
-	var lookatPath;
 	var drag = false;
 	var lookatPathFactor = 1.08;
 	var el;
@@ -42,18 +35,20 @@
 	var positionOnRoad = 0.0;
 	var looptime = 240;
 	var THREE;
+	var RailService;
 
-	var PathControls = function($window) {
-		THREE = $window.THREE;
-
-		me = this;
+	var PathControls = function(_THREE_, _RailService_, CameraService) {
+		THREE = _THREE_;
+		RailService = _RailService_;
+		this.NORMAL_MOVEMENT_SPEED_MULTIPLIER = 30;
+		this.FAST_MOVEMENT_SPEED_MULTIPLIER = 50;
+		this.cameraEasing = 10.0;
 
 		for (var i = 0; i < 130; i++) {
 			keys.push(false);
 		}
 
-		this.camera = null;
-		this.path = null;
+		camera = CameraService.camera;
 
 		clock = new THREE.Clock();
 
@@ -67,10 +62,7 @@
 		this.mode = this.modes.FLY;
 	};
 
-	PathControls.prototype.initCamera = function(cam, startPos) {
-		this.camera = cam;
-		camera = cam;
-
+	PathControls.prototype.initCamera = function(startPos) {
 		camera.position.copy(startPos);
 		camera.up.set(0, 1, 0);
 		camera.rotation.order = 'YXZ';
@@ -114,16 +106,10 @@
 		element.removeEventListener('DOMMouseScroll', mousewheel, false); // firefox
 	};
 
-	PathControls.prototype.init = function(cam, cameraPath, lookPath, element) {
-		var defLookPath = new THREE.SplineCurve3(lookPath);
-		lookatPath = new THREE.SplineCurve3(defLookPath.getSpacedPoints(100));
+	PathControls.prototype.init = function(element) {
+    this.initCamera(RailService.firstCameraPosition());
 
-		var definedPath = new THREE.SplineCurve3(cameraPath);
-		path = new THREE.SplineCurve3(definedPath.getSpacedPoints(100));
-
-        this.initCamera(cam, path.getPointAt(0));
-
-		this.lookat(lookatPath.getPointAt(0.05));
+		this.lookat(RailService.firstLookatPosition());
 		camera.updateProjectionMatrix();
 
 		this.initListeners(element);
@@ -190,6 +176,7 @@
 	//go to a point on the road near the specified point
 	PathControls.prototype.goToPointOnRoad = function(point) {
 		//find position on road
+		var path = RailService.cameraCurve;
 		positionOnRoad = findPrecisePositionOnPath(path, point);
 
 		//move the camera there
@@ -206,54 +193,6 @@
 
 	PathControls.prototype.moveTo = function(center) {
 		bodyPosition.copy(center);
-	};
-
-	function addBalls(scene, pointsArray, colorHex) {
-		var sphereGeo;
-		var meshMat;
-		var sphere;
-
-		sphereGeo = new THREE.SphereGeometry(0.5,32,32);
-		meshMat = new THREE.MeshBasicMaterial({color: colorHex});
-		for (var i=0; i<pointsArray.length; i++) {
-			sphere = new THREE.Mesh(sphereGeo, meshMat);
-			sphere.position.copy(pointsArray[i]);
-			scene.add(sphere);
-		}
-	}
-
-	PathControls.prototype.createPath = function() {
-		var tube = new THREE.TubeGeometry(path, 1024, 0.25, 8, false);
-		var lookTube = new THREE.TubeGeometry(lookatPath, 1024, 0.25, 8, false);
-
-		var tubeMesh = THREE.SceneUtils.createMultiMaterialObject( tube, [
-				new THREE.MeshLambertMaterial({
-					color: 0x00ffff
-				}),
-				new THREE.MeshBasicMaterial({
-					color: 0x00ffff,
-					opacity: 0.3,
-					wireframe: false,
-					transparent: false
-			})]);
-		var lookTubeMesh = THREE.SceneUtils.createMultiMaterialObject( lookTube, [
-				new THREE.MeshLambertMaterial({
-					color: 0x0000ff
-				}),
-				new THREE.MeshBasicMaterial({
-					color: 0x0000ff,
-					opacity: 0.3,
-					wireframe: false,
-					transparent: false
-			})]);
-
-		tubeMesh.add(lookTubeMesh);
-
-		addBalls(tubeMesh, path.points, 0xff0000);
-
-		addBalls(tubeMesh, lookatPath.points, 0x00ff00);
-
-		return tubeMesh;
 	};
 
 	function cap(value) {
@@ -290,6 +229,7 @@
 			positionOnRoad = looptime + positionOnRoad;
 		}
 
+		var path = RailService.cameraCurve;
 		camera.position.copy(path.getPointAt(positionOnRoad / looptime));
 	}
 
@@ -335,7 +275,9 @@
 		var factor = 1;
 
 		//compute the factor that will be used to scale the arclength used to index the lookatpath
+		var lookatPath = RailService.lookatCurve;
 		var estArcLookPath = findPrecisePositionOnPath(lookatPath, bodyPosition) / lookatPath.points.length;
+		var path = RailService.cameraCurve;
 		var estArcPath = findPrecisePositionOnPath(path, bodyPosition) / path.points.length;
 
 		//prevent div by zero
@@ -354,12 +296,14 @@
 		if (positionOnRoad < 0) {
 			positionOnRoad = looptime + positionOnRoad;
 		}
+		var path = RailService.cameraCurve;
 		camera.position.copy(path.getPointAt(positionOnRoad / looptime));
 
 		//slowly adjust the factor over time to the local factor
-		lookatPathFactor = (1.0 - delta/3.0) * lookatPathFactor + (delta/3.0) * getLocalFactor();
+		lookatPathFactor = (1.0 - delta/this.cameraEasing) * lookatPathFactor + (delta/this.cameraEasing) * getLocalFactor();
 		//console.log('f=' + lookatPathFactor);
 
+		var lookatPath = RailService.lookatCurve;
 		var positionOnLookPath = (positionOnRoad / looptime) * (  lookatPath.getLength() / path.getLength() ) * lookatPathFactor;
 		var lookPoint = lookatPath.getPointAt(cap(positionOnLookPath));
 
@@ -367,14 +311,15 @@
 	};
 
 	PathControls.prototype.updateInput = function() {
+		var path = RailService.cameraCurve;
 		if (!path) {
 			return;
 		}
 
 		var delta = clock.getDelta();
-		delta *= NORMAL_MOVEMENT_SPEED_MULTIPLIER;
+		delta *= this.NORMAL_MOVEMENT_SPEED_MULTIPLIER;
 		if (keys[32]) {
-			delta *= FAST_MOVEMENT_SPEED_MULTIPLIER;
+			delta *= this.FAST_MOVEMENT_SPEED_MULTIPLIER;
 		}
 
 		updateCameraRotation();
@@ -505,5 +450,5 @@
 	}
 
 	  angular.module('pattyApp.pointcloud')
-	    .service('PathControls', PathControls);
+	    .service('PathControls', ['THREE', 'RailService', 'CameraService', PathControls]);
 })();
