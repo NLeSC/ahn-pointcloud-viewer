@@ -4,7 +4,12 @@
   function ExtractionController(ExtractionSelectionService, pattyConf, $http, toastr) {
     this.selection = ExtractionSelectionService;
     this.email = '';
-    this.size = {};
+    this.size = {
+      coverage: 1,
+      returnedPoints: 0,
+      rawPoints: 0,
+      level: 14
+    };
 
     /**
      * Update size data by requesting it from server.
@@ -26,7 +31,6 @@
     this.submit = function() {
       var request = this.selection.toRequest();
       request.email = this.email;
-      request.level = this.size.level || 13;
       var apiEndpoint = pattyConf.AHN_API_ENDPOINT;
       var url = apiEndpoint + '/laz';
       $http.post(url, request).success(function(data) {

@@ -9,7 +9,7 @@
     <div class="extraction-text">
       To select points, please click on the minimap, or drag to select in the 3d view.
     </div>
-    <form name="extractForm" class="form-inline" role="search">
+    <form class="form-inline" name="extractForm" role="search">
       <div class="row">
         <div class="col-xs-12 form-group">
           <label for="email">Email</label>
@@ -41,13 +41,13 @@
       <button class="btn btn-default" ng-click="ec.count()" type="button">Count points</button>
       <button class="btn btn-primary" ng-click="ec.submit()" ng-disabled="extractForm.$invalid" type="submit">Submit</button>
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-6">
           Selected number of points:
-          <span>{{ec.size.points}}</span>
-          Level:
-          <span>{{ec.size.level}}</span>
+          <span>{{ec.size.rawPoints | number}}</span>
+        </div>
+        <div class="col-xs-6">
           Coverage (%):
-          <span>{{ec.size.coverage}}</span>
+          <span title="When not all points can be extracted, a percentage is returned">{{ec.size.coverage * 100 | number}}</span>
         </div>
       </div>
     </div>
