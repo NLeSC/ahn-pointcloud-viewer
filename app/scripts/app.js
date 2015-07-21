@@ -85,7 +85,7 @@
   angular.module('pattyApp.extract', ['pattyApp.core', 'angular-loading-bar', 'rt.debounce']);
   angular.module('pattyApp.utils', ['pattyApp.templates', 'toastr']);
   angular.module('pattyApp.core', ['pattyApp.utils']);
-  angular.module('pattyApp.minimap', ['pattyApp.core']);
+  angular.module('pattyApp.minimap', ['pattyApp.core', 'pattyApp.three']);
   //angular.module('pattyApp.maximap', ['pattyApp.core', 'pattyApp.three']);
   angular.module('pattyApp.measuring', ['pattyApp.potree', 'pattyApp.three']);
   angular.module('pattyApp.pointcloud', ['pattyApp.core', 'pattyApp.potree', 'pattyApp.three', 'pattyApp.measuring', 'cfp.loadingBar', 'pattyApp.extract']);
