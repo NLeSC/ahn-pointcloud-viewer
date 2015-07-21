@@ -9,12 +9,12 @@
     this._right = 94428.37;
     this._top = 438334.32;
 
-    this.sendUpdate = debounce(500, this.debouncedSendUpdate);
-
     this.debouncedSendUpdate = function() {
       this.checkSwapCoordinates();
       Messagebus.publish('extractionSelectionChanged', this.toRequest());
     }.bind(this);
+
+    this.sendUpdate = debounce(500, this.debouncedSendUpdate);
 
     this.updateValue = function(name, newValue) {
       if (newValue !== this[name]) {
