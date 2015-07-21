@@ -127,7 +127,7 @@ describe('minimap.CamFrustumService', function() {
         ]
       ];
 
-      service.onCameraMove(mockFrustum);
+      service.onCameraMove(mockFrustum, true);
       var expectedCoordinates = service.camFrustum.getCoordinates();
 
       expect(expectedCoordinates).toBeCloseEnoughTo(mockCamFrustumCoordinates);

@@ -122,7 +122,7 @@ var thecamera;
           viewport[3].y = 0;
         } else {
           //We could be under the plane, if so we need to swap near/far
-          if (this.camera.position.y < 0 ) {
+          if (this.camera.position.y < 0) {
             var temp0 = viewport[0];
             var temp1 = viewport[1];
             viewport[0] = viewport[2];
@@ -137,7 +137,7 @@ var thecamera;
         return SceneService.toGeo(corner);
       });
 
-      Messagebus.publish('cameraMoved', {'viewport':cameraFloorViewport, 'floorInSight':floorInSight});
+      Messagebus.publish('cameraMoved', cameraFloorViewport, floorInSight);
     };
 
     this.onWindowResize = function() {

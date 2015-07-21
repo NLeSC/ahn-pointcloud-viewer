@@ -150,8 +150,8 @@
       this.map.getView().setCenter(center);
     };
 
-    this.updateFrustrumAndCenterMap = function(event, frustum) {
-      CamFrustumService.onCameraMove(frustum);
+    this.updateFrustrumAndCenterMap = function(event, frustum, floorInSight) {
+      CamFrustumService.onCameraMove(frustum, floorInSight);
 
       // TODO center of bottom of frustrum + zoom on bottom of frustum
       var extent = CamFrustumService.getExtent();

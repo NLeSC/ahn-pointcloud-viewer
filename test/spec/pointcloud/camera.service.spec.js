@@ -62,7 +62,7 @@ describe('pointcloud.CameraService', function() {
 
       // comparing floats fails, so serialize
       var result = JSON.stringify(listener.calls.argsFor(0)[1]);
-      var expected = '[{"x":-140183.36973145982,"y":-3888888,"z":-80588.82034192001},{"x":230970.5373948199,"y":0,"z":-843344.3357521717},{"x":965363.4566517072,"y":0,"z":-322072.600759929},{"x":212424.7532911271,"y":0,"z":987646.4667043848}]';
+      var expected = '[{"x":684996.7171887874,"y":0,"z":-483250.241443769},{"x":-67941.98617179257,"y":0,"z":826468.8260205447},{"x":-887394.4108622714,"y":0,"z":453156.10322779755},{"x":-49396.20206809977,"y":0,"z":-1004521.9764360117}]';
       expect(listener).toHaveBeenCalled();
       expect(result).toEqual(expected);
     });
@@ -75,7 +75,7 @@ describe('pointcloud.CameraService', function() {
 
       // comparing floats fails, so serialize
       var result = JSON.stringify(listener.calls.argsFor(0)[1]);
-      var expected = '[{"x":-140183.36973145982,"y":-351353.9722696242,"z":-80588.82034192001},{"x":-6796701.543238078,"y":0,"z":3167591.346057139},{"x":-140183.36973145982,"y":-351353.9722696242,"z":-80588.82034192001},{"x":811876.7059218518,"y":0,"z":-399214.4336573684}]';
+      var expected = '[{"x":-811878.9718328929,"y":0,"z":399219.9886011715},{"x":-58575.84382072059,"y":0,"z":-911149.4051169781},{"x":81607525.91073923,"y":0,"z":-830560584.775058},{"x":-671695602.101433,"y":0,"z":479808808.9430916}]';
       expect(listener).toHaveBeenCalled();
       expect(result).toEqual(expected);
     });
@@ -88,7 +88,7 @@ describe('pointcloud.CameraService', function() {
 
       // comparing floats fails, so serialize
       var result = JSON.stringify(listener.calls.argsFor(0)[1]);
-      var expected = '[{"x":140183.36973145982,"y":351353.9722696242,"z":80588.82034192001},{"x":-37837.61145812042,"y":0,"z":-708717.7105740967},{"x":5374389.258166685,"y":0,"z":-2462338.1685317094},{"x":628150.325004511,"y":0,"z":5793636.799007997}]';
+      var expected = '[{"x":-625104.6593692244,"y":0,"z":312819.50949880836},{"x":-37837.61145812042,"y":0,"z":-708717.7105740967},{"x":5374389.258166685,"y":0,"z":-2462338.1685317094},{"x":628150.325004511,"y":0,"z":5793636.799007997}]';
       expect(listener).toHaveBeenCalled();
       expect(result).toEqual(expected);
     });
