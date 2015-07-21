@@ -1,6 +1,8 @@
 $icon-font-path: '../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/';
+$octicons-font-path: '../bower_components/octicons/octicons/';
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+@import "octicons/octicons/octicons.scss";
 // endbower
 .browsehappy {
   margin: 0.2em 0;
@@ -8,6 +10,7 @@ $icon-font-path: '../bower_components/bootstrap-sass-official/assets/fonts/boots
   color: #000;
   padding: 0.2em 0;
 }
+
 body {
   padding: 0;
   overflow: hidden;
@@ -427,4 +430,22 @@ patty-pointcloud-stats {
 
 extraction-panel .form-group {
   margin-bottom: 5px !important;
+}
+
+.controls-box {
+  position: absolute;
+  left: 45%;
+  bottom: 0px;
+}
+
+.giga-octicon {
+  font-size: 64px;
+}
+
+.octicon-globe {
+  color: white;
+}
+
+.octicon-globe.active {
+  color: chartreuse;
 }
