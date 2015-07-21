@@ -40,17 +40,19 @@
       var frac = 1 - (dist / maxlength);
 
       var mapCameraPos = middleBottom.clone().lerp(middleTop, frac);
-      return mapCameraPos.toArray();
+      return mapCameraPos.toArray().slice(0, 2);
     };
 
-    this.onCameraMove = function(frustum) {
-      var frustumGeo = frustum.viewport.map(function(corner) {
+    this.onCameraMove = function(frustum, floorInSight) {
+      var frustumGeo = frustum.map(function(corner) {
         return [corner.x, corner.y];
       });
 
-      if (frustum.floorInSight) {
+      if (floorInSight) {
+        // solid line
         this.layer.getStyle().getStroke().setLineDash([]);
       } else {
+        // dashed line
         this.layer.getStyle().getStroke().setLineDash([6]);
       }
 

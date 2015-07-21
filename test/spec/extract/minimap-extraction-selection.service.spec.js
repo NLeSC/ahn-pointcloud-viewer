@@ -46,11 +46,11 @@ describe('extract.MinimapExtractionSelectionService', function() {
         var coordinates = selection.getGeometry().getCoordinates();
         var expected = [
           [
-            [88000, 436899.97],
+            [88000, 417880],
             [88000, 405345],
             [102000, 405345],
-            [102000, 436899.97],
-            [88000, 436899.97]
+            [102000, 417880],
+            [88000, 417880]
           ]
         ];
         expect(coordinates).toEqual(expected);

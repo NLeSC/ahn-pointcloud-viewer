@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function ExtractionController(ExtractionSelectionService, pattyConf, $http, toastr) {    
+  function ExtractionController(ExtractionSelectionService, pattyConf, $http, toastr) {
     this.selection = ExtractionSelectionService;
     this.email = '';
     this.size = {};
