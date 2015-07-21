@@ -212,6 +212,7 @@ module.exports = function(grunt) {
           // skybox file name get generated with js, so cant be filerev-ed
           '!<%= yeoman.dist %>/images/skybox/*.jpg',
           '!<%= yeoman.dist %>/images/logos/*',
+          '!<%= yeoman.dist %>/images/rainbow_colormap.png',
           '<%= yeoman.dist %>/styles/fonts/*'
         ]
       }
