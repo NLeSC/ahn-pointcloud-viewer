@@ -1,4 +1,4 @@
-<!doctype html> <html class="no-js"> <head> <meta charset="utf-8"> <title>AHN2 pointcloud viewer</title> <meta name="description" content=""> <meta name="viewport" content="width=device-width"> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel="stylesheet" href="styles/vendor.b9fdd66e.css"> <link rel="stylesheet" href="styles/main.0df8ac32.css">  <script id="vs" type="x-shader/x-vertex">varying vec2 vUv;
+<!doctype html> <html class="no-js"> <head> <meta charset="utf-8"> <title>AHN2 pointcloud viewer</title> <meta name="description" content=""> <meta name="viewport" content="width=device-width"> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel="stylesheet" href="styles/vendor.b9fdd66e.css"> <link rel="stylesheet" href="styles/main.c96e0877.css">  <script id="vs" type="x-shader/x-vertex">varying vec2 vUv;
 void main() {
     vUv = uv;
     gl_Position =   projectionMatrix *
@@ -38,6 +38,12 @@ void main() {
       }
       callOtherDomain();
     </script>
-  --> <!-- Add your site or application content here --> <patty-search-panel class="clickable"></patty-search-panel> <patty-minimap class="clickable"></patty-minimap> <!--<patty-maximap class="clickable"></patty-maximap>--> <patty-pointcloud-canvas></patty-pointcloud-canvas> <patty-pointcloud-stats></patty-pointcloud-stats> <div class="controls"> <extraction-panel></extraction-panel> <patty-settings></patty-settings> <patty-help></patty-help> </div> <measuring-directive class="clickable"></measuring-directive> <logo-box-directive></logo-box-directive> <!--[if lt IE 9]>
+  --> <!-- Google Analytics tracking code --> <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-61775345-2', 'auto');
+    ga('send', 'pageview');</script> <!-- Add your site or application content here --> <patty-search-panel class="clickable"></patty-search-panel> <patty-minimap class="clickable"></patty-minimap> <!--<patty-maximap class="clickable"></patty-maximap>--> <patty-pointcloud-canvas></patty-pointcloud-canvas> <patty-pointcloud-stats></patty-pointcloud-stats> <div class="controls"> <extraction-panel></extraction-panel> <patty-settings></patty-settings> <patty-help></patty-help> </div> <measuring-directive class="clickable"></measuring-directive> <big-legend-directive></big-legend-directive> <logo-box-directive></logo-box-directive> <!--[if lt IE 9]>
   <script src="scripts/oldieshim.dd0049a7.js"></script>
-  <![endif]--> <script src="scripts/vendor.3f367cb4.js"></script> <script src="scripts/scripts.a3fd2528.js"></script>  
+  <![endif]--> <script src="scripts/vendor.44b96274.js"></script> <script src="scripts/scripts.40cdc14c.js"></script>  
