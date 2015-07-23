@@ -12,8 +12,8 @@ describe('earthcontrols.controller', function() {
     ctrl = $controller('EarthcontrolsController', { $scope: scope });
   }));
 
-  it('should not initially be turned on', function() {
-    expect(ctrl.enabled).toBeFalsy();
+  it('should initially be turned on', function() {
+    expect(ctrl.enabled).toBeTruthy();
   });
 
   describe('toggleEarthcontrols() function', function() {

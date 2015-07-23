@@ -5,7 +5,7 @@
   function PointcloudService(THREE, Potree, $window, $rootScope,
     DrivemapService,
     CameraService, SceneService,
-    PathControls, MeasuringService,
+    PathControls, MeasuringService, EarthcontrolsService,
     RailService, ExtractionDrawingService, PointcloudExtractionSelectionService,
     cfpLoadingBar) {
 
@@ -242,9 +242,6 @@
         var diffx = rightBottom.x - leftTop.x;
         var diffy = rightBottom.z - leftTop.z;
 
-        console.log(leftTop);
-        console.log(rightBottom);
-
         //var planeGeometry = new THREE.PlaneBufferGeometry( diffx, diffy, worldWidth - 1, worldHeight - 1 );
         //planeGeometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
         //planeGeometry.applyMatrix( new THREE.Matrix4().makeTranslation( leftTop.x+(diffx/2), -50, rightBottom.z-(diffy/2)) );
@@ -255,6 +252,8 @@
         PathControls.init(me.elRenderArea);
 
         MeasuringService.setPointcloud(pointcloud);
+
+        EarthcontrolsService.init(camera, me.renderer, scene, pointcloud, me.elRenderArea);
       });
     };
 
@@ -312,6 +311,10 @@
       MeasuringService.update();
 
       CameraService.update();
+
+      if (pointcloud) {
+        EarthcontrolsService.update();
+      }
 
       // SceneService.update();
 

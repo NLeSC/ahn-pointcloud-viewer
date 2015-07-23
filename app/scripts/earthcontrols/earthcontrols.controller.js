@@ -2,7 +2,7 @@
   'use strict';
 
   function EarthcontrolsController(Messagebus) {
-    this.enabled = false;
+    this.enabled = true;
 
     this.toggleEarthcontrols = function() {
       this.enabled = !this.enabled;

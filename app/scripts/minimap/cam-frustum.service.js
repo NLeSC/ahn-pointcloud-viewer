@@ -17,6 +17,7 @@
     });
 
     this.getExtent = function() {
+      
       return featureVector.getExtent();
     };
 

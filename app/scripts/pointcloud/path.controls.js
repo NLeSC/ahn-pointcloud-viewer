@@ -8,6 +8,7 @@
 (function() {
 	'use strict';
 
+
 	var camera;
 	var clock;
 	var drag = false;
@@ -37,7 +38,11 @@
 	var THREE;
 	var RailService;
 
+	var me;
+
 	var PathControls = function(_THREE_, _RailService_, CameraService) {
+		me = this;
+
 		THREE = _THREE_;
 		RailService = _RailService_;
 		this.NORMAL_MOVEMENT_SPEED_MULTIPLIER = 30;
@@ -322,7 +327,9 @@
 			delta *= this.FAST_MOVEMENT_SPEED_MULTIPLIER;
 		}
 
-		updateCameraRotation();
+		if (me.mode !== me.modes.OFF) {
+			updateCameraRotation();
+		}
 
 		if (this.mode === this.modes.DEMO) {
 			this.updateDemoMode(delta);
@@ -358,6 +365,15 @@
 		this.mode = this.modes.DEMO;
 	};
 
+	PathControls.prototype.disable = function() {
+		this.previousMode = this.mode;
+		this.mode = this.modes.OFF;
+	};
+
+	PathControls.prototype.enable = function() {
+		this.mode = this.previousMode;
+	};
+
 	function onKeyDown(event) {
 		keys[event.keyCode] = true;
 
@@ -383,70 +399,78 @@
 	}
 
 	function mousedown(event) {
-		//right mouse button going down!!
-		if (event.button === 2) {
+		if (me.mode !== me.modes.OFF) {
+			//right mouse button going down!!
+			if (event.button === 2) {
 
-			// claim focus when right click on canvas and not yet focused
-			if (document.activeElement !== el) {
-				el.focus();
+				// claim focus when right click on canvas and not yet focused
+				if (document.activeElement !== el) {
+					el.focus();
+				}
+
+				event.preventDefault();
+
+				mouseX = event.pageX;
+				mouseY = event.pageY;
+
+				drag = true;
 			}
-
-			event.preventDefault();
-
-			mouseX = event.pageX;
-			mouseY = event.pageY;
-
-			drag = true;
 		}
 	}
 
 	function mouseup(event) {
-		//right mouse button going up!!
-		if (event.button === 2) {
-			event.preventDefault();
-			drag = false;
+		if (me.mode !== me.modes.OFF) {
+			//right mouse button going up!!
+			if (event.button === 2) {
+				event.preventDefault();
+				drag = false;
+			}
 		}
 	}
 
 	function mousemove(event) {
-		if (!drag) {
-			return;
+		if (me.mode !== me.modes.OFF) {
+			if (!drag) {
+				return;
+			}
+
+			xAngle -= factor * (event.pageX - mouseX) / (window.innerWidth);
+			yAngle -= factor * (event.pageY - mouseY) / (window.innerHeight);
+
+			mouseX = event.pageX;
+			mouseY = event.pageY;
 		}
-
-		xAngle -= factor * (event.pageX - mouseX) / (window.innerWidth);
-		yAngle -= factor * (event.pageY - mouseY) / (window.innerHeight);
-
-		mouseX = event.pageX;
-		mouseY = event.pageY;
 	}
 
 	function mousewheel(event) {
-		event.preventDefault();
-		event.stopPropagation();
+		if (me.mode !== me.modes.OFF) {
+			event.preventDefault();
+			event.stopPropagation();
 
-		var delta = 0;
+			var delta = 0;
 
-		if (event.wheelDelta !== undefined) { // WebKit / Opera / Explorer 9
-			delta = event.wheelDelta;
-		} else if (event.detail !== undefined) { // Firefox
-			delta = -event.detail;
+			if (event.wheelDelta !== undefined) { // WebKit / Opera / Explorer 9
+				delta = event.wheelDelta;
+			} else if (event.detail !== undefined) { // Firefox
+				delta = -event.detail;
+			}
+
+			if (delta < 0) {
+				zoom += 2.5;
+			} else {
+				zoom -= 2.5;
+			}
+
+			if (zoom > maxZoom) {
+				zoom = maxZoom;
+			}
+			if (zoom < 5) {
+				zoom = 5;
+			}
+
+			camera.fov = zoom;
+			camera.updateProjectionMatrix();
 		}
-
-		if (delta < 0) {
-			zoom += 2.5;
-		} else {
-			zoom -= 2.5;
-		}
-
-		if (zoom > maxZoom) {
-			zoom = maxZoom;
-		}
-		if (zoom < 5) {
-			zoom = 5;
-		}
-
-		camera.fov = zoom;
-		camera.updateProjectionMatrix();
 	}
 
 	  angular.module('pattyApp.pointcloud')
