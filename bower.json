@@ -36,13 +36,23 @@
     "angular-toastr": "~1.4.1",
     "angular-loading-bar": "~0.7.1",
     "angular-debounce": "~1.0.3",
-    "ng-file-upload": "~5.0.9"
+    "ng-file-upload": "~5.0.9",
+    "octicons": "~2.4.1"
   },
   "overrides": {
     "openlayers3": {
       "main": [
         "build/ol.js",
         "css/ol.css"
+      ]
+    },
+    "octicons": {
+      "main": [
+        "octicons/octicons.scss",
+        "octicons/octicons.eot",
+        "octicons/octicons.svg",
+        "octicons/octicons.ttf",
+        "octicons/octicons.woff"
       ]
     },
     "oculus-bridge": {

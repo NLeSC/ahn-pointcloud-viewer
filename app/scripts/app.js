@@ -70,7 +70,8 @@
       'pattyApp.cameramodes',
       'pattyApp.pointcloud',
       'pattyApp.extract',
-      'pattyApp.biglegend'
+      'pattyApp.biglegend',
+      'pattyApp.earthcontrols'
     ])
     .config(function($compileProvider) {
        // data urls are not allowed by default, so whitelist them
@@ -88,10 +89,11 @@
   angular.module('pattyApp.minimap', ['pattyApp.core', 'pattyApp.three']);
   //angular.module('pattyApp.maximap', ['pattyApp.core', 'pattyApp.three']);
   angular.module('pattyApp.measuring', ['pattyApp.potree', 'pattyApp.three']);
-  angular.module('pattyApp.pointcloud', ['pattyApp.core', 'pattyApp.potree', 'pattyApp.three', 'pattyApp.measuring', 'cfp.loadingBar', 'pattyApp.extract']);
+  angular.module('pattyApp.pointcloud', ['pattyApp.core', 'pattyApp.potree', 'pattyApp.three', 'pattyApp.measuring', 'cfp.loadingBar', 'pattyApp.extract', 'pattyApp.earthcontrols']);
   angular.module('pattyApp.settings', ['pattyApp.pointcloud', 'ngFileUpload']);
   angular.module('pattyApp.help', ['pattyApp.templates']);
   angular.module('pattyApp.cameramodes', ['pattyApp.pointcloud']);
   angular.module('pattyApp.searchbox', ['pattyApp.core', 'pattyApp.pointcloud']);
   angular.module('pattyApp.biglegend', ['pattyApp.utils']);
+  angular.module('pattyApp.earthcontrols', ['pattyApp.utils', 'pattyApp.three', 'pattyApp.pointcloud']);
 })();
