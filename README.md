@@ -10,6 +10,13 @@ AHN pointcloud viewer
 Webgl pointcloud visualization of the Actuele Hoogtekaart Nederland (2) based on http://potree.org
 --------------------------------------------------------------------------------------------------
 
+Related repositories
+--------------------
+
+- [Massive-PotreeConverter](https://github.com/NLeSC/Massive-PotreeConverter): Used to extend PotreeConverter to deal with massive point clouds like AHN2. This visualization requires the point cloud data to be converted to the potree format.
+- [ahn-pointcloud-viewer-ws] (https://github.com/NLeSC/ahn-pointcloud-viewer-ws): Contains the web service in charge of the communication between this application and the database with meta-data regarding the point cloud data.
+
+
 Getting started (windows, from scratch)
 ---------------------------------------
 
