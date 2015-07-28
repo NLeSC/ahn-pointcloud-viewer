@@ -26,10 +26,6 @@
                 this help,
                 and <a href="#measure">measure</a>
                 </li>
-            <li>Bottom-left,
-                <a href="#extract">extract points</a>,
-                <a href="#settings">settings</a>
-                and help</li>
             <li>Bottom-middle,
                 two buttons to switch between interaction modes. As further explained in <a href="#navigation">Navigation</a>
             </li>
@@ -60,11 +56,14 @@
             Download the selected points as a laz-file. The download url will be mailed when it is ready. The selection of points can done in several ways:
             <ol>
                 <li>By clicking 2 points in the minimap</li>
+                <li>By drawing a box in the 3D point cloud visualization. This currently only works for the "Keyboard interaction" navigation mode</li>
                 <li>Filling in coordinates into the form</li>
             </ol>
             The coordinates are in
             <a href="http://epsg.io/28992">Amersfoort/RD new</a>
-            coordinate system.
+            coordinate system. 
+            Before submiting the job request you can also get an approximation of the number of points in your selected area. Coverage indicates the percentage of that data that you are allowed to download. There is a limit in the number of points that you can download. Depending on the extent of your selection you will download different resolutions of the point cloud. For small areas you can download the data up to its full resolution, i.e. 10 points/m2, but the larger the area the lower the density you get. 
+            Getting the approximation of number of points can take a few seconds depending on the selected area and the server load, so be patient.
         </div>
 
         <h2 id="settings">
