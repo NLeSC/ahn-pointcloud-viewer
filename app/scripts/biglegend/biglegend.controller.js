@@ -83,7 +83,55 @@
       };
     };
 
-    this.setOnload('images/rainbow_colormap.png');
+    /**
+     * Generates a look-up texture for gradient values (height, intensity, ...)
+     *
+     */
+    this.generateLegendTexture = function(gradient, width, height) {
+    	// create canvas
+    	var canvas = document.createElement( 'canvas' );
+    	canvas.width = width;
+    	canvas.height = height;
+
+    	// get context
+    	var context = canvas.getContext( '2d' );
+
+    	// draw gradient
+    	context.rect( 0, 0, width, height );
+    	var ctxGradient = context.createLinearGradient( 0, height, width, 0 );
+
+    	for(var i = 0;i < gradient.length; i++){
+    		var step = gradient[i];
+
+    		ctxGradient.addColorStop(step[0], '#' + step[1].getHexString());
+    	}
+
+    	context.fillStyle = ctxGradient;
+    	context.fill();
+
+    	return context;
+    };
+
+    this.setTexture = function(gradient) {
+      var context = document.getElementById('bigLegendCanvas').getContext('2d');
+      var img = new Image();
+      var imageDataContext = this.generateLegendTexture(gradient, 1, 255);
+
+      img.src = imageDataContext.canvas.toDataURL();
+
+      img.onload = function() {
+        context.canvas.width = 1;
+        context.canvas.height = 255;
+
+        context.drawImage(img, 0, 0);
+      };
+    };
+
+    Messagebus.subscribe('legendTexture change', function(event, value) {
+      this.setTexture(value);
+    }.bind(this));
+
+    //this.setOnload('images/rainbow_colormap.png');
   }
 
   angular.module('pattyApp.biglegend').controller('BigLegendController', BigLegendController);
