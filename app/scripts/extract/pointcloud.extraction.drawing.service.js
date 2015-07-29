@@ -2,15 +2,13 @@
   'use strict';
 
   function ExtractionDrawingService(THREE, SceneService, Messagebus) {
-    var SELECTION_WALL_DEPTH = -10;
-    var SELECTION_WALL_HEIGHT = 100;
-
     this.color = new THREE.Color(0xffffff);
 
     this.renderer = null;
     this.scene = null;
     this.camera = null;
-    this.mesh = null;
+    this.selectionMesh = null;
+    this.intermediateMesh = null;
 
     this.init = function(renderer, scene, camera) {
       this.renderer = renderer;
@@ -19,21 +17,39 @@
     };
 
     this.remoteSelectionChanged = function(event, bbox) {
-      this.scene.remove(this.mesh);
-      this.mesh = this.buildSelectionGeometry(bbox);
-      this.scene.add(this.mesh);
-    };
+      this.scene.remove(this.selectionMesh);
 
-    Messagebus.subscribe('extractionSelectionChanged', this.remoteSelectionChanged.bind(this));
-
-    this.buildSelectionGeometry = function(bbox) {
       var leftTopLocal = SceneService.toLocal(new THREE.Vector3(bbox.left, bbox.top, 0));
       var rightTopLocal = SceneService.toLocal(new THREE.Vector3(bbox.right, bbox.top, 0));
       var rightBottomLocal = SceneService.toLocal(new THREE.Vector3(bbox.right, bbox.bottom, 0));
       var leftBottomLocal = SceneService.toLocal(new THREE.Vector3(bbox.left, bbox.bottom, 0));
 
+      this.selectionMesh = this.buildSelectionGeometry(leftTopLocal, rightTopLocal, rightBottomLocal, leftBottomLocal, 0xFF0000);
+      this.scene.add(this.selectionMesh);
+    };
+
+    Messagebus.subscribe('extractionSelectionChanged', this.remoteSelectionChanged.bind(this));
+
+    this.setIntermediate = function(mouseDownPoint, mouseMovePoint) {
+      this.scene.remove(this.selectionMesh);
+      this.scene.remove(this.intermediateMesh);
+
+      var leftTopLocal = new THREE.Vector3(mouseDownPoint.x, 0, mouseDownPoint.z);
+      var rightTopLocal = new THREE.Vector3(mouseMovePoint.x, 0, mouseDownPoint.z);
+      var rightBottomLocal = new THREE.Vector3(mouseMovePoint.x, 0, mouseMovePoint.z);
+      var leftBottomLocal = new THREE.Vector3(mouseDownPoint.x, 0, mouseMovePoint.z);
+
+      this.intermediateMesh = this.buildSelectionGeometry(leftTopLocal, rightTopLocal, rightBottomLocal, leftBottomLocal, 0xFF0000);
+      this.scene.add(this.intermediateMesh);
+    };
+
+    this.removeIntermediate = function() {
+      this.scene.remove(this.intermediateMesh);
+    };
+
+    this.buildSelectionGeometry = function(leftTopLocal, rightTopLocal, rightBottomLocal, leftBottomLocal, color) {
       var boxMaterial = new THREE.MeshBasicMaterial({
-        color: 0x00FF00,
+        color: color,
         side: THREE.DoubleSide,
         transparent: true,
         wireframe: false,
@@ -42,71 +58,45 @@
       });
 
       var geometry = new THREE.Geometry();
-      var counter = 0;
+      var translationMatrix = null;
 
-      //Top Square
-      geometry.vertices.push(new THREE.Vector3(leftTopLocal.x, SELECTION_WALL_DEPTH, leftTopLocal.z));
-      geometry.vertices.push(new THREE.Vector3(leftTopLocal.x, SELECTION_WALL_HEIGHT, leftTopLocal.z));
-      geometry.vertices.push(new THREE.Vector3(rightTopLocal.x, SELECTION_WALL_DEPTH, rightTopLocal.z));
+      var topBox = new THREE.BoxGeometry(rightTopLocal.x-leftTopLocal.x+200, 100, 100);
+      translationMatrix = new THREE.Matrix4().setPosition(new THREE.Vector3(leftTopLocal.x+ 0.5*(rightTopLocal.x-leftTopLocal.x), 45, leftTopLocal.z+50));
+      topBox.applyMatrix(translationMatrix);
 
-      geometry.faces.push(new THREE.Face3(counter++, counter++, counter++));
+      var rightBox = new THREE.BoxGeometry(100, 100, rightTopLocal.z-rightBottomLocal.z+200);
+      translationMatrix = new THREE.Matrix4().setPosition(new THREE.Vector3(rightBottomLocal.x+50, 45, rightBottomLocal.z+0.5*(rightTopLocal.z-rightBottomLocal.z)));
+      rightBox.applyMatrix(translationMatrix);
 
-      geometry.vertices.push(new THREE.Vector3(leftTopLocal.x, SELECTION_WALL_HEIGHT, leftTopLocal.z));
-      geometry.vertices.push(new THREE.Vector3(rightTopLocal.x, SELECTION_WALL_HEIGHT, rightTopLocal.z));
-      geometry.vertices.push(new THREE.Vector3(rightTopLocal.x, SELECTION_WALL_DEPTH, rightTopLocal.z));
+      var bottomBox = new THREE.BoxGeometry(rightBottomLocal.x-leftBottomLocal.x+200, 100, 100);
+      translationMatrix = new THREE.Matrix4().setPosition(new THREE.Vector3(leftBottomLocal.x+ 0.5*(rightBottomLocal.x-leftBottomLocal.x), 45, leftBottomLocal.z-50));
+      bottomBox.applyMatrix(translationMatrix);
 
-      geometry.faces.push(new THREE.Face3(counter++, counter++, counter++));
+      var leftBox = new THREE.BoxGeometry(100, 100, leftTopLocal.z-leftBottomLocal.z+200);
+      translationMatrix = new THREE.Matrix4().setPosition(new THREE.Vector3(leftTopLocal.x-50, 45, leftBottomLocal.z+0.5*(leftTopLocal.z-leftBottomLocal.z)));
+      leftBox.applyMatrix(translationMatrix);
 
-      //Right Square
-      geometry.vertices.push(new THREE.Vector3(rightTopLocal.x, SELECTION_WALL_DEPTH, rightTopLocal.z));
-      geometry.vertices.push(new THREE.Vector3(rightTopLocal.x, SELECTION_WALL_HEIGHT, rightTopLocal.z));
-      geometry.vertices.push(new THREE.Vector3(rightBottomLocal.x, SELECTION_WALL_DEPTH, rightBottomLocal.z));
-
-      geometry.faces.push(new THREE.Face3(counter++, counter++, counter++));
-
-      geometry.vertices.push(new THREE.Vector3(rightTopLocal.x, SELECTION_WALL_HEIGHT, rightTopLocal.z));
-      geometry.vertices.push(new THREE.Vector3(rightBottomLocal.x, SELECTION_WALL_HEIGHT, rightBottomLocal.z));
-      geometry.vertices.push(new THREE.Vector3(rightBottomLocal.x, SELECTION_WALL_DEPTH, rightBottomLocal.z));
-
-      geometry.faces.push(new THREE.Face3(counter++, counter++, counter++));
-
-
-      //Bottom Square
-      geometry.vertices.push(new THREE.Vector3(rightBottomLocal.x, SELECTION_WALL_DEPTH, rightBottomLocal.z));
-      geometry.vertices.push(new THREE.Vector3(rightBottomLocal.x, SELECTION_WALL_HEIGHT, rightBottomLocal.z));
-      geometry.vertices.push(new THREE.Vector3(leftBottomLocal.x, SELECTION_WALL_DEPTH, leftBottomLocal.z));
-
-      geometry.faces.push(new THREE.Face3(counter++, counter++, counter++));
-
-      geometry.vertices.push(new THREE.Vector3(rightBottomLocal.x, SELECTION_WALL_HEIGHT, rightBottomLocal.z));
-      geometry.vertices.push(new THREE.Vector3(leftBottomLocal.x, SELECTION_WALL_HEIGHT, leftBottomLocal.z));
-      geometry.vertices.push(new THREE.Vector3(leftBottomLocal.x, SELECTION_WALL_DEPTH, leftBottomLocal.z));
-
-      geometry.faces.push(new THREE.Face3(counter++, counter++, counter++));
-
-      //Left Square
-      geometry.vertices.push(new THREE.Vector3(leftBottomLocal.x, SELECTION_WALL_DEPTH, leftBottomLocal.z));
-      geometry.vertices.push(new THREE.Vector3(leftBottomLocal.x, SELECTION_WALL_HEIGHT, leftBottomLocal.z));
-      geometry.vertices.push(new THREE.Vector3(leftTopLocal.x, SELECTION_WALL_DEPTH, leftTopLocal.z));
-
-      geometry.faces.push(new THREE.Face3(counter++, counter++, counter++));
-
-      geometry.vertices.push(new THREE.Vector3(leftBottomLocal.x, SELECTION_WALL_HEIGHT, leftBottomLocal.z));
-      geometry.vertices.push(new THREE.Vector3(leftTopLocal.x, SELECTION_WALL_HEIGHT, leftTopLocal.z));
-      geometry.vertices.push(new THREE.Vector3(leftTopLocal.x, SELECTION_WALL_DEPTH, leftTopLocal.z));
-
-      geometry.faces.push(new THREE.Face3(counter++, counter++, counter++));
+      THREE.GeometryUtils.merge(geometry, topBox);
+      THREE.GeometryUtils.merge(geometry, rightBox);
+      THREE.GeometryUtils.merge(geometry, bottomBox);
+      THREE.GeometryUtils.merge(geometry, leftBox);
 
       var mesh = new THREE.Mesh(geometry, boxMaterial);
       return mesh;
     };
 
     this.activationChanged = function(event, active) {
-      if (active && this.mesh !== null) {
-        this.scene.add(this.mesh);
+      if (active) {
+        if (this.selectionMesh !== null) {
+          this.scene.add(this.selectionMesh);
+        }
+        if (this.intermediateMesh !== null) {
+          this.scene.add(this.intermediateMesh);
+        }
         this.show = true;
       } else {
-        this.scene.remove(this.mesh);
+        this.scene.remove(this.selectionMesh);
+        this.scene.remove(this.intermediateMesh);
         this.show = false;
       }
     };

@@ -365,6 +365,11 @@ module.exports = function(grunt) {
         }, {
           expand: true,
           cwd: '.',
+          src: 'bower_components/octicons/octicons/*.{ttf,woff,svg,eot}',
+          dest: '<%= yeoman.dist %>'
+        }, {
+          expand: true,
+          cwd: '.',
           dest: '<%= yeoman.dist %>',
           src: [
             'bower_components/potree/resources/textures/skybox/*.jpg'

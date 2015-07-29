@@ -46,6 +46,10 @@
 			}
     };
 
+    Messagebus.subscribe('earthcontrols suspended', function(event, value) {
+      this.earthControls.enabled = !value;
+    }.bind(this));
+
     Messagebus.subscribe('earthcontrols enabled', function(event, value) {
       this.enabled = value;
 
@@ -56,8 +60,6 @@
       }
 
       this.earthControls.enabled = value;
-
-      console.log('earthcontrols: ' + value);
     }.bind(this));
   }
 

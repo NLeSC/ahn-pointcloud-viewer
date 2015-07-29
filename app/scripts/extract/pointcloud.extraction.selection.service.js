@@ -1,12 +1,13 @@
 (function() {
   'use strict';
 
-  function PointcloudExtractionSelectionService(THREE, SceneService, ExtractionSelectionService, Messagebus, Potree) {
+  function PointcloudExtractionSelectionService(THREE, SceneService, ExtractionSelectionService, ExtractionDrawingService, Messagebus, Potree) {
     var me = this;
 
     this.selectionActive = false;
-    this.topRightPoint = null;
-    this.bottomLeftPoint = null;
+    this.mouseDownPoint = null;
+    this.mouseDownLocalPoint = null;
+    this.otherPoint = null;
 
     this.renderer = null;
     this.scene = null;
@@ -58,20 +59,17 @@
   		}
 
   		return closestPoint ? closestPoint.position : null;
-  	}
+  	};
 
     var scope = this;
 
     function onMouseDown(event){
       if(me.selectionActive) {
         if(event.which === 1) {
-          var I = scope.getMousePointCloudIntersection();
-          console.log('Down!');
-          console.log(I);
+          me.mouseDownLocalPoint = scope.getMousePointCloudIntersection();
 
-    			if(I){
-    				me.topRightPoint = SceneService.toGeo(I);
-            console.log(me.topRightPoint);
+    			if(me.mouseDownLocalPoint){
+    				me.mouseDownPoint = SceneService.toGeo(me.mouseDownLocalPoint);
     			}
         }
       }
@@ -81,30 +79,40 @@
       if(me.selectionActive) {
         if(event.which === 1) {
           var I = scope.getMousePointCloudIntersection();
-          console.log('Up!');
-          console.log(I);
 
     			if(I){
-    				me.bottomLeftPoint = SceneService.toGeo(I);
-            console.log(me.bottomLeftPoint);
+    				me.otherPoint = SceneService.toGeo(I);
 
-            var topRight = {lat:me.topRightPoint.y, lon:me.topRightPoint.x};
-            var bottomLeft = {lat:me.bottomLeftPoint.y, lon:me.bottomLeftPoint.x};
+            var topRight = {lat:me.mouseDownPoint.y, lon:me.mouseDownPoint.x};
+            var bottomLeft = {lat:me.otherPoint.y, lon:me.otherPoint.x};
 
             ExtractionSelectionService.setTopRightCoordinates(topRight);
             ExtractionSelectionService.setBottomLeftCoordinates(bottomLeft);
+
+            me.mouseDownLocalPoint = null;
     			}
         }
       }
   	}
 
     function onMouseMove(event){
-  		me.mouse.x = ( event.clientX / me.renderer.domElement.clientWidth ) * 2 - 1;
-  		me.mouse.y = - ( event.clientY / me.renderer.domElement.clientHeight ) * 2 + 1;
+      if(me.selectionActive) {
+    		me.mouse.x = ( event.clientX / me.renderer.domElement.clientWidth ) * 2 - 1;
+    		me.mouse.y = - ( event.clientY / me.renderer.domElement.clientHeight ) * 2 + 1;
+
+        var mouseMoveLocalPoint = scope.getMousePointCloudIntersection();
+
+        if(me.mouseDownLocalPoint && mouseMoveLocalPoint){
+          ExtractionDrawingService.setIntermediate(me.mouseDownLocalPoint, mouseMoveLocalPoint);
+        } else {
+          ExtractionDrawingService.removeIntermediate();
+        }
+      }
   	}
 
     this.activationChanged = function(event, active) {
       this.selectionActive = active;
+      Messagebus.publish('earthcontrols suspended', active);
     };
 
     Messagebus.subscribe('extractionSelectionActivationChanged', this.activationChanged.bind(this));

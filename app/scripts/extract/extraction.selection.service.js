@@ -58,7 +58,7 @@
       get: function() { return this._bottom; },
       set: function(newValue) {
         this.updateValue('_bottom', newValue);
-      }
+      } 
     });
 
     this.checkSwapCoordinates = function() {

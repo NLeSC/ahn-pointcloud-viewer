@@ -10,14 +10,38 @@
       source: featureVector,
       style: new ol.style.Style({
         stroke: new ol.style.Stroke({
-          color: 'red',
+          color: 'chartreuse',
           width: 2
         })
       })
     });
 
     this.getExtent = function() {
-      
+      // var coordinates =  this.camFrustum.getCoordinates();
+      // var leftBottom  = new THREE.Vector3(coordinates[0][0], coordinates[0][1], 0);
+      // var rightBottom = new THREE.Vector3(coordinates[1][0], coordinates[1][1], 0);
+      //
+      // var minx, miny, maxx, maxy;
+      //
+      // minx = leftBottom.x;
+      // if (rightBottom.x < minx) {
+      //   minx = rightBottom.x;
+      // }
+      // maxx = leftBottom.x;
+      // if (rightBottom.x > maxx) {
+      //   maxx = rightBottom.x;
+      // }
+      // miny = leftBottom.y;
+      // if (rightBottom.y < miny) {
+      //   minx = rightBottom.y;
+      // }
+      // maxy = leftBottom.y;
+      // if (rightBottom.y > maxy) {
+      //   maxy = rightBottom.y;
+      // }
+      //
+      // return [minx, miny, maxx, maxy];
+
       return featureVector.getExtent();
     };
 

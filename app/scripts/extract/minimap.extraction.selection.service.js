@@ -13,7 +13,7 @@
           color: 'rgba(255, 255, 255, 0.2)'
         }),
         stroke: new ol.style.Stroke({
-          color: '#0f0',
+          color: '#f00',
           width: 2
         })
       }),
@@ -43,13 +43,13 @@
           color: 'rgba(255, 255, 255, 0.2)'
         }),
         stroke: new ol.style.Stroke({
-          color: '#0f0',
+          color: '#f00',
           width: 3
         }),
         // cross as mouse pointer
         image: new ol.style.RegularShape({
           stroke: new ol.style.Stroke({
-            color: '#0f0',
+            color: '#f00',
             width: 2
           }),
           points: 4,
