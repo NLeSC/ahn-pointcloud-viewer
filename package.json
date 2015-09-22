@@ -6,7 +6,7 @@
     "url": "https://github.com/NLeSC/PattyVis.git"
   },
   "dependencies": {
-    "grunt-protractor-runner": "^1.1.4"
+    "grunt-protractor-runner": "^1.2.1"
   },
   "devDependencies": {
     "codeclimate-test-reporter": "0.0.4",
