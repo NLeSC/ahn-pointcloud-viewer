@@ -268,6 +268,8 @@
       [1,new THREE.Color(0.9932,0.9062,0.1439)]
     ];
 
+    var QUALITIES = { Splats:'Splats'};
+
     var me = this;
 
     this.elRenderArea = null;
@@ -275,25 +277,29 @@
     me.settings = {
       pointCountTarget: 2.5,
       pointSize: 1.00,
-      opacity: 1,
+      opacity: 0,
       showSkybox: true,
       interpolate: true,
       showStats: false,
       highQuality: false,
       showBoundingBox: false,
+
       pointSizeType: Potree.PointSizeType.ADAPTIVE,
       pointSizeTypes: Potree.PointSizeType,
       pointColorType: Potree.PointColorType.HEIGHT,
       pointColorTypes: Potree.PointColorType,
-      pointShapes: Potree.PointShape,
       pointShape: Potree.PointShape.CIRCLE,
+      pointShapes: Potree.PointShape,
       clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
       clipModes: Potree.ClipMode,
+      qualities: QUALITIES,
+      quality: QUALITIES.Splats,
+
       useDEMCollisions: false,
       minNodeSize: 100,
       heightMin: -5,
       heightMax: 45,
-      useEDL: true
+      useEDL: false
     };
 
     me.stats = {
@@ -555,33 +561,31 @@
       if (pointcloud) {
         var bbWorld = Potree.utils.computeTransformedBoundingBox(pointcloud.boundingBox, pointcloud.matrixWorld);
 
-        		if(!intensityMax){
-        			var root = pointcloud.pcoGeometry.root;
-        			if(root !== null && root.loaded){
-        				var attributes = pointcloud.pcoGeometry.root.geometry.attributes;
-        				if(attributes.intensity){
-        					var array = attributes.intensity.array;
-        					var max = 0;
-        					for(var i = 0; i < array.length; i++){
-        						max = Math.max(array[i]);
-        					}
+        if (!intensityMax) {
+          var root = pointcloud.pcoGeometry.root;
+          if (root !== null && root.loaded) {
+            var attributes = pointcloud.pcoGeometry.root.geometry.attributes;
+            if (attributes.intensity) {
+              var array = attributes.intensity.array;
+              var max = 0;
+              for (var i = 0; i < array.length; i++) {
+                max = Math.max(array[i]);
+              }
 
-        					if(max <= 1){
-        						intensityMax = 1;
-        					}else if(max <= 256){
-        						intensityMax = 255;
-        					}else{
-        						intensityMax = max;
-        					}
-        				}
-        			}
-        		}
-
-        		if(heightMin === null){
-        			heightMin = bbWorld.min.y;
-        			heightMax = bbWorld.max.y;
-        		}
-
+              if (max <= 1) {
+                intensityMax = 1;
+              } else if (max <= 256) {
+                intensityMax = 255;
+              } else {
+                intensityMax = max;
+              }
+            }
+          }
+        }
+        if (heightMin === null) {
+          heightMin = bbWorld.min.y;
+          heightMax = bbWorld.max.y;
+        }
 
 
         pointcloud.material.clipMode = me.settings.clipMode;
@@ -595,7 +599,7 @@
         pointcloud.material.heightMin = heightMin;
         pointcloud.material.heightMax = heightMax;
         pointcloud.material.intensityMin = 0;
-        pointcloud.material.intensityMax = intensityMax;
+        pointcloud.material.intensityMax = 65000;
         //pointcloud.material.weighted = true;
         pointcloud.material.minSize = 2;
         pointcloud.showBoundingBox = me.settings.showBoundingBox;
@@ -677,6 +681,7 @@
           pointcloud.material.pointShape = (me.settings.quality === 'Circles') ? Potree.PointShape.CIRCLE : Potree.PointShape.SQUARE;
           pointcloud.material.interpolate = (me.settings.quality === 'Interpolation');
           pointcloud.material.weighted = false;
+          pointcloud.material.gradient = Potree.Gradients.VIRIDIS;
         }
 
         // render scene
@@ -718,6 +723,7 @@
         depthMaterial.minSize = 2;
 
         attributeMaterial.pointShape = Potree.PointShape.CIRCLE;
+        attributeMaterial.gradient = Potree.Gradients.VIRIDIS;
         attributeMaterial.interpolate = false;
         attributeMaterial.weighted = true;
         attributeMaterial.minSize = 2;
