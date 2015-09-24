@@ -15,14 +15,13 @@ describe('pointcloud.service', function() {
     });
   });
 
-
   describe('initial state', function() {
     it('should have settings', function() {
 
       var expected = {
         pointCountTarget: 2.5,
         pointSize: 1.00,
-        opacity: 1,
+        opacity: 0,
         showSkybox: true,
         interpolate: true,
         showStats: false,
@@ -32,12 +31,17 @@ describe('pointcloud.service', function() {
         pointSizeTypes: Potree.PointSizeType,
         pointColorType: Potree.PointColorType.HEIGHT,
         pointColorTypes: Potree.PointColorType,
-        pointShapes: Potree.PointShape,
         pointShape: Potree.PointShape.CIRCLE,
+        pointShapes: Potree.PointShape,
         clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
         clipModes: Potree.ClipMode,
+        qualities:  Object({ Splats: 'Splats' }),
+        quality: 'Splats',
+        useDEMCollisions: false,
+        minNodeSize: 100,
         heightMin: -5,
-        heightMax: 45
+        heightMax: 45,
+        useEDL: false
       };
 
       expect(PointcloudService.settings).toEqual(expected);
@@ -46,8 +50,7 @@ describe('pointcloud.service', function() {
 
   describe('with DrivemapService loaded and OrbitControls and PathControls initialized', function() {
     var DrivemapService = null,
-      canvasElement = null,
-      site162 = null;
+      canvasElement = null;
 
     beforeEach(inject(function(_DrivemapService_, defaultDrivemapJSON) {
       DrivemapService = _DrivemapService_;
