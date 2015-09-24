@@ -63,7 +63,8 @@
         "build/js/potree.js",
         "libs/plasio/js/laslaz.js",
         "build/workers/laslaz-worker.js",
-        "build/workers/lasdecoder-worker.js"
+        "build/workers/lasdecoder-worker.js",
+        "libs/other/BinaryHeap.js"
       ]
     },
     "stats.js": {

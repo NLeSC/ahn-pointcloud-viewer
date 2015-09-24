@@ -268,7 +268,7 @@
       [1,new THREE.Color(0.9932,0.9062,0.1439)]
     ];
 
-    var QUALITIES = { Splats:'Splats'};
+    var QUALITIES = { Splats:'Splats', Low:'Circle'};
 
     var me = this;
 
@@ -277,9 +277,9 @@
     me.settings = {
       pointCountTarget: 2.5,
       pointSize: 1.00,
-      opacity: 0,
+      opacity: 1,
       showSkybox: true,
-      interpolate: true,
+      interpolate: false,
       showStats: false,
       highQuality: false,
       showBoundingBox: false,
@@ -301,6 +301,74 @@
       heightMax: 45,
       useEDL: false
     };
+
+    me.predefinedSettings = {
+      'LOW': {
+      pointCountTarget: 2.0,
+      pointSize: 1.00,
+      opacity: 1,
+      showSkybox: true,
+      interpolate: false,
+      showStats: false,
+      highQuality: false,
+      showBoundingBox: false,
+
+      pointSizeType: Potree.PointSizeType.ADAPTIVE,
+      pointColorType: Potree.PointColorType.HEIGHT,
+      pointShape: Potree.PointShape.CIRCLE,
+      clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
+      quality: QUALITIES.Low,
+
+      useDEMCollisions: false,
+      minNodeSize: 100,
+      heightMin: -5,
+      heightMax: 45,
+      useEDL: false
+    },
+    'MEDIUM': {
+      pointCountTarget: 2.5,
+      pointSize: 1.00,
+      opacity: 1,
+      showSkybox: true,
+      interpolate: true,
+      showStats: false,
+      highQuality: true,
+      showBoundingBox: false,
+
+      pointSizeType: Potree.PointSizeType.ADAPTIVE,
+      pointColorType: Potree.PointColorType.HEIGHT,
+      pointShape: Potree.PointShape.CIRCLE,
+      clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
+      quality: QUALITIES.Splats,
+
+      useDEMCollisions: false,
+      minNodeSize: 100,
+      heightMin: -5,
+      heightMax: 45,
+      useEDL: false
+    },
+    'HIGH': {
+      pointCountTarget: 3,
+      pointSize: 1.00,
+      opacity: 1,
+      showSkybox: true,
+      interpolate: true,
+      showStats: false,
+      highQuality: false,
+      showBoundingBox: false,
+
+      pointSizeType: Potree.PointSizeType.ATTENUATED,
+      pointColorType: Potree.PointColorType.HEIGHT,
+      pointShape: Potree.PointShape.CIRCLE,
+      clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
+      quality: QUALITIES.Splats,
+
+      useDEMCollisions: false,
+      minNodeSize: 100,
+      heightMin: -5,
+      heightMax: 45,
+      useEDL: true
+    }};
 
     me.stats = {
       nrPoints: 0,
@@ -559,33 +627,33 @@
       directionalLight.lookAt(new THREE.Vector3().addVectors(camera.position, camera.getWorldDirection()));
 
       if (pointcloud) {
-        var bbWorld = Potree.utils.computeTransformedBoundingBox(pointcloud.boundingBox, pointcloud.matrixWorld);
-
-        if (!intensityMax) {
-          var root = pointcloud.pcoGeometry.root;
-          if (root !== null && root.loaded) {
-            var attributes = pointcloud.pcoGeometry.root.geometry.attributes;
-            if (attributes.intensity) {
-              var array = attributes.intensity.array;
-              var max = 0;
-              for (var i = 0; i < array.length; i++) {
-                max = Math.max(array[i]);
-              }
-
-              if (max <= 1) {
-                intensityMax = 1;
-              } else if (max <= 256) {
-                intensityMax = 255;
-              } else {
-                intensityMax = max;
-              }
-            }
-          }
-        }
-        if (heightMin === null) {
-          heightMin = bbWorld.min.y;
-          heightMax = bbWorld.max.y;
-        }
+      //   var bbWorld = Potree.utils.computeTransformedBoundingBox(pointcloud.boundingBox, pointcloud.matrixWorld);
+      //
+      //   if (!intensityMax) {
+      //     var root = pointcloud.pcoGeometry.root;
+      //     if (root !== null && root.loaded) {
+      //       var attributes = pointcloud.pcoGeometry.root.geometry.attributes;
+      //       if (attributes.intensity) {
+      //         var array = attributes.intensity.array;
+      //         var max = 0;
+      //         for (var i = 0; i < array.length; i++) {
+      //           max = Math.max(array[i]);
+      //         }
+      //
+      //         if (max <= 1) {
+      //           intensityMax = 1;
+      //         } else if (max <= 256) {
+      //           intensityMax = 255;
+      //         } else {
+      //           intensityMax = max;
+      //         }
+      //       }
+      //     }
+      //   }
+      //   if (heightMin === null) {
+      //     heightMin = bbWorld.min.y;
+      //     heightMax = bbWorld.max.y;
+      //   }
 
 
         pointcloud.material.clipMode = me.settings.clipMode;
@@ -596,8 +664,8 @@
         pointcloud.material.pointColorType = me.settings.pointColorType;
         pointcloud.material.pointShape = me.settings.pointShape;
         pointcloud.material.interpolate = me.settings.interpolate;
-        pointcloud.material.heightMin = heightMin;
-        pointcloud.material.heightMax = heightMax;
+        pointcloud.material.heightMin = me.settings.heightMin;
+        pointcloud.material.heightMax = me.settings.heightMax;
         pointcloud.material.intensityMin = 0;
         pointcloud.material.intensityMax = 65000;
         //pointcloud.material.weighted = true;

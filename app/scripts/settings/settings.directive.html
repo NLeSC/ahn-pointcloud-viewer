@@ -11,7 +11,7 @@
               Points(m)
             </label>
             <div class="col-sm-8">
-              <input class="form-control" id="pointCountTarget" max="10.0" min="0.1" ng-model="sc.settings.pointCountTarget" step="0.1" type="number"/>
+              <input class="form-control" id="pointCountTarget" max="10.0" min="0.1" ng-model="sc.PointcloudService.settings.pointCountTarget" step="0.1" type="number"/>
             </div>
           </div>
           <div class="form-group">
@@ -19,9 +19,10 @@
               PointSize
             </label>
             <div class="col-sm-8">
-              <input class="form-control" id="pointSize" max="3.0" min="0.01" ng-model="sc.settings.pointSize" step="0.01" type="number"/>
+              <input class="form-control" id="pointSize" max="3.0" min="0.01" ng-model="sc.PointcloudService.settings.pointSize" step="0.01" type="number"/>
             </div>
           </div>
+          <!--
           <div class="form-group">
             <label class="col-sm-10 control-label" for="useEDL">
               Use Enhanced Dynamic Lighting
@@ -54,6 +55,24 @@
               <select class="form-control" id="pointShape" ng-model="sc.settings.pointShape" ng-options="value as key|lowercase for (key, value) in sc.settings.pointShapes | orderBy:value"/>
             </div>
           </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label" for="quality">
+              Quality
+            </label>
+            <div class="col-sm-8">
+              <select class="form-control" id="quality" ng-model="sc.settings.quality" ng-options="value as key|lowercase for (key, value) in sc.settings.qualities | orderBy:value"/>
+            </div>
+          </div>
+        -->
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label" for="predefinedSettings">
+            Quality
+          </label>
+          <div class="col-sm-8">
+            <select class="form-control" id="predefinedSettings" ng-model="sc.PointcloudService.settings" ng-options="value as key for (key, value) in sc.PointcloudService.predefinedSettings" ng-init="sc.PointcloudService.settings=sc.PointcloudService.predefinedSettings.LOW"/>
+          </div>
+        </div>
         </form>
       </tab>
       <tab heading="Measurement">

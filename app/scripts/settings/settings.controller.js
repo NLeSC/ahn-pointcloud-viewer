@@ -3,7 +3,8 @@
 
   function SettingsController(PointcloudService, MeasuringService, PathControls, RailService) {
     this.showSettings = false;
-    this.settings = PointcloudService.settings;
+    // this.predefinedSettings = PointcloudService.predefinedSettings;
+    // this.settings = PointcloudService.settings;
     this.PointcloudService = PointcloudService;
     this.PathControls = PathControls;
     this.RailService = RailService;
