@@ -511,11 +511,15 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('e2e-local', [
+    'concurrent:dist',
+    'webdrivermanager:update',
     'connect:test',
     'protractor:local'
   ]);
 
   grunt.registerTask('e2e-sauce', [
+    'concurrent:dist',
+    'webdrivermanager:update',
     'connect:test',
     'copy:sauce', // copy overwrites
     'protractor:sauce',
