@@ -15,10 +15,10 @@
       this.earthControls = new THREE.EarthControls(camera, renderer, scenePointCloud);
 
     	this.earthControls.addEventListener('proposeTransform', function(event) {
-    		var demHeight = pointcloud.getDEMHeight(event.newPosition);
-    		if(event.newPosition.y < demHeight){
-    			event.objections++;
-    		}
+    		// var demHeight = pointcloud.getDEMHeight(event.newPosition);
+    		// if(event.newPosition.y < demHeight){
+    		// 	event.objections++;
+    		// }
     	});
 
       this.earthControls.pointclouds.push(pointcloud);
