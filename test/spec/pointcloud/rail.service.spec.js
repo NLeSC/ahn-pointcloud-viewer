@@ -203,17 +203,17 @@ describe('pointcloud.railService', function() {
       });
     });
 
-    describe('when uploaded a empty file', function() {
-      beforeEach(function() {
-        service.filereader.readyState = FileReader.EMPTY;
-        service.onFileUpload({
-          target: null
-        });
-      });
-
-      it('should show toastr error message', function() {
-        expect(this.toastr.error).toHaveBeenCalled();
-      });
-    });
+    // describe('when uploaded a empty file', function() {
+    //   beforeEach(function() {
+    //     service.filereader.readyState = FileReader.EMPTY;
+    //     service.onFileUpload({
+    //       target: null
+    //     });
+    //   });
+    //
+    //   it('should show toastr error message', function() {
+    //     expect(this.toastr.error).toHaveBeenCalled();
+    //   });
+    // });
   });
 });

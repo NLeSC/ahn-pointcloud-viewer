@@ -417,9 +417,16 @@ module.exports = function(grunt) {
     },
 
     protractor: {
+      options: {
+
+      },
       local: {
         options: {
-          configFile: 'e2e/e2e-local.conf.js'
+          configFile: 'e2e/e2e-local.conf.js',
+          args: {
+            seleniumServerJar: 'node_modules/grunt-webdriver-manager/selenium/selenium-server-standalone-2.44.0.jar',
+            chromeDriver : 'node_modules/grunt-webdriver-manager/selenium/chromeDriver.exe'
+          }
         }
       },
       sauce: {
@@ -476,6 +483,8 @@ module.exports = function(grunt) {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve:' + target]);
   });
+
+  grunt.loadNpmTasks('grunt-webdriver-manager');
 
   grunt.registerTask('test', [
     'clean:server',

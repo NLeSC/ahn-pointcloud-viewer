@@ -11,7 +11,7 @@ describe('utils.startfrom', function() {
       startFromFilter = _startFromFilter_;
     });
   });
-
+  
   it('should slice input', function() {
     var result = startFromFilter(['a', 'b'], 1);
     expect(result).toEqual(['b']);

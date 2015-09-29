@@ -5,9 +5,7 @@
     "type": "git",
     "url": "https://github.com/NLeSC/PattyVis.git"
   },
-  "dependencies": {
-    "grunt-protractor-runner": "^1.1.4"
-  },
+  "dependencies": {},
   "devDependencies": {
     "codeclimate-test-reporter": "0.0.4",
     "grunt": "^0.4.1",
@@ -32,7 +30,7 @@
     "grunt-karma": "^0.10.1",
     "grunt-newer": "^1.1.0",
     "grunt-ng-annotate": "^0.10.0",
-    "grunt-protractor-runner": "^1.1.4",
+    "grunt-protractor-runner": "^1.2.1",
     "grunt-svgmin": "^2.0.0",
     "grunt-usemin": "^3.0.0",
     "grunt-webdriver-manager": "0.0.5",
@@ -41,11 +39,12 @@
     "jasmine-utils": "^0.2.1",
     "jshint-stylish": "^1.0.0",
     "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.2.0",
     "karma-coverage": "^0.2.7",
     "karma-htmlfile-reporter": "^0.1.2",
     "karma-jasmine": "^0.3.4",
     "karma-junit-reporter": "^0.2.2",
-    "karma-phantomjs-launcher": "^0.2.0",
+    "karma-phantomjs2-launcher": "^0.3.2",
     "load-grunt-tasks": "^3.0.0",
     "phantomjs-polyfill": "0.0.1",
     "protractor-html-screenshot-reporter": "0.0.19",
