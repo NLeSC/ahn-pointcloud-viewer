@@ -22,9 +22,5 @@ describe('settings.controller', function() {
     it('should set showSettings to false', function() {
       expect(ctrl.showSettings).toBe(false);
     });
-
-    it('should have settings same as Pointcloud Service', function() {
-      expect(ctrl.settings).toBe(PointcloudService.settings);
-    });
   });
 });

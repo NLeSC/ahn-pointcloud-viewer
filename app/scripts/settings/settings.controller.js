@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function SettingsController($scope, PointcloudService, MeasuringService, PathControls, RailService) {
+  function SettingsController(PointcloudService, MeasuringService, PathControls, RailService) {
     this.showSettings = false;
     // this.predefinedSettings = PointcloudService.predefinedSettings;
     // this.settings = PointcloudService.settings;
