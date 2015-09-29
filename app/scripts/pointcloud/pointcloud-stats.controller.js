@@ -3,6 +3,7 @@
 
   function PointcloudStatsController(PointcloudService) {
     this.stats = PointcloudService.stats;
+    this.PointcloudService = PointcloudService;
     this.settings = PointcloudService.settings;
   }
 

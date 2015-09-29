@@ -10,11 +10,15 @@
       source: featureVector,
       style: new ol.style.Style({
         stroke: new ol.style.Stroke({
-          color: 'chartreuse',
+          color: 'red',
           width: 2
         })
       })
     });
+
+    this.setColor = function(newColor) {
+      this.layer.style.stroke.color = newColor;
+    };
 
     this.getExtent = function() {
       // var coordinates =  this.camFrustum.getCoordinates();

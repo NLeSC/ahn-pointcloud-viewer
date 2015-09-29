@@ -2,7 +2,7 @@
   'use strict';
 
   function BigLegendController($scope, DecimalAdjust, Messagebus, UserAgent, PointcloudService) {
-    this.settings = PointcloudService.settings;
+    this.PointcloudService = PointcloudService;
 
     this.mobile = UserAgent.mobile;
 
@@ -15,7 +15,7 @@
     this.legendText = [40, 30, 20, 10];
 
     //Define the legend max initial value
-    this.legendMin = this.settings.heightMin;
+    this.legendMin = PointcloudService.settings.heightMin;
 
     // Set watcher for change on the legend min setting, use it to publish changes.
     $scope.$watch('blc.legendMin', function(newValue, oldValue) {
@@ -23,12 +23,12 @@
         //Initialization, so we ignore this event.
       } else {
         this.setLegendText();
-        this.settings.heightMin = newValue;
+        PointcloudService.settings.heightMin = newValue;
       }
     }.bind(this));
 
     //Define the legend max initial value
-    this.legendMax = this.settings.heightMax;
+    this.legendMax = PointcloudService.settings.heightMax;
 
     // Set watcher for change on the legend max setting, use it to publish changes.
     $scope.$watch('blc.legendMax', function(newValue, oldValue) {
@@ -36,7 +36,7 @@
         //Initialization, so we ignore this event.
       } else {
         this.setLegendText();
-        this.settings.heightMax = newValue;
+        PointcloudService.settings.heightMax = newValue;
       }
     }.bind(this));
 

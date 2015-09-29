@@ -284,14 +284,12 @@
       highQuality: false,
       showBoundingBox: false,
 
-      pointSizeType: Potree.PointSizeType.ADAPTIVE,
-      pointSizeTypes: Potree.PointSizeType,
-      pointColorType: Potree.PointColorType.HEIGHT,
       pointColorTypes: Potree.PointColorType,
-      pointShape: Potree.PointShape.CIRCLE,
-      pointShapes: Potree.PointShape,
-      clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
       clipModes: Potree.ClipMode,
+      pointSizeType: Potree.PointSizeType.ADAPTIVE,
+      pointColorType: Potree.PointColorType.HEIGHT,
+      pointShape: Potree.PointShape.CIRCLE,
+      clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
       qualities: QUALITIES,
       quality: QUALITIES.Splats,
 
@@ -313,6 +311,8 @@
       highQuality: false,
       showBoundingBox: false,
 
+      pointColorTypes: Potree.PointColorType,
+      clipModes: Potree.ClipMode,
       pointSizeType: Potree.PointSizeType.ADAPTIVE,
       pointColorType: Potree.PointColorType.HEIGHT,
       pointShape: Potree.PointShape.CIRCLE,
@@ -326,7 +326,7 @@
       useEDL: false
     },
     'MEDIUM': {
-      pointCountTarget: 2.5,
+      pointCountTarget: 3,
       pointSize: 1.00,
       opacity: 1,
       showSkybox: true,
@@ -335,6 +335,8 @@
       highQuality: true,
       showBoundingBox: false,
 
+      pointColorTypes: Potree.PointColorType,
+      clipModes: Potree.ClipMode,
       pointSizeType: Potree.PointSizeType.ADAPTIVE,
       pointColorType: Potree.PointColorType.HEIGHT,
       pointShape: Potree.PointShape.CIRCLE,
@@ -348,7 +350,7 @@
       useEDL: false
     },
     'HIGH': {
-      pointCountTarget: 3,
+      pointCountTarget: 5,
       pointSize: 1.00,
       opacity: 1,
       showSkybox: true,
@@ -357,6 +359,8 @@
       highQuality: false,
       showBoundingBox: false,
 
+      pointColorTypes: Potree.PointColorType,
+      clipModes: Potree.ClipMode,
       pointSizeType: Potree.PointSizeType.ATTENUATED,
       pointColorType: Potree.PointColorType.HEIGHT,
       pointShape: Potree.PointShape.CIRCLE,
@@ -727,12 +731,12 @@
 
 
         // render skybox
-        // if (showSkybox) {
+        if (me.settings.showSkybox) {
           skybox.camera.rotation.copy(camera.rotation);
           me.renderer.render(skybox.scene, skybox.camera);
         // } else {
         //   me.renderer.render(sceneBG, cameraBG);
-        // }
+        }
 
         if (pointcloud) {
           if (pointcloud.originalMaterial) {
@@ -856,12 +860,12 @@
 
 
         renderer.clear();
-        // if (showSkybox) {
+        if (me.settings.showSkybox) {
           skybox.camera.rotation.copy(camera.rotation);
           renderer.render(skybox.scene, skybox.camera);
         // } else {
         //   renderer.render(sceneBG, cameraBG);
-        // }
+        }
         renderer.render(scene, camera);
 
         if (pointcloud) {
@@ -1043,12 +1047,12 @@
         resize();
 
         me.renderer.clear();
-        // if (showSkybox) {
+        if (me.settings.showSkybox) {
           skybox.camera.rotation.copy(camera.rotation);
           me.renderer.render(skybox.scene, skybox.camera);
         // } else {
         //   me.renderer.render(sceneBG, cameraBG);
-        // }
+        }
         me.renderer.render(scene, camera);
 
         if (pointcloud) {

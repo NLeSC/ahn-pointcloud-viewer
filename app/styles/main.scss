@@ -190,11 +190,23 @@ patty-pointcloud-stats {
 .back-icon {
   background-image: url("../images/icons/backtodrivemap_icon_80px.png");
 }
-.gear-icon {
-  background-image: url("../images/icons/gear_icon_80px.png");
+.gear-icon.sd {
+  background-image: url("../images/icons/gear_icon_80px_sd.png");
 }
-.gear-icon.active {
-  background-image: url("../images/icons/gear_icon_green_80px.png");
+.gear-icon.md {
+  background-image: url("../images/icons/gear_icon_80px_md.png");
+}
+.gear-icon.hd {
+  background-image: url("../images/icons/gear_icon_80px_hd.png");
+}
+.gear-icon.sd.active {
+  background-image: url("../images/icons/gear_icon_green_80px_sd.png");
+}
+.gear-icon.md.active {
+  background-image: url("../images/icons/gear_icon_green_80px_md.png");
+}
+.gear-icon.hd.active {
+  background-image: url("../images/icons/gear_icon_green_80px_hd.png");
 }
 .help-icon {
   background-image: url("../images/icons/help_icon_80px.png");
@@ -304,7 +316,7 @@ patty-pointcloud-stats {
 
 .logobox {
   position:absolute;
-  bottom: 10px;
+  bottom: 0px;
   right: 0%;
 }
 
