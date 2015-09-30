@@ -413,6 +413,10 @@ module.exports = function(grunt) {
       unit: {
         configFile: 'test/karma.conf.js',
         singleRun: true
+      },
+      unitWindows: {
+        configFile: 'test/karma.conf.windows.js',
+        singleRun: true
       }
     },
 
@@ -493,7 +497,17 @@ module.exports = function(grunt) {
     'ngtemplates',
     'autoprefixer',
     'connect:test',
-    'karma'
+    'karma:unit'
+  ]);
+
+  grunt.registerTask('test-windows', [
+    'clean:server',
+    'concurrent:test',
+    'useminPrepare',
+    'ngtemplates',
+    'autoprefixer',
+    'connect:test',
+    'karma:unitWindows'
   ]);
 
   grunt.registerTask('build', [
