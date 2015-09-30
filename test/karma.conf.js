@@ -70,9 +70,25 @@ module.exports = function(config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: [
-      'PhantomJS2'
+      //'PhantomJS2',
+      'PhantomJS_custom'
       // 'Chrome'
     ],
+
+    customLaunchers: {
+          'PhantomJS_custom': {
+            base: 'PhantomJS2',
+            options: {
+              windowName: 'my-window',
+              settings: {
+                webSecurityEnabled: false
+              },
+            },
+            flags: ['--load-images=true'],
+            debug: true
+          }
+        },
+
 
     // Which plugins to enable
     plugins: [
