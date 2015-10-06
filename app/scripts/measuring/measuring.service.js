@@ -148,6 +148,8 @@
       }
     };
 
+    var emptyMatrix = new THREE.Matrix4();
+
     this.update = function() {
       if (this.initialized) {
         this.tools.volume.update();
@@ -162,7 +164,7 @@
           for (var j = 0; j < profile.boxes.length; j++) {
             var box = profile.boxes[j];
             box.updateMatrixWorld();
-            var boxInverse = new THREE.Matrix4().getInverse(box.matrixWorld);
+            var boxInverse = emptyMatrix.identity().getInverse(box.matrixWorld);
             clipBoxes.push(boxInverse);
           }
         }
@@ -172,7 +174,7 @@
 
           if (volume.clip) {
             volume.updateMatrixWorld();
-            var boxInverseV = new THREE.Matrix4().getInverse(volume.matrixWorld);
+            var boxInverseV = emptyMatrix.identity().getInverse(volume.matrixWorld);
 
             clipBoxes.push(boxInverseV);
           }

@@ -23,8 +23,9 @@ var thecamera;
       me.onWindowResize();
     });
 
+    var cameraMatrix = new THREE.Matrix4();
     this.getCameraOrientation = function() {
-      return new THREE.Matrix4().multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorld).determinant();
+      return cameraMatrix.identity().multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorld).determinant();
     };
     var prevCameraOrientation = this.getCameraOrientation();
 
@@ -38,36 +39,49 @@ var thecamera;
       prevCameraOrientation = cameraOrientation;
     };
 
-    this.update2DFrustum = function() {
-      var rightBottomCorner = new THREE.Vector3(1, -1, 1).unproject(this.camera).normalize();
-      var leftBottomCorner = new THREE.Vector3(-1, -1, 1).unproject(this.camera).normalize();
+    var rightBottomCorner = new THREE.Vector3();
+    var leftBottomCorner = new THREE.Vector3();
 
-      var leftTopCorner = new THREE.Vector3(-1, 1, 1).unproject(this.camera).normalize();
-      var rightTopCorner = new THREE.Vector3(1, 1, 1).unproject(this.camera).normalize();
+    var leftTopCorner = new THREE.Vector3();
+    var rightTopCorner = new THREE.Vector3();
+
+    var ray = new THREE.Ray();
+
+    var directionToViewport0 = new THREE.Vector3();
+    var directionToViewport1 = new THREE.Vector3();
+    var directionToViewport2 = new THREE.Vector3();
+    var directionToViewport3 = new THREE.Vector3();
+
+    this.update2DFrustum = function() {
+      rightBottomCorner = rightBottomCorner.set(1, -1, 1).unproject(this.camera).normalize();
+      leftBottomCorner = leftBottomCorner.set(-1, -1, 1).unproject(this.camera).normalize();
+
+      leftTopCorner = leftTopCorner.set(-1, 1, 1).unproject(this.camera).normalize();
+      rightTopCorner = rightTopCorner.set(1, 1, 1).unproject(this.camera).normalize();
 
       var viewport = [null, null, null, null];
       var floorInSight = true;
-      var ray, intersection, invertedYcamera;
+      var intersection, invertedYcamera;
 
       invertedYcamera = this.camera.position.clone();
       invertedYcamera.y = -invertedYcamera.y;
 
-      ray = new THREE.Ray(this.camera.position, rightBottomCorner);
+      ray = ray.set(this.camera.position, rightBottomCorner);
       intersection = ray.intersectPlane(this.floor);
       if (intersection) {
         viewport[0] = intersection;
 
-        ray = new THREE.Ray(this.camera.position, leftBottomCorner);
+        ray = ray.set(this.camera.position, leftBottomCorner);
         intersection = ray.intersectPlane(this.floor);
         viewport[1] = intersection;
       }
 
-      ray = new THREE.Ray(this.camera.position, leftTopCorner);
+      ray = ray.set(this.camera.position, leftTopCorner);
       intersection = ray.intersectPlane(this.floor);
       if (intersection) {
         viewport[2] = intersection;
 
-        ray = new THREE.Ray(this.camera.position, rightTopCorner);
+        ray = ray.set(this.camera.position, rightTopCorner);
         intersection = ray.intersectPlane(this.floor);
         viewport[3] = intersection;
       }
@@ -76,19 +90,19 @@ var thecamera;
         //No bottom intersection was found
         if (viewport[3] === null) {
           //No intersections whatsoever. We will swap Y direction of camera.
-          ray = new THREE.Ray(invertedYcamera, rightBottomCorner);
+          ray = ray.set(invertedYcamera, rightBottomCorner);
           intersection = ray.intersectPlane(this.floor);
           viewport[2] = intersection;
 
-          ray = new THREE.Ray(invertedYcamera, leftBottomCorner);
+          ray = ray.set(invertedYcamera, leftBottomCorner);
           intersection = ray.intersectPlane(this.floor);
           viewport[3] = intersection;
 
-          ray = new THREE.Ray(invertedYcamera, leftTopCorner);
+          ray = ray.set(invertedYcamera, leftTopCorner);
           intersection = ray.intersectPlane(this.floor);
           viewport[0] = intersection;
 
-          ray = new THREE.Ray(invertedYcamera, rightTopCorner);
+          ray = ray.set(invertedYcamera, rightTopCorner);
           intersection = ray.intersectPlane(this.floor);
           viewport[1] = intersection;
 
@@ -98,8 +112,8 @@ var thecamera;
           viewport[0] = viewport[2].clone();
           viewport[1] = viewport[3].clone();
 
-          var directionToViewport2 = new THREE.Vector3().subVectors(viewport[2], this.camera.position);
-          var directionToViewport3 = new THREE.Vector3().subVectors(viewport[3], this.camera.position);
+          directionToViewport2 = directionToViewport2.set(0,0,0).subVectors(viewport[2], this.camera.position);
+          directionToViewport3 = directionToViewport3.set(0,0,0).subVectors(viewport[3], this.camera.position);
 
           //Look out, this is intentionally cross-eyed
           viewport[2] = directionToViewport3.multiplyScalar(1000);
@@ -111,8 +125,8 @@ var thecamera;
       } else {
         if (viewport[3] === null) {
           // A bottom intersection was found, but no top intersection. We are looking over the horizon.
-          var directionToViewport0 = new THREE.Vector3().subVectors(viewport[0], this.camera.position);
-          var directionToViewport1 = new THREE.Vector3().subVectors(viewport[1], this.camera.position);
+          directionToViewport0 = directionToViewport0.set(0,0,0).subVectors(viewport[0], this.camera.position);
+          directionToViewport1 = directionToViewport1.set(0,0,0).subVectors(viewport[1], this.camera.position);
 
           //Look out, this is intentionally cross-eyed
           viewport[2] = directionToViewport1.multiplyScalar(1000);

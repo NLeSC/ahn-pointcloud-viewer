@@ -26,16 +26,19 @@
      * @param {THREE.Vector3|THREE.Box3} object With lon, lat, alt
      * @return {THREE.Vector3|THREE.Box3} with x, y, z
      */
+    var reusableMatrix = new THREE.Matrix4();
+    var reusableBox = new THREE.Box3();
+
     this.toGeo = function(object) {
       var geo;
-      var inverse = new THREE.Matrix4().getInverse(this.referenceFrame.matrixWorld);
+      var inverse = reusableMatrix.identity().getInverse(this.referenceFrame.matrixWorld);
 
       if (object instanceof THREE.Vector3) {
         geo = object.clone().applyMatrix4(inverse);
       } else if (object instanceof THREE.Box3) {
         var geoMin = object.min.clone().applyMatrix4(inverse);
         var geoMax = object.max.clone().applyMatrix4(inverse);
-        geo = new THREE.Box3(geoMin, geoMax);
+        geo = reusableBox.set(geoMin, geoMax);
       }
 
       return geo;

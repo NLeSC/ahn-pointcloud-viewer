@@ -190,6 +190,9 @@ patty-pointcloud-stats {
 .back-icon {
   background-image: url("../images/icons/backtodrivemap_icon_80px.png");
 }
+.gear-icon.ld {
+  background-image: url("../images/icons/gear_icon_80px_ld.png");
+}
 .gear-icon.sd {
   background-image: url("../images/icons/gear_icon_80px_sd.png");
 }
@@ -198,6 +201,9 @@ patty-pointcloud-stats {
 }
 .gear-icon.hd {
   background-image: url("../images/icons/gear_icon_80px_hd.png");
+}
+.gear-icon.ld.active {
+  background-image: url("../images/icons/gear_icon_green_80px_ld.png");
 }
 .gear-icon.sd.active {
   background-image: url("../images/icons/gear_icon_green_80px_sd.png");

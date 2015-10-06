@@ -1,4 +1,4 @@
-<button class="icon-big gear-icon" ng-class="{sd:sc.sd, md:sc.md, hd:sc.hd, active: sc.showSettings}" ng-click="sc.showSettings=!sc.showSettings" title="Settings"/>
+<button class="icon-big gear-icon" ng-class="{ld:sc.ld, sd:sc.sd, md:sc.md, hd:sc.hd, active: sc.showSettings}" ng-click="sc.showSettings=!sc.showSettings" title="Settings"/>
 <div class="panel panel-default settings-panel" collapse='!sc.showSettings'>
   <div class="panel-heading">
     Settings</div>
@@ -36,7 +36,7 @@
             Quality
           </label>
           <div class="col-sm-8">
-            <select class="form-control" id="predefinedSettings" ng-model="sc.PointcloudService.settings" ng-change="sc.settingsChanged(value)" ng-options="value as key for (key, value) in sc.PointcloudService.predefinedSettings" ng-init="sc.PointcloudService.settings=sc.PointcloudService.predefinedSettings.LOW"/>
+            <select class="form-control" id="predefinedSettings" ng-model="sc.PointcloudService.settings" ng-change="sc.settingsChanged(value)" ng-options="value as key for (key, value) in sc.PointcloudService.predefinedSettings | orderBy:index" ng-init="sc.PointcloudService.settings=sc.PointcloudService.predefinedSettings.STANDARD"/>
           </div>
         </div>
         </form>

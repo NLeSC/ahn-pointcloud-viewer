@@ -276,9 +276,9 @@
 
     me.settings = {
       pointCountTarget: 2.5,
-      pointSize: 1.00,
+      pointSize: 2.00,
       opacity: 1,
-      showSkybox: true,
+      showSkybox: false,
       interpolate: false,
       showStats: false,
       highQuality: false,
@@ -286,12 +286,12 @@
 
       pointColorTypes: Potree.PointColorType,
       clipModes: Potree.ClipMode,
-      pointSizeType: Potree.PointSizeType.ADAPTIVE,
+      pointSizeType: Potree.PointSizeType.FIXED,
       pointColorType: Potree.PointColorType.HEIGHT,
-      pointShape: Potree.PointShape.CIRCLE,
+      pointShape: Potree.PointShape.SQUARE,
       clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
+      quality: QUALITIES.Low,
       qualities: QUALITIES,
-      quality: QUALITIES.Splats,
 
       useDEMCollisions: false,
       minNodeSize: 100,
@@ -302,7 +302,31 @@
 
     me.predefinedSettings = {
       'LOW': {
-      pointCountTarget: 2.0,
+      pointCountTarget: 2.5,
+      pointSize: 2.00,
+      opacity: 1,
+      showSkybox: false,
+      interpolate: false,
+      showStats: false,
+      highQuality: false,
+      showBoundingBox: false,
+
+      pointColorTypes: Potree.PointColorType,
+      clipModes: Potree.ClipMode,
+      pointSizeType: Potree.PointSizeType.FIXED,
+      pointColorType: Potree.PointColorType.HEIGHT,
+      pointShape: Potree.PointShape.SQUARE,
+      clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
+      quality: QUALITIES.Low,
+
+      useDEMCollisions: false,
+      minNodeSize: 100,
+      heightMin: -5,
+      heightMax: 45,
+      useEDL: false
+    },
+      'STANDARD': {
+      pointCountTarget: 5.0,
       pointSize: 1.00,
       opacity: 1,
       showSkybox: true,
@@ -313,7 +337,7 @@
 
       pointColorTypes: Potree.PointColorType,
       clipModes: Potree.ClipMode,
-      pointSizeType: Potree.PointSizeType.ADAPTIVE,
+      pointSizeType: Potree.PointSizeType.ATTENUATED,
       pointColorType: Potree.PointColorType.HEIGHT,
       pointShape: Potree.PointShape.CIRCLE,
       clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
@@ -325,8 +349,8 @@
       heightMax: 45,
       useEDL: false
     },
-    'MEDIUM': {
-      pointCountTarget: 3,
+    'HIGH': {
+      pointCountTarget: 5,
       pointSize: 1.00,
       opacity: 1,
       showSkybox: true,
@@ -337,7 +361,7 @@
 
       pointColorTypes: Potree.PointColorType,
       clipModes: Potree.ClipMode,
-      pointSizeType: Potree.PointSizeType.ADAPTIVE,
+      pointSizeType: Potree.PointSizeType.ATTENUATED,
       pointColorType: Potree.PointColorType.HEIGHT,
       pointShape: Potree.PointShape.CIRCLE,
       clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
@@ -349,9 +373,9 @@
       heightMax: 45,
       useEDL: false
     },
-    'HIGH': {
-      pointCountTarget: 5,
-      pointSize: 1.00,
+    'ULTRA': {
+      pointCountTarget: 10,
+      pointSize: 0.5,
       opacity: 1,
       showSkybox: true,
       interpolate: true,
@@ -374,6 +398,8 @@
       useEDL: true
     }};
 
+    me.settings=me.predefinedSettings.STANDARD;
+
     me.stats = {
       nrPoints: 0,
       nrNodes: 0,
@@ -390,7 +416,7 @@
       }
     };
 
-    this.renderer = null;
+    me.renderer = null;
     var camera;
     var scene;
     var pointcloud;
@@ -623,12 +649,17 @@
     var intensityMax = null;
     var heightMin = null;
     var heightMax = null;
+    var emptyVector = new THREE.Vector3();
+    var updateCounter = 0;
+
 
     this.update = function() {
       Potree.pointLoadLimit =  me.settings.pointCountTarget * 2 * 1000 * 1000;
 
-	    directionalLight.position.copy(camera.position);
-      directionalLight.lookAt(new THREE.Vector3().addVectors(camera.position, camera.getWorldDirection()));
+      if (me.settings.useEDL) {
+        directionalLight.position.copy(camera.position);
+        directionalLight.lookAt(emptyVector.set(0,0,0).addVectors(camera.position, camera.getWorldDirection()));
+      }
 
       if (pointcloud) {
       //   var bbWorld = Potree.utils.computeTransformedBoundingBox(pointcloud.boundingBox, pointcloud.matrixWorld);
@@ -661,54 +692,64 @@
 
 
         pointcloud.material.clipMode = me.settings.clipMode;
-        pointcloud.material.size = me.settings.pointSize;
-        pointcloud.visiblePointsTarget = me.settings.pointCountTarget * 1000 * 1000;
-        pointcloud.material.opacity = me.settings.opacity;
-        pointcloud.material.pointSizeType = me.settings.pointSizeType;
-        pointcloud.material.pointColorType = me.settings.pointColorType;
-        pointcloud.material.pointShape = me.settings.pointShape;
-        pointcloud.material.interpolate = me.settings.interpolate;
         pointcloud.material.heightMin = me.settings.heightMin;
         pointcloud.material.heightMax = me.settings.heightMax;
         pointcloud.material.intensityMin = 0;
         pointcloud.material.intensityMax = 65000;
-        //pointcloud.material.weighted = true;
-        pointcloud.material.minSize = 2;
         pointcloud.showBoundingBox = me.settings.showBoundingBox;
 		    pointcloud.generateDEM = me.settings.useDEMCollisions;
 		    pointcloud.minimumNodePixelSize = me.settings.minNodeSize;
+
+
+
+        // pointcloud.material.size = me.settings.pointSize;
+        // pointcloud.visiblePointsTarget = me.settings.pointCountTarget * 1000 * 1000;
+        // pointcloud.material.opacity = me.settings.opacity;
+        // pointcloud.material.pointSizeType = me.settings.pointSizeType;
+        // pointcloud.material.pointColorType = me.settings.pointColorType;
+        // pointcloud.material.pointShape = me.settings.pointShape;
+        // pointcloud.material.interpolate = me.settings.interpolate;
+        // pointcloud.material.minSize = 2;
+        //pointcloud.material.weighted = true;
 
         pointcloud.update(camera, me.renderer);
 
 
         // update progress bar
-        var progress = pointcloud.visibleNodes.length / pointcloud.visibleGeometry.length;
-        var prevProgress = cfpLoadingBar.status();
-        if (progress === 1 && prevProgress < 1){
-          cfpLoadingBar.complete();
-        } else if (progress < 1 && progress !== prevProgress){
-          cfpLoadingBar.start();
-          cfpLoadingBar.set(progress);
-        } else if (progress === Infinity && prevProgress < 1) {
-          cfpLoadingBar.complete();
-        }
+        // updateCounter++;
+        // if (updateCounter > 100) {
+        //   var progress = pointcloud.visibleNodes.length / pointcloud.visibleGeometry.length;
+        //   var prevProgress = cfpLoadingBar.status();
+        //   if (progress === 1 && prevProgress < 1){
+        //     cfpLoadingBar.complete();
+        //   } else if (progress < 1 && progress !== prevProgress){
+        //     cfpLoadingBar.start();
+        //     cfpLoadingBar.set(progress);
+        //   } else if (progress === Infinity && prevProgress < 1) {
+        //     cfpLoadingBar.complete();
+        //   }
+        //   updateCounter = 0;
+        // }
       } else {
         // loading metadata
         cfpLoadingBar.start();
       }
 
-      if (me.isInOrbitMode) {
-        me.orbitControls.update();
-      } else {
-        PathControls.updateInput();
-      }
+      // if (me.isInOrbitMode) {
+      //   me.orbitControls.update();
+      // } else {
+      // }
 
       MeasuringService.update();
 
       CameraService.update();
 
       if (pointcloud) {
-        EarthcontrolsService.update();
+        if (EarthcontrolsService.enabled ) {
+          EarthcontrolsService.update();
+        } else {
+          PathControls.updateInput();
+        }
       }
 
       // SceneService.update();
@@ -717,18 +758,17 @@
     };
 
     var PotreeRenderer = function() {
+      var resize = function(width, height) {
+        var aspect = width / height;
+
+        camera.aspect = aspect;
+        camera.updateProjectionMatrix();
+
+        me.renderer.setSize(width, height);
+      };
+
       this.render = function() {
-        { // resize
-          var width = me.elRenderArea.clientWidth;
-          var height = me.elRenderArea.clientHeight;
-          var aspect = width / height;
-
-          camera.aspect = aspect;
-          camera.updateProjectionMatrix();
-
-          me.renderer.setSize(width, height);
-        }
-
+        resize(me.elRenderArea.clientWidth, me.elRenderArea.clientHeight);
 
         // render skybox
         if (me.settings.showSkybox) {
@@ -750,8 +790,8 @@
           pointcloud.material.opacity = me.settings.opacity;
           pointcloud.material.pointColorType = me.settings.pointColorType;
           pointcloud.material.pointSizeType = me.settings.pointSizeType;
-          pointcloud.material.pointShape = (me.settings.quality === 'Circles') ? Potree.PointShape.CIRCLE : Potree.PointShape.SQUARE;
-          pointcloud.material.interpolate = (me.settings.quality === 'Interpolation');
+          pointcloud.material.pointShape = me.settings.PointShape;
+          pointcloud.material.interpolate = me.settings.interpolate;
           pointcloud.material.weighted = false;
           pointcloud.material.gradient = Potree.Gradients.VIRIDIS;
         }
@@ -974,7 +1014,7 @@
         attributeMaterial.pointShape = Potree.PointShape.CIRCLE;
         attributeMaterial.interpolate = false;
         attributeMaterial.weighted = false;
-        attributeMaterial.minSize = 2;
+        // attributeMaterial.minSize = 2;
         attributeMaterial.useLogarithmicDepthBuffer = false;
         attributeMaterial.useEDL = true;
 
