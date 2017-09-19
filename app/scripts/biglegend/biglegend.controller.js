@@ -45,7 +45,7 @@
     }.bind(this));
 
 
-    this.selectedUnits = 'meters above sea level';
+    this.selectedUnits = 'm a.s.l.';
     Messagebus.subscribe('ncwmsUnitsChange', function(event, value) {
       this.selectedUnits = value;
     }.bind(this));

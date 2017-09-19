@@ -1,18 +1,18 @@
-<button class="icon-big extract-icon" ng-class="{active: ec.selection.active}" ng-click="ec.selection.active=!ec.selection.active" title="Extract points"></button>
+<button class="icon-big extract-icon" ng-class="{active: ec.selection.active}" ng-click="ec.selection.active=!ec.selection.active" title="Export points"></button>
 <div class="panel panel-default extract-panel" collapse='!ec.selection.active'>
-  <div class="panel-heading">Extract points   &nbsp<span style="color:red;">(please note, while selection is active, camera controls are disabled)</span>
+  <div class="panel-heading">Export points
     <button aria-label="Close" class="close" ng-click="ec.selection.active=!ec.selection.active">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="panel-body">
     <div class="extraction-text">
-      To select points, please click on the minimap, or drag to select in the 3d view.
+      Click on the minimap to select points in the red rectangle.
     </div>
     <form class="form-inline" name="extractForm" role="search">
       <div class="row">
         <div class="col-xs-12 form-group">
-          <label for="email">Email</label>
+          <label for="email">Send link to email</label>
           <input class="form-control" name="email" ng-minlength="4" ng-model="ec.email" placeholder="" type="email">
         </div>
       </div>
@@ -42,7 +42,7 @@
       <button class="btn btn-primary" ng-click="ec.submit()" ng-disabled="extractForm.$invalid" type="submit">Submit</button>
       <div class="row">
         <div class="col-xs-6">
-          Selected number of points:
+          Number of points:
           <span>{{ec.size.rawPoints | number}}</span>
         </div>
         <div class="col-xs-6">
