@@ -3,7 +3,7 @@ var thecamera;
 (function() {
   'use strict';
 
-  function CameraService($window, $log, THREE, Messagebus, SceneService) {
+  function CameraService($rootScope, $window, $log, $location, THREE, Messagebus, SceneService) {
     var me = this;
     var fov = 75;
     var width = $window.innerWidth;
@@ -14,6 +14,7 @@ var thecamera;
 
 
     this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+
     this.floor = new THREE.Plane(
       new THREE.Vector3(0, 1, 0),
       0
@@ -37,7 +38,7 @@ var thecamera;
       }
       // compare current camera state with state in previous render loop
       prevCameraOrientation = cameraOrientation;
-    };
+    }.bind(this);
 
     var rightBottomCorner = new THREE.Vector3();
     var leftBottomCorner = new THREE.Vector3();

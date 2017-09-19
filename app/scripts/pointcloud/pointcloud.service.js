@@ -2,7 +2,7 @@
 (function() {
   'use strict';
 
-  function PointcloudService(THREE, Potree, $window, $rootScope,
+  function PointcloudService(THREE, Potree, $window, $rootScope, $location,
     DrivemapService,
     CameraService, SceneService,
     PathControls, MeasuringService, EarthcontrolsService,
@@ -605,10 +605,29 @@
         ));
         referenceFrame.updateMatrixWorld(true);
 
-        RailService.setCameraAndLookAtWaypoints(
-          DrivemapService.getCameraPath(),
-          DrivemapService.getLookPath()
-        );
+        var location = $location.search();
+
+        if (location.hasOwnProperty('camera_x')) {
+          var cameraPos = new THREE.Vector3(parseFloat(location.camera_x), parseFloat(location.camera_y), parseFloat(location.camera_z));
+          var lookatPos = new THREE.Vector3(parseFloat(location.lookat_x), parseFloat(location.lookat_y), parseFloat(location.lookat_z));
+
+          var vector = lookatPos.clone();
+          vector.sub(cameraPos);
+
+          var cameraPos2 = cameraPos.clone().add(vector);
+          var lookatPos2 = lookatPos.clone().add(vector);
+
+          var cameraPathSurrogate = [[cameraPos.x, cameraPos.y, cameraPos.z],[cameraPos2.x, cameraPos2.y, cameraPos2.z]];
+          var lookPathSurrogate = [[lookatPos.x, lookatPos.y, lookatPos.z],[lookatPos2.x, lookatPos2.y, lookatPos2.z]]; 
+          RailService.setCameraAndLookAtWaypoints(
+            cameraPathSurrogate, lookPathSurrogate
+          );         
+        } else {
+          RailService.setCameraAndLookAtWaypoints(
+            DrivemapService.getCameraPath(),
+            DrivemapService.getLookPath()
+          );
+        }        
 
         //var miny = 306740, maxy = 615440, minx = 13420, maxx = 322120;
         // var minx = 79692.68, maxx = 96258.93, miny = 383917.51, maxy = 422503.12;

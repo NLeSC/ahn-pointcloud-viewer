@@ -77,7 +77,7 @@
        // data urls are not allowed by default, so whitelist them
        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob):/);
     })
-    .run(function(DrivemapService) {
+    .run(function(DrivemapService) {      
       DrivemapService.load();
     });
 
