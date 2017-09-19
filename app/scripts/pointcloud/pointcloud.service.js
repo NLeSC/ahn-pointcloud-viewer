@@ -551,7 +551,7 @@
       scene = SceneService.getScene();
       camera = CameraService.camera;
 
-      me.renderer = new THREE.WebGLRenderer();
+      me.renderer = new THREE.WebGLRenderer({premultipliedAlpha: false});
       me.renderer.setSize(width, height);
       me.renderer.autoClear = false;
 	    me.elRenderArea.appendChild(me.renderer.domElement);
@@ -625,14 +625,24 @@
         //planeGeometry.applyMatrix( new THREE.Matrix4().makeTranslation( leftTop.x+(diffx/2), -50, rightBottom.z-(diffy/2)) );
 				//var planeMesh = new THREE.Mesh( planeGeometry, new THREE.MeshBasicMaterial( { color: 0xffff00 } ) );
         //SceneService.addMaximap(planeMesh);
-				//scene.add( planeMesh );
+        //scene.add( planeMesh );
+
+        var viewerSurrogate = {
+          renderer: me.renderer,
+          scene: me.scene
+        }
+        
+        me.earthControls = new Potree.EarthControls(viewerSurrogate);
+        me.earthControls.enabled = true;
+        // me.earthControls.addEventListener("start", me.disableAnnotations.bind(this));
+        // me.earthControls.addEventListener("end", me.enableAnnotations.bind(this));
 
 
-        PathControls.init(me.elRenderArea);
+        // PathControls.init(me.elRenderArea);
 
         MeasuringService.setPointcloud(pointcloud);
 
-        EarthcontrolsService.init(camera, me.renderer, scene, pointcloud, me.elRenderArea);
+        // EarthcontrolsService.init(camera, me.renderer, scene, scene, pointcloud, me.elRenderArea);
 
         Messagebus.publish('legendTexture change', Potree.Gradients.VIRIDIS);
       });
@@ -800,11 +810,11 @@
         me.renderer.render(scene, camera);
         // me.renderer.render(scenePointCloud, camera);
 
-        MeasuringService.tools.heightprofile.render();
-        MeasuringService.tools.volume.render();
+        // MeasuringService.tools.heightprofile.render();
+        // MeasuringService.tools.volume.render();
         me.renderer.clearDepth();
         MeasuringService.tools.measuring.render();
-        MeasuringService.tools.transformation.render();
+        // MeasuringService.tools.transformation.render();
       };
     };
     var potreeRenderer = new PotreeRenderer();

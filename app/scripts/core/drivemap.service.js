@@ -27,11 +27,11 @@
      * @returns {Promise}
      */
     this.load = function() {
-      return $http.get(pattyConf.DRIVEMAP_JSON_URL).success(this.onLoad).error(this.onLoadFailure);
+      return $http.get(pattyConf.DRIVEMAP_JSON_URL).then(this.onLoad, this.onLoadFailure);
     };
 
     this.onLoad = function(response) {
-      me.data = response;
+      me.data = response.data;
 
       me.registerProj4();
 

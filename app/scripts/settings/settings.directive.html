@@ -27,7 +27,7 @@
               Color type
             </label>
             <div class="col-sm-8">
-              <select class="form-control" id="pointColorType" ng-model="sc.PointcloudService.settings.pointColorType" ng-options="value as key|lowercase for (key, value) in sc.PointcloudService.settings.pointColorTypes | orderBy:value"/>
+              <select class="form-control" id="pointColorType" ng-model="sc.PointcloudService.settings.pointColorType" ng-options="value as key|lowercase for (key, value) in sc.PointcloudService.settings.pointColorTypes"/>
             </div>
           </div>
 
@@ -36,7 +36,7 @@
             Quality
           </label>
           <div class="col-sm-8">
-            <select class="form-control" id="predefinedSettings" ng-model="sc.PointcloudService.settings" ng-change="sc.settingsChanged(value)" ng-options="value as key for (key, value) in sc.PointcloudService.predefinedSettings | orderBy:index" ng-init="sc.PointcloudService.settings=sc.PointcloudService.predefinedSettings.STANDARD"/>
+            <select class="form-control" id="predefinedSettings" ng-model="sc.PointcloudService.settings" ng-change="sc.settingsChanged(value)" ng-options="value as key for (key, value) in sc.PointcloudService.predefinedSettings" ng-init="sc.PointcloudService.settings=sc.PointcloudService.predefinedSettings.STANDARD"/>
           </div>
         </div>
         </form>
@@ -48,7 +48,7 @@
               Clip mode
             </label>
             <div class="col-sm-8">
-              <select class="form-control" id="clipMode" ng-model="sc.PointcloudService.settings.clipMode" ng-options="value as key|lowercase for (key, value) in sc.PointcloudService.settings.clipModes | orderBy:value"/>
+              <select class="form-control" id="clipMode" ng-model="sc.PointcloudService.settings.clipMode" ng-options="value as key|lowercase for (key, value) in sc.PointcloudService.settings.clipModes"/>
             </div>
           </div>
           <div class="form-group">

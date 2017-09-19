@@ -37,6 +37,8 @@ var thecamera;
       }
       // compare current camera state with state in previous render loop
       prevCameraOrientation = cameraOrientation;
+
+      $window.history.psuhstate({camera: cameraOrientation});
     };
 
     var rightBottomCorner = new THREE.Vector3();

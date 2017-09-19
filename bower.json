@@ -11,39 +11,26 @@
   ],
   "license": "Apache 2.0",
   "dependencies": {
-    "angular": "^1.3.0",
-    "json3": "^3.3.0",
-    "es5-shim": "^4.0.0",
-    "bootstrap-sass-official": "^3.2.0",
-    "angular-animate": "^1.3.0",
-    "angular-cookies": "^1.3.0",
-    "angular-resource": "^1.3.0",
-    "angular-route": "^1.3.0",
-    "angular-sanitize": "^1.3.0",
-    "angular-touch": "^1.3.0",
-    "openlayers3": "https://github.com/openlayers/ol3/releases/download/v3.7.0/v3.7.0.zip",
-    "proj4": "~2.3.3",
-    "threejs": "r71",
-    "OrbitControls": "https://raw.github.com/mrdoob/three.js/r71/examples/js/controls/OrbitControls.js",
-    "OBJLoader": "https://raw.github.com/mrdoob/three.js/r71/examples/js/loaders/OBJLoader.js",
-    "DDSLoader": "https://raw.github.com/mrdoob/three.js/r71/examples/js/loaders/DDSLoader.js",
-    "MTLLoader": "https://raw.github.com/mrdoob/three.js/r71/examples/js/loaders/MTLLoader.js",
-    "OBJMTLLoader": "https://raw.github.com/mrdoob/three.js/r71/examples/js/loaders/OBJMTLLoader.js",
-    "potree": "https://github.com/potree/potree.git",
-    "bluebird": "1.0.8",
-    "angular-bootstrap": "~0.12.0",
-    "ol3-layerswitcher": "~1.0.1",
-    "angular-toastr": "~1.4.1",
-    "angular-loading-bar": "~0.7.1",
-    "angular-debounce": "~1.0.3",
-    "ng-file-upload": "~5.0.9",
-    "octicons": "~2.4.1"
+    "angular": "^1.6.6",
+    "three.js": "threejs#r85",
+    "proj4": "^2.4.4",
+    "potree": "https://github.com/potree/potree.git#1.5",
+    "openlayers": "https://github.com/openlayers/ol3/releases/download/v4.3.3/v4.3.3-dist.zip",
+    "angular-animate": "^1.6.6",
+    "angular-touch": "^1.6.6",
+    "angular-sanitize": "^1.6.6",
+    "angular-bootstrap": "^2.5.0",
+    "angular-toastr": "^2.1.1",
+    "angular-loading-bar": "^0.9.0",
+    "angular-debounce": "^1.1.0",
+    "ng-file-upload": "^12.2.13",
+    "ol3-layerswitcher": "^1.1.2"
   },
   "overrides": {
-    "openlayers3": {
+    "openlayers": {
       "main": [
-        "build/ol.js",
-        "css/ol.css"
+        "ol.js",
+        "ol.css"
       ]
     },
     "octicons": {
@@ -60,10 +47,10 @@
     },
     "potree": {
       "main": [
-        "build/js/potree.js",
+        "build/potree/potree.js",
         "libs/plasio/js/laslaz.js",
-        "build/workers/laslaz-worker.js",
-        "build/workers/lasdecoder-worker.js",
+        "build/potree/workers/laslaz-worker.js",
+        "build/potree/workers/lasdecoder-worker.js",
         "libs/other/BinaryHeap.js"
       ]
     },
@@ -71,12 +58,6 @@
       "main": "build/stats.min.js"
     }
   },
-  "resolutions": {
-    "angular": "^1.3.0"
-  },
-  "devDependencies": {
-    "angular-mocks": "~1.3.0",
-    "angular-scenario": "~1.3.0"
-  },
+  "devDependencies": {},
   "appPath": "app"
 }

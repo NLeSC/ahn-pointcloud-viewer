@@ -79,9 +79,9 @@
 
     this.init = function(renderer, scene, camera) {
       this.tools.measuring = new Potree.MeasuringTool(scene, camera, renderer);
-      this.tools.volume = new Potree.VolumeTool(scene, camera, renderer);
-      this.tools.heightprofile = new Potree.ProfileTool(scene, camera, renderer);
-      this.tools.transformation = new Potree.TransformationTool(scene, camera, renderer);
+      //this.tools.volume = new Potree.VolumeTool(scene, camera, renderer);
+      //this.tools.heightprofile = new Potree.ProfileTool(scene, camera, renderer);
+      //this.tools.transformation = new Potree.TransformationTool(scene, camera, renderer);
       // TODO do pollute global namespace, but Potree.VolumeTool uses the global var
       $window.transformationTool = this.tools.transformation;
 
@@ -152,33 +152,33 @@
 
     this.update = function() {
       if (this.initialized) {
-        this.tools.volume.update();
-        this.tools.transformation.update();
-        this.tools.heightprofile.update();
+        //this.tools.volume.update();
+        //this.tools.transformation.update();
+        //this.tools.heightprofile.update();
 
         var clipBoxes = [];
 
-        for (var i = 0; i < this.tools.heightprofile.profiles.length; i++) {
-          var profile = this.tools.heightprofile.profiles[i];
+        // for (var i = 0; i < this.tools.heightprofile.profiles.length; i++) {
+        //   var profile = this.tools.heightprofile.profiles[i];
 
-          for (var j = 0; j < profile.boxes.length; j++) {
-            var box = profile.boxes[j];
-            box.updateMatrixWorld();
-            var boxInverse = emptyMatrix.identity().getInverse(box.matrixWorld);
-            clipBoxes.push(boxInverse);
-          }
-        }
+        //   for (var j = 0; j < profile.boxes.length; j++) {
+        //     var box = profile.boxes[j];
+        //     box.updateMatrixWorld();
+        //     var boxInverse = emptyMatrix.identity().getInverse(box.matrixWorld);
+        //     clipBoxes.push(boxInverse);
+        //   }
+        // }
 
-        for (var k = 0; k < this.tools.volume.volumes.length; k++) {
-          var volume = this.tools.volume.volumes[k];
+        // for (var k = 0; k < this.tools.volume.volumes.length; k++) {
+        //   var volume = this.tools.volume.volumes[k];
 
-          if (volume.clip) {
-            volume.updateMatrixWorld();
-            var boxInverseV = emptyMatrix.identity().getInverse(volume.matrixWorld);
+        //   if (volume.clip) {
+        //     volume.updateMatrixWorld();
+        //     var boxInverseV = emptyMatrix.identity().getInverse(volume.matrixWorld);
 
-            clipBoxes.push(boxInverseV);
-          }
-        }
+        //     clipBoxes.push(boxInverseV);
+        //   }
+        // }
 
         if (this.pointcloud) {
           this.pointcloud.material.setClipBoxes(clipBoxes);

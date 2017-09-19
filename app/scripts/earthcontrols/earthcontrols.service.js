@@ -11,15 +11,16 @@
 
     var clock = new THREE.Clock();
 
-    this.init = function(camera, renderer, scenePointCloud, pointcloud, elementRenderArea)  {
+    this.init = function(camera, renderer, scene, scenePointCloud, pointcloud, elementRenderArea)  {
       this.earthControls = new THREE.EarthControls(camera, renderer, scenePointCloud);
+      // this.earthControls = new Potree.EarthControls(scene);
 
-    	this.earthControls.addEventListener('proposeTransform', function(event) {
+    	// this.earthControls.addEventListener('proposeTransform', function(event) {
     		// var demHeight = pointcloud.getDEMHeight(event.newPosition);
     		// if(event.newPosition.y < demHeight){
     		// 	event.objections++;
     		// }
-    	});
+    	// });
 
       this.earthControls.pointclouds.push(pointcloud);
 

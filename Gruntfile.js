@@ -9,6 +9,8 @@
 
 module.exports = function(grunt) {
 
+  var serveStatic = require('serve-static');
+
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
@@ -77,15 +79,11 @@ module.exports = function(grunt) {
           open: true,
           middleware: function(connect) {
             return [
-              connect.static('.tmp'),
-              connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
-              ),
-              connect.static(appConfig.app)
+              serveStatic('.tmp'),
+              connect().use('/bower_components', serveStatic('./bower_components')),
+              serveStatic(appConfig.app)
             ];
-          }
-        }
+          }        }
       },
       test: {
         options: {
@@ -474,7 +472,7 @@ module.exports = function(grunt) {
     }
 
     grunt.task.run([
-      'clean:server',
+      'clean',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
