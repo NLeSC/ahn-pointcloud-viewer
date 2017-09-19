@@ -19,8 +19,8 @@ describe('pointcloud.service', function() {
     it('should have settings', function() {
 
       var expected = {
-        pointCountTarget: 2.5,
-        pointSize: 1.00,
+        pointCountTarget: 5,
+        pointSize: 1.0,
         opacity: 1,
         showSkybox: true,
         interpolate: false,
@@ -30,12 +30,12 @@ describe('pointcloud.service', function() {
 
         pointColorTypes: Potree.PointColorType,
         clipModes: Potree.ClipMode,
-        pointSizeType: Potree.PointSizeType.ADAPTIVE,
+        pointSizeType: Potree.PointSizeType.ATTENUATED,
         pointColorType: Potree.PointColorType.HEIGHT,
         pointShape: Potree.PointShape.CIRCLE,
         clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
-        qualities:  Object({ Splats: 'Splats', Low: 'Circle'  }),
-        quality: 'Splats',
+        qualities: { Splats: 'Splats', Low: 'Circle'  },
+        quality: 'Circle',
 
         useDEMCollisions: false,
         minNodeSize: 100,

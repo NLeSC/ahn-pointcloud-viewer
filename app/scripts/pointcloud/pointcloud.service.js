@@ -268,7 +268,7 @@
       [1,new THREE.Color(0.9932,0.9062,0.1439)]
     ];
 
-    var QUALITIES = { Splats:'Splats', Low:'Circle'};
+    var QUALITIES = { Splats:'Splats', Low:'Circle' };
 
     var me = this;
 
@@ -318,7 +318,7 @@
       pointShape: Potree.PointShape.SQUARE,
       clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
       quality: QUALITIES.Low,
-
+      qualities: QUALITIES,
       useDEMCollisions: false,
       minNodeSize: 100,
       heightMin: -5,
@@ -342,7 +342,7 @@
       pointShape: Potree.PointShape.CIRCLE,
       clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
       quality: QUALITIES.Low,
-
+      qualities: QUALITIES,
       useDEMCollisions: false,
       minNodeSize: 100,
       heightMin: -5,
@@ -366,7 +366,7 @@
       pointShape: Potree.PointShape.CIRCLE,
       clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
       quality: QUALITIES.Splats,
-
+      qualities: QUALITIES,
       useDEMCollisions: false,
       minNodeSize: 100,
       heightMin: -5,
@@ -390,7 +390,7 @@
       pointShape: Potree.PointShape.CIRCLE,
       clipMode: Potree.ClipMode.HIGHLIGHT_INSIDE,
       quality: QUALITIES.Splats,
-
+      qualities: QUALITIES,
       useDEMCollisions: false,
       minNodeSize: 100,
       heightMin: -5,

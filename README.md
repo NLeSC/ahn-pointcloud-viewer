@@ -36,87 +36,81 @@ Getting started (windows, from scratch)
 9. Type: "grunt serve"
 10. Open browser, go to "http://localhost:9000"
 
-Getting started (Linux, Debian and Ubuntu based)
+Getting started (Debian and Ubuntu based Linux distros)
 -------------------------------------------------
 
 Prerequisites
 ------------
 
-1. nodejs, http://nodejs.org/
-2. bower, http://bower.io
-3. compass, http://compass-style.org
-4. Java Development Kit, https://www.java.com/
+1. [Node.js](http://nodejs.org/)
+2. [Bower](http://bower.io)
+3. [Compass](http://compass-style.org)
+4. [Java Development Kit](https://www.java.com/)
+5. Supported web browsers:
+  * [Google Chrome](https://www.google.com/chrome/)
+  * [Microsoft Edge](http://www.microsoft.com/en-us/windows/microsoft-edge)
 
 Installation
 ------------
 
-### Install nodejs
+### Install Node.js
 
-Follow instructions at joyents github website:
-https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager#debian-and-ubuntu-based-linux-distributions
+See the documentation [here](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions).
 
-### Install nodejs modules
-Install bower and grunt-cli globally
+```
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+### Install Node.js modules
+
 ```
 sudo npm install -g bower grunt-cli
 ```
 
-### Install compass
+### Install Compass
 
-Compass is used to convert the sass 2 css.
-
-1. Install Ruby using https://www.ruby-lang.org/en/documentation/installation/#apt
-2. Install Ruby dev and other dependecy packages
 ```
 sudo apt-get install ruby-dev libffi-dev
-```
-3. Install compass (for sass compilation)
-```
-gem install compass
+sudo gem install compass
 ```
 
-### Fetch git repository
+### Install AHN viewer
+
 ```
 git clone https://github.com/NLeSC/ahn-pointcloud-viewer
-```
-
-### setup with bower
-```
 cd ahn-pointcloud-viewer
+npm install phantomjs
 npm install
 bower install
-```
-If you already have a installed the bower packages before, but need to update them for a new version of the code, run
-```
-bower update
+#bower update
 ```
 
-### start development server & open browser
+### Test AHN viewer
+
 ```
-grunt serve
+grunt serve # opens http://localhost:9000 in your browser
 ```
-Changes made to code will automatically reload web page.
 
 ### Run unit tests
 
 ```
 grunt test
 ```
-Generates test report and coverage inside `test/reports` folder.
 
-### Run end-to-end tests with local browser (chrome)
+Note: This generates test & coverage reports (see the `test/reports` folder).
 
-Tests in Chrome can be run with
+### Run end-to-end tests locally
+
 ```
 grunt e2e-local
 ```
 
-The pointcloud and minimap use a canvas and can't be tested automatically so they must be verified manually using the screenshots in the report.
-Open `e2e/reports/report.html` in a web-browser.
+Note: Both the pointcloud and minimap use a canvas and can't be tested automatically so they must be verified manually using the screenshots in the report (open `e2e/reports/report.html` in your browser).
 
-### Run end-to-end tests on [sauce labs](https://saucelabs.com/)
+### Run end-to-end tests remotely on [Sauce Labs](https://saucelabs.com/)
 
-To connnect to Sauce Labs use sauce connect program. [Here](https://docs.saucelabs.com/reference/sauce-connect/) you can find the details on how to install and run it.
+To connect to Sauce Labs use sauce connect program. [Here](https://docs.saucelabs.com/reference/sauce-connect/) you can find the details on how to install and run it.
 
 Before tests can be run the sauce labs credentials must be setup
 
