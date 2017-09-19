@@ -58,7 +58,7 @@
           })
         }),
         this.osmLayer = new ol.layer.Tile({
-          title: 'Luchtfotos',
+          title: 'Aerial photos',
           type: 'base',
           visible: false,
           source: new ol.source.WMTS({
