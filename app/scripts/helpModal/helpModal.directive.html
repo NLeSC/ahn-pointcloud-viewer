@@ -6,20 +6,14 @@
           <span class="glyphicon glyphicon-remove" aria-hidden="true">
           </span>
         </button>
-        <h4 class="modal-title" id="myModalLabel">Pointcloud visualization of the Actuele Hoogtekaart Nederland (2)</h4>
+        <h4 class="modal-title" id="myModalLabel">Welcome to AHN2 point cloud viewer!</h4>
       </div>
 
       <div class="modal-body">
-        <div class="panel-heading">
-          Welcome to the Pointcloud visualization of the
-          <a href="http://www.ahn.nl/">Actuele Hoogtekaart Nederland (2)</a></br>
-          made by the <a href="http://www.esciencecenter.nl/">Netherlands eScience Center</a>.
-        </div>
-
         <div ng-show="!helpModal.mobile&&helpModal.chrome" class="panel-body">
             <p>If you have comments or issues, please leave them at: <a href="https://github.com/NLeSC/ahn-pointcloud-viewer/issues">our issue tracker</a>.</p>
             <p>This software is free and open source. Please refer to <a href="https://github.com/NLeSC/ahn-pointcloud-viewer">our github page</a> for more information.</p>
-    
+
             <h2>The Pointcloud viewer</h2>
             <p>The viewer consists of several elements:</p>
             <ul>
@@ -40,7 +34,7 @@
                     two buttons to switch between interaction modes. As further explained in <a href="#navigation">Navigation</a>
                 </li>
             </ul>
-    
+
             <h2 id="navigation">Navigation</h2>
             <div>
               <p>
@@ -58,7 +52,7 @@
                   </ul>
               </p>
             </div>
-    
+
             <h2 id="extract">
                 <span class="glyphicon glyphicon-download inverted-glyphicon"></span>
                 Extract points</h2>
@@ -71,11 +65,11 @@
                 </ol>
                 The coordinates are in
                 <a href="http://epsg.io/28992">Amersfoort/RD new</a>
-                coordinate system. 
-                Before submiting the job request you can also get an approximation of the number of points in your selected area. Coverage indicates the percentage of that data that you are allowed to download. There is a limit in the number of points that you can download. Depending on the extent of your selection you will download different resolutions of the point cloud. For small areas you can download the data up to its full resolution, i.e. 10 points/m2, but the larger the area the lower the density you get. 
+                coordinate system.
+                Before submiting the job request you can also get an approximation of the number of points in your selected area. Coverage indicates the percentage of that data that you are allowed to download. There is a limit in the number of points that you can download. Depending on the extent of your selection you will download different resolutions of the point cloud. For small areas you can download the data up to its full resolution, i.e. 10 points/m2, but the larger the area the lower the density you get.
                 Getting the approximation of number of points can take a few seconds depending on the selected area and the server load, so be patient.
             </div>
-    
+
             <h2 id="settings">
                 <div class="icon-inline gear-icon"></div>
                 Settings</h2>
@@ -90,7 +84,7 @@
                 <h4>Miscellaneous</h4>
                 For miscellaneous settings.
             </div>
-    
+
             <h2 id="search">Search Location</h2>
             <p>
                 Locate a landmark or adress by
@@ -99,14 +93,14 @@
                 <span class="glyphicon glyphicon-home inverted-glyphicon"></span>
                 to locate your location.
             </p>
-    
+
             <h2 id="minimap">Minimap</h2>
             <p>
                 Shows the location of camera and it's field of view as a white triangle. By default aerial photos are shown, change to road map using the layer switcher in the top right corner. Click
                 <span class="glyphicon glyphicon-resize-full"></span>
                 to enlarge minimap.
             </p>
-    
+
             <h2 id="measure">Measurement</h2>
             <div>
                 <div>
@@ -121,7 +115,7 @@
                     Distance
                 </div>
                 Left Mouse: Insert Measurement Point Right Mouse: Finish insertion Drag&Drop: Move Measurement Points Distance between measurement points will be displayed on the edge.
-    
+
             </div>
             <div>
                 <div>
@@ -150,17 +144,15 @@
                     Clip Volume
                 </div>
                 Left Mouse: Insert Volume or Select Inserted Volume Switch between translation (icon), scale (icon) and rotation (icon) mode Keyboard shortcut: T, E, R
-            </div>    
+            </div>
         </div>
         <div ng-show="helpModal.mobile" class="panel-body">
           <p style="color:red">
-            This 3D visualization in WebGL is a bit hefty for most mobile browsers, 
-            so please view this website on a non-mobile device for a much better user experience.</div>
+            Warning: This 3D visualization requires WebGL, which is not well suited for most mobile browsers. Please view this website on a non-mobile device for better user experience.</div>
           </p>
         <div ng-show="!helpModal.mobile&&!helpModal.chrome" class="panel-body">
           <p style="color:red">
-            Unfortunately, WebGL/Potree support is not provided for browsers other than Google Chrome or Microsoft Edge, 
-            please switch to either of these browsers
+            Warning: Unfortunately, your web browser is not supported by this viewer. Please use Google Chrome or Microsoft Edge.
           </p>
         </div>
       </div>
