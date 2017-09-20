@@ -9,8 +9,9 @@
         <h4 class="modal-title" id="myModalLabel">Welcome to AHN2 point cloud viewer!</h4>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body">        
         <div ng-show="!helpModal.mobile&&helpModal.chrome" class="panel-body">
+            <p><input type="checkbox" ng-model="helpModal.doNotShow" ng-change="helpModal.dontShowClicked()"> Do not show this message at refresh again.</p>
             <p>If you have comments or issues, please leave them at: <a href="https://github.com/NLeSC/ahn-pointcloud-viewer/issues">our issue tracker</a>.</p>
             <p>This software is free and open source. Please refer to <a href="https://github.com/NLeSC/ahn-pointcloud-viewer">our github page</a> for more information.</p>
 

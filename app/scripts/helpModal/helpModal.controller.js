@@ -3,6 +3,17 @@
 
   function HelpModalController($window, UserAgent, Messagebus) {
     this.mobile = UserAgent.mobile;
+    this.doNotShow = false;
+
+    this.dontShowClicked = function() {
+      if (this.doNotShow) {
+        console.log("dont show clicked");
+        $window.localStorage.message = 'Do not show settings';
+      } else {
+        console.log("show clicked");
+        $window.localStorage.message = '';
+      }
+    }
 
     this.checkBrowser = function() {
       var userAgent = $window.navigator.userAgent;
@@ -19,11 +30,17 @@
     };
     
     this.init = function() {
-      angular.element('#helpModal').modal(
-        {
-          'show' : 'true'
-        }
-      );
+      console.log("$window.localStorage.message : "+$window.localStorage.message);
+      if ($window.localStorage.message === 'Do not show settings') {
+        this.doNotShow = true;        
+      } else {
+        this.doNotShow = false;
+        angular.element('#helpModal').modal(
+          {
+            'show' : 'true'
+          }
+        );
+      }
     };
 
     this.onClose = function() {
