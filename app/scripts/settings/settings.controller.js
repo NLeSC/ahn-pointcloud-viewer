@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function SettingsController(PointcloudService, MeasuringService, PathControls, RailService) {
+  function SettingsController(PointcloudService, MeasuringService, Messagebus, PathControls, RailService) {
     this.showSettings = false;
     // this.predefinedSettings = PointcloudService.predefinedSettings;
     // this.settings = PointcloudService.settings;
@@ -14,6 +14,24 @@
     this.sd = true;
     this.md = false;
     this.hd = false;
+    
+    this.toggleSettings = function() {
+      if (!this.showSettings) {
+        Messagebus.publish('closeOtherPanels', 'settings');
+
+        this.showSettings = true;
+      } else {
+        this.showSettings = false;        
+      }
+    };
+      
+    this.panelClose = function(event, panelNameToRemainOpen) {
+      if (panelNameToRemainOpen !== 'settings') {
+        this.showSettings = false;
+      }
+    }.bind(this);
+    
+    Messagebus.subscribe('closeOtherPanels', this.panelClose);
 
     this.settingsChanged = function() {
       this.ld = false;

@@ -76,10 +76,10 @@
       translationMatrix = new THREE.Matrix4().setPosition(new THREE.Vector3(leftTopLocal.x-50, 45, leftBottomLocal.z+0.5*(leftTopLocal.z-leftBottomLocal.z)));
       leftBox.applyMatrix(translationMatrix);
 
-      THREE.GeometryUtils.merge(geometry, topBox);
-      THREE.GeometryUtils.merge(geometry, rightBox);
-      THREE.GeometryUtils.merge(geometry, bottomBox);
-      THREE.GeometryUtils.merge(geometry, leftBox);
+      geometry.merge(topBox);
+      geometry.merge(rightBox);
+      geometry.merge(bottomBox);
+      geometry.merge(leftBox);
 
       var mesh = new THREE.Mesh(geometry, boxMaterial);
       return mesh;

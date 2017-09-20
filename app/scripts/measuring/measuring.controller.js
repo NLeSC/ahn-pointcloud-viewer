@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function MeasuringController(MeasuringService) {
+  function MeasuringController(MeasuringService, Messagebus) {
     this.showToolboxTray = false;
     this.showTransformationToolboxTray = false;
 
@@ -17,10 +17,23 @@
     this.toggleToolbox = function() {
       this.resetState();
 
-      this.showToolboxTray = !this.showToolboxTray;
+      if (!this.showToolboxTray) {
+        Messagebus.publish('closeOtherPanels', 'toolbox');
 
-      this.measuringService.clear();
+        this.showToolboxTray = true;
+      } else {
+        this.showToolboxTray = false;        
+      }
     };
+      
+    this.panelClose = function(event, panelNameToRemainOpen) {
+      if (panelNameToRemainOpen !== 'toolbox') {
+        this.resetState();
+        this.showToolboxTray = false;
+      }
+    }.bind(this);
+    
+    Messagebus.subscribe('closeOtherPanels', this.panelClose);
 
     this.resetState = function() {
       this.distanceActive = false;
@@ -31,6 +44,8 @@
       this.clipVolumeActive = false;
 
       this.showTransformationToolboxTray = false;
+
+      this.measuringService.clear();
     };
 
     this.isTransformationRotate = function() {
