@@ -735,20 +735,20 @@
 
 
         // update progress bar
-        // updateCounter++;
-        // if (updateCounter > 100) {
-        //   var progress = pointcloud.visibleNodes.length / pointcloud.visibleGeometry.length;
-        //   var prevProgress = cfpLoadingBar.status();
-        //   if (progress === 1 && prevProgress < 1){
-        //     cfpLoadingBar.complete();
-        //   } else if (progress < 1 && progress !== prevProgress){
-        //     cfpLoadingBar.start();
-        //     cfpLoadingBar.set(progress);
-        //   } else if (progress === Infinity && prevProgress < 1) {
-        //     cfpLoadingBar.complete();
-        //   }
-        //   updateCounter = 0;
-        // }
+        updateCounter++;
+        if (updateCounter > 100) {
+          var progress = pointcloud.visibleNodes.length / pointcloud.visibleGeometry.length;
+          var prevProgress = cfpLoadingBar.status();
+          if (progress === 1 && prevProgress < 1){
+            cfpLoadingBar.complete();
+          } else if (progress < 1 && progress !== prevProgress){
+            cfpLoadingBar.start();
+            cfpLoadingBar.set(progress);
+          } else if (progress === Infinity && prevProgress < 1) {
+            cfpLoadingBar.complete();
+          }
+          updateCounter = 0;
+        }
       } else {
         // loading metadata
         cfpLoadingBar.start();

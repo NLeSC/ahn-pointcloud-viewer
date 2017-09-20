@@ -1,7 +1,7 @@
-<button class="icon-big extract-icon" ng-class="{active: ec.selection.active}" ng-click="ec.selection.active=!ec.selection.active" title="Export points"></button>
+<button class="icon-big extract-icon" ng-class="{active: ec.selection.active}" ng-click="ec.togglePanel()" title="Export points"></button>
 <div class="panel panel-default extract-panel" collapse='!ec.selection.active'>
   <div class="panel-heading">Export points
-    <button aria-label="Close" class="close" ng-click="ec.selection.active=!ec.selection.active">
+    <button aria-label="Close" class="close" ng-click="ec.togglePanel()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
