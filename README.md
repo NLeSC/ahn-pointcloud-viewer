@@ -6,7 +6,7 @@ AHN2 point cloud viewer
 [![Code Climate](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer/badges/gpa.svg)](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer)
 [![Test Coverage](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer/badges/coverage.svg)](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer/coverage)
 
-[Potree](http://potree.org/)-based point cloud visualization of the current digital elevation model of the Netherlands ([Actueel Hoogtebestand Nederland (2)](http://www.ahn.nl/). For further details, please refer to the original publication by [Rubi _et al._ (2016)](http://resolver.tudelft.nl/uuid:0472e0d1-ec75-465a-840e-fd53d427c177).
+[Potree](http://potree.org/)-based point cloud visualization of the current digital elevation model of the Netherlands ([Actueel Hoogtebestand Nederland (2)](http://www.ahn.nl/). For further details, please refer to the original publication by [Martinez-Rubi _et al._ (2016)](http://dx.doi.org/10.13140/RG.2.1.1731.4326/1).
 
 ![Willemstad in the AHN2 viewer](/doc/ahn2-screenshot.png "screenshot of ahn2 viewer showing willemstad")
 
