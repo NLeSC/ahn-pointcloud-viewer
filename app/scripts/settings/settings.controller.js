@@ -21,10 +21,10 @@
 
         this.showSettings = true;
       } else {
-        this.showSettings = false;        
+        this.showSettings = false;
       }
     };
-      
+
     this.panelClose = function(event, panelNameToRemainOpen) {
       if (panelNameToRemainOpen !== 'settings') {
         this.showSettings = false;
