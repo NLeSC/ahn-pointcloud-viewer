@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function ExtractionController(ExtractionSelectionService, pattyConf, $http, toastr) {
+  function ExtractionController(ExtractionSelectionService, pattyConf, Messagebus, $http, toastr) {
     this.selection = ExtractionSelectionService;
     this.email = '';
     this.size = {
@@ -10,6 +10,25 @@
       rawPoints: 0,
       level: 14
     };
+    this.selection.active = false;
+
+    this.togglePanel = function() {
+      if (!this.selection.active) {        
+        Messagebus.publish('closeOtherPanels', 'extraction');
+
+        this.selection.active = true;
+      } else {
+        this.selection.active = false;
+      }   
+    };
+    
+    this.panelClose = function(event, panelNameToRemainOpen) {
+      if (panelNameToRemainOpen !== 'extraction') {
+        this.selection.active = false;
+      }      
+    }.bind(this);
+
+    Messagebus.subscribe('closeOtherPanels', this.panelClose);
 
     /**
      * Update size data by requesting it from server.

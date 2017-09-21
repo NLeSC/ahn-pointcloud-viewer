@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function EarthcontrolsService(Messagebus, THREE, PathControls) {
+  function EarthcontrolsService($rootScope, $location, Messagebus, THREE, PathControls, RailService) {
     this.enabled = true;
 
     this.earthControls = null;
@@ -37,6 +37,18 @@
       if(this.enabled) {
 		    this.earthControls.update(clock.getDelta());
       }
+      var waypoint = RailService.getCameraAndLookatLocation();
+      
+      //store camera values in the URL
+      $location.search({
+        camera_x:waypoint.cameraPosition[0],
+        camera_y:waypoint.cameraPosition[1],
+        camera_z:waypoint.cameraPosition[2],
+        lookat_x:waypoint.lookatPosition[0],
+        lookat_y:waypoint.lookatPosition[1],
+        lookat_z:waypoint.lookatPosition[2]
+      }).replace();
+      $rootScope.$applyAsync();
     };
 
     this.mousedown = function() {

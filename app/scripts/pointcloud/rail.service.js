@@ -44,6 +44,18 @@
       this.waypointsChanged();
     };
 
+    this.getCameraAndLookatLocation = function () {
+      var camera = CameraService.camera;
+      var cameraPosition = camera.position.clone();
+      
+      var lookatPosition = new THREE.Vector3( 0, 0, -1 * this.lookatDistance ).applyQuaternion( camera.quaternion ).add( camera.position );
+
+      var cameraPositionGeo = SceneService.toGeo(cameraPosition).toArray();
+      var lookatGeo = SceneService.toGeo(lookatPosition).toArray();
+
+      return {cameraPosition: cameraPositionGeo, lookatPosition: lookatGeo};
+    }
+
     this.removeLast = function() {
       this.waypoints.pop();
       this.waypointsChanged();

@@ -1,140 +1,145 @@
-AHN pointcloud viewer
+AHN2 point cloud viewer
 =====================
 
-[![Join the chat at https://gitter.im/NLeSC/ahn-pointcloud-viewer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/NLeSC/ahn-pointcloud-viewer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/NLeSC/ahn-pointcloud-viewer.svg)](https://travis-ci.org/NLeSC/ahn-pointcloud-viewer)
 
 [![Code Climate](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer/badges/gpa.svg)](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer)
 [![Test Coverage](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer/badges/coverage.svg)](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer/coverage)
 
-Webgl pointcloud visualization of the Actuele Hoogtekaart Nederland (2) based on http://potree.org
---------------------------------------------------------------------------------------------------
+Point cloud visualization of the current digital elevation model of the Netherlands ([Actueel Hoogtebestand Nederland or AHN2](http://www.ahn.nl/)). For further details, please refer to the publication by [Martinez-Rubi _et al._ (2015)](http://dx.doi.org/10.13140/RG.2.1.1731.4326/1).
+
+![Willemstad in the AHN2 viewer](/doc/ahn2-screenshot.png "screenshot of ahn2 viewer showing willemstad")
 
 Related repositories
 --------------------
 
-- [Massive-PotreeConverter](https://github.com/NLeSC/Massive-PotreeConverter): Used to extend PotreeConverter to deal with massive point clouds like AHN2. This visualization requires the point cloud data to be converted to the potree format.
-- [ahn-pointcloud-viewer-ws] (https://github.com/NLeSC/ahn-pointcloud-viewer-ws): Contains the web service in charge of the communication between this application and the database with meta-data regarding the point cloud data.
+- [Massive-PotreeConverter](https://github.com/NLeSC/Massive-PotreeConverter) extends the [PotreeConverter](https://github.com/potree/PotreeConverter) to handle massive point cloud data such as AHN2.
+- [ahn-pointcloud-viewer-ws](https://github.com/NLeSC/ahn-pointcloud-viewer-ws) corresponds to a RESTful web service that enables communication between this web application (viewer) and database of point cloud (meta)data.
 
-
-Getting started (windows, from scratch)
----------------------------------------
-
-1. Install Git : 	http://git-scm.com/downloads
-2. Install Node.js : 	http://nodejs.org/ (Make sure add node to PATH option is checked)
-  1. Create '$HOME/npm' folder (Where $HOME is c:\Users\<username>\AppData\Roaming).
-  2. Open node command prompt and run `npm install -g bower grunt-cli`
-3. Install Ruby: http://rubyinstaller.org/ (Make sure add ruby to PATH option is checked)
-  1. Open ruby command prompt and run `gem install compass`
-4. Start Git bash
-5. Type: "git clone https://github.com/NLeSC/ahn-pointcloud-viewer"
-6. Type: "cd ahn-pointcloud-viewer"
-7. Type: "npm install -g grunt grunt-cli"
-8. Type: "npm install"
-8. Type: "bower install"
-8. Type: "bower update"
-9. Type: "grunt serve"
-10. Open browser, go to "http://localhost:9000"
-
-Getting started (Linux, Debian and Ubuntu based)
--------------------------------------------------
 
 Prerequisites
-------------
+-------------
 
-1. nodejs, http://nodejs.org/
-2. bower, http://bower.io
-3. compass, http://compass-style.org
-4. Java Development Kit, https://www.java.com/
+* Point cloud data in the _potree_ format.
+* [Node.js](http://nodejs.org/)
+* [Bower](http://bower.io)
+* [Compass](http://compass-style.org)
+* [Java Development Kit](https://www.java.com/)
+* Supported web browsers:
+  * [Google Chrome](https://www.google.com/chrome/)
+  * [Microsoft Edge](http://www.microsoft.com/en-us/windows/microsoft-edge)
 
-Installation
-------------
+Installation: Windows
+---------------------
 
-### Install nodejs
+### Install [Git CLI/GUI clients](http://git-scm.com/downloads)
 
-Follow instructions at joyents github website:
-https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager#debian-and-ubuntu-based-linux-distributions
+### Install [Node.js](http://nodejs.org/) and required modules
 
-### Install nodejs modules
-Install bower and grunt-cli globally
-```
-sudo npm install -g bower grunt-cli
-```
+* Make sure the _Add node to PATH_ option is checked.
+* Create '$HOME/npm' folder (where $HOME is C:\Users\<username>\AppData\Roaming).
 
-### Install compass
+`npm install -g bower grunt-cli`
 
-Compass is used to convert the sass 2 css.
+### Install [Ruby](http://rubyinstaller.org/) and required package
 
-1. Install Ruby using https://www.ruby-lang.org/en/documentation/installation/#apt
-2. Install Ruby dev and other dependecy packages
-```
-sudo apt-get install ruby-dev libffi-dev
-```
-3. Install compass (for sass compilation)
-```
-gem install compass
-```
+* Make sure the _Add Ruby to PATH_ option is checked
 
-### Fetch git repository
+`gem install compass`
+
+### Install AHN2 viewer
+
 ```
 git clone https://github.com/NLeSC/ahn-pointcloud-viewer
-```
-
-### setup with bower
-```
 cd ahn-pointcloud-viewer
+npm install -g grunt grunt-cli
 npm install
 bower install
-```
-If you already have a installed the bower packages before, but need to update them for a new version of the code, run
-```
 bower update
 ```
 
-### start development server & open browser
+8. Test AHN2 viewer
+
 ```
-grunt serve
+grunt serve # starts the web server and opens http://localhost:9000 in your browser
 ```
-Changes made to code will automatically reload web page.
+
+
+Installation: Debian/Ubuntu-based Linux distros
+-----------------------------------------------
+
+### Install Node.js and required modules
+
+See the documentation [here](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions).
+
+```
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+sudo apt-get install -y nodejs
+sudo npm install -g bower grunt-cli
+```
+
+### Install Ruby and required package
+
+```
+sudo apt-get install ruby-dev libffi-dev
+sudo gem install compass
+```
+
+### Install AHN2 viewer
+
+```
+git clone https://github.com/NLeSC/ahn-pointcloud-viewer
+cd ahn-pointcloud-viewer
+npm install phantomjs
+npm install
+bower install
+#bower update
+```
+
+### Test AHN2 viewer
+
+```
+grunt serve # starts the web server and opens http://localhost:9000 in your browser
+```
 
 ### Run unit tests
 
 ```
 grunt test
 ```
-Generates test report and coverage inside `test/reports` folder.
 
-### Run end-to-end tests with local browser (chrome)
+Note: This generates test and coverage reports (see the `test/reports` folder).
 
-Tests in Chrome can be run with
+### Run end-to-end tests locally
+
 ```
 grunt e2e-local
 ```
 
-The pointcloud and minimap use a canvas and can't be tested automatically so they must be verified manually using the screenshots in the report.
-Open `e2e/reports/report.html` in a web-browser.
+Note: Both the point cloud and minimap use a canvas and can't be tested automatically so they must be verified manually using the screenshots in the report (open `e2e/reports/report.html` in your browser).
 
-### Run end-to-end tests on [sauce labs](https://saucelabs.com/)
+### Run end-to-end tests remotely on [Sauce Labs](https://saucelabs.com/)
 
-To connnect to Sauce Labs use sauce connect program. [Here](https://docs.saucelabs.com/reference/sauce-connect/) you can find the details on how to install and run it.
+Connect to Sauce Labs using the sauce-connect program. Further details on how to install and run this tool can be found [here](https://docs.saucelabs.com/reference/sauce-connect/).
 
-Before tests can be run the sauce labs credentials must be setup
+Setup Sauce Labs credentials before running the tests.
 
 ```
 export SAUCE_USERNAME=<your sauce labs username>
 export SAUCE_ACCESS_KEY=<your sauce labs access key>
 ```
 
-Tests in Chrome, Firefox on Windows, Linux and OSX can be run with
+Run the tests in Google Chrome (Linux).
+
 ```
 grunt e2e-sauce
 ```
 
-The pointcloud and minimap use a canvas and can't be tested automatically so they must be verified manually using the screencast in the report at `https://saucelabs.com/u/<your sauce labs username>`.
+Both the point cloud window and minimap use a canvas, which can't be tested automatically. Therefore, the tests must be verified manually using the screencast in the report at `https://saucelabs.com/u/<your sauce labs username>`.
 
-Travis-ci also runs end-to-end tests on sauce labs.
+Also Travis-CI runs end-to-end tests on Sauce Labs.
 
-Note! Running `grunt e2e-sauce` will undo all changes in `app/` folder.
+Note: Executing `grunt e2e-sauce` locally will undo all changes in `app/` folder.
 
 ### Build a distro
 
@@ -159,7 +164,7 @@ Use Chrome FPS plotting to get the frame rate.
 2. On Console tab goto Rendering tab (bottom screen)
 3. Check the Show FPS meter checkbox
 
-### Deploy to Github pages
+### Deploy to GitHub pages
 
 Deploy distribution to `gh-pages` branch.
 Make it available as http://nlesc.github.io/ahn-pointcloud-viewer

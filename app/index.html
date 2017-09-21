@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="bower_components/ol3-layerswitcher/src/ol3-layerswitcher.css" />
   <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
   <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+  <link rel="stylesheet" href="bower_components/intro.js/introjs.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
@@ -86,10 +87,10 @@ void main() {
   </script>
 
   <!-- Add your site or application content here -->
-  <patty-search-panel class="clickable"></patty-search-panel>
-  <patty-minimap class="clickable"></patty-minimap>
+  <patty-search-panel class="clickable" data-step="2" data-intro="Search for location like a city name"></patty-search-panel>
+  <patty-minimap class="clickable" data-step="3" data-intro="Minimap with red camera POV"></patty-minimap>
   <!--<patty-maximap class="clickable"></patty-maximap>-->
-  <patty-pointcloud-canvas></patty-pointcloud-canvas>
+  <patty-pointcloud-canvas data-step="1" data-intro="Main window with point cloud data"></patty-pointcloud-canvas>
   <patty-pointcloud-stats></patty-pointcloud-stats>
   <div class="controls">
     <extraction-panel></extraction-panel>
@@ -100,6 +101,7 @@ void main() {
   <big-legend-directive></big-legend-directive>
   <earthcontrols-directive></earthcontrols-directive>
   <logo-box-directive></logo-box-directive>
+  <help-modal-directive></help-modal-directive>
 
   <!-- build:js(.) scripts/oldieshim.js -->
   <!--[if lt IE 9]>
@@ -139,6 +141,7 @@ void main() {
   <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
   <script src="bower_components/angular-debounce/dist/angular-debounce.js"></script>
   <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+  <script src="bower_components/intro.js/intro.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -186,6 +189,9 @@ void main() {
   <script src="scripts/earthcontrols/earthcontrols.directive.js"></script>
   <script src="scripts/earthcontrols/earthcontrols.controller.js"></script>
   <script src="scripts/earthcontrols/earthcontrols.service.js"></script>
+  <script src="scripts/helpModal/helpModal.directive.js"></script>
+  <script src="scripts/helpModal/helpModal.controller.js"></script>
+  <script src="scripts/pointcloud/gradients.service.js"></script>
 
   <!-- endbuild -->
 </body>

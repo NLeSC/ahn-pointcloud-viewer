@@ -21,8 +21,8 @@ describe('help.directive', function() {
       expect(result.html()).toContain('help-icon');
     });
 
-    it('should have a help panel', function() {
-      expect(result.html()).toContain('help-panel');
+    it('should have a help modal', function() {
+      expect(result.html()).toContain('helpModal');
     });
   });
 });
