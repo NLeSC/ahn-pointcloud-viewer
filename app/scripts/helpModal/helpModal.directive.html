@@ -11,6 +11,7 @@
 
       <div class="modal-body">
         <div ng-show="!helpModal.mobile&&helpModal.chrome" class="panel-body">
+            <p><input type="checkbox" ng-model="helpModal.doNotShow" ng-change="helpModal.dontShowClicked()"> Do not show this message at refresh again.</p>
             <p>This software is free and open source (<a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License Version 2.0</a>) developed at the <a href="https://www.esciencecenter.nl/">Netherlands eScience Center</a>. For further details, please refer to the <a href="https://github.com/NLeSC/ahn-pointcloud-viewer">GitHub page</a>.</p>
             <p>Contributions are welcome! If you have some issues or comments, please report these <a href="https://github.com/NLeSC/ahn-pointcloud-viewer/issues">here</a>.</p>
             <h2>Graphical User Interface</h2>
