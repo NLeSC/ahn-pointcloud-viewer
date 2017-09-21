@@ -81,7 +81,7 @@ sudo npm install -g bower grunt-cli
 ### Install Ruby and required package
 
 ```
-sudo apt-get install ruby-dev libffi-dev
+sudo apt-get install ruby-dev libffi-dev build-essential
 sudo gem install compass
 ```
 
