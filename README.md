@@ -2,9 +2,9 @@ AHN2 point cloud viewer
 =====================
 
 [![Build Status](https://travis-ci.org/NLeSC/ahn-pointcloud-viewer.svg)](https://travis-ci.org/NLeSC/ahn-pointcloud-viewer)
-
 [![Code Climate](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer/badges/gpa.svg)](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer)
 [![Test Coverage](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer/badges/coverage.svg)](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer/coverage)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.910448.svg)](https://doi.org/10.5281/zenodo.910448)
 
 Point cloud visualization of the current digital elevation model of the Netherlands ([Actueel Hoogtebestand Nederland or AHN2](http://www.ahn.nl/)). For further details, please refer to the publication by [Martinez-Rubi _et al._ (2015)](http://dx.doi.org/10.13140/RG.2.1.1731.4326/1).
 
