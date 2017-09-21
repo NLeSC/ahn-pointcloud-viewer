@@ -14,7 +14,7 @@ install:
   - 'bower install'
 script:
   - 'grunt test'
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && grunt e2e-sauce || false'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && grunt e2e-sauce --verbose || false'
 after_script:
   - codeclimate < test/reports/coverage/*/lcov.info
 env:
