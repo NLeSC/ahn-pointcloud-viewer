@@ -60,20 +60,20 @@
       var geometry = new THREE.Geometry();
       var translationMatrix = null;
 
-      var topBox = new THREE.BoxGeometry(rightTopLocal.x-leftTopLocal.x+200, 100, 100);
-      translationMatrix = new THREE.Matrix4().setPosition(new THREE.Vector3(leftTopLocal.x+ 0.5*(rightTopLocal.x-leftTopLocal.x), 45, leftTopLocal.z+50));
+      var topBox = new THREE.BoxGeometry(rightTopLocal.x-leftTopLocal.x+50, 25, 25);
+      translationMatrix = new THREE.Matrix4().setPosition(new THREE.Vector3(leftTopLocal.x+ 0.5*(rightTopLocal.x-leftTopLocal.x), 45, leftTopLocal.z+12));
       topBox.applyMatrix(translationMatrix);
 
-      var rightBox = new THREE.BoxGeometry(100, 100, rightTopLocal.z-rightBottomLocal.z+200);
-      translationMatrix = new THREE.Matrix4().setPosition(new THREE.Vector3(rightBottomLocal.x+50, 45, rightBottomLocal.z+0.5*(rightTopLocal.z-rightBottomLocal.z)));
+      var rightBox = new THREE.BoxGeometry(25, 25, rightTopLocal.z-rightBottomLocal.z+50);
+      translationMatrix = new THREE.Matrix4().setPosition(new THREE.Vector3(rightBottomLocal.x+12, 45, rightBottomLocal.z+0.5*(rightTopLocal.z-rightBottomLocal.z)));
       rightBox.applyMatrix(translationMatrix);
 
-      var bottomBox = new THREE.BoxGeometry(rightBottomLocal.x-leftBottomLocal.x+200, 100, 100);
-      translationMatrix = new THREE.Matrix4().setPosition(new THREE.Vector3(leftBottomLocal.x+ 0.5*(rightBottomLocal.x-leftBottomLocal.x), 45, leftBottomLocal.z-50));
+      var bottomBox = new THREE.BoxGeometry(rightBottomLocal.x-leftBottomLocal.x+50, 25, 25);
+      translationMatrix = new THREE.Matrix4().setPosition(new THREE.Vector3(leftBottomLocal.x+ 0.5*(rightBottomLocal.x-leftBottomLocal.x), 45, leftBottomLocal.z-12));
       bottomBox.applyMatrix(translationMatrix);
 
-      var leftBox = new THREE.BoxGeometry(100, 100, leftTopLocal.z-leftBottomLocal.z+200);
-      translationMatrix = new THREE.Matrix4().setPosition(new THREE.Vector3(leftTopLocal.x-50, 45, leftBottomLocal.z+0.5*(leftTopLocal.z-leftBottomLocal.z)));
+      var leftBox = new THREE.BoxGeometry(25, 25, leftTopLocal.z-leftBottomLocal.z+50);
+      translationMatrix = new THREE.Matrix4().setPosition(new THREE.Vector3(leftTopLocal.x-12, 45, leftBottomLocal.z+0.5*(leftTopLocal.z-leftBottomLocal.z)));
       leftBox.applyMatrix(translationMatrix);
 
       geometry.merge(topBox);

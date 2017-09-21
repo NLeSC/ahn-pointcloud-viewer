@@ -5,9 +5,9 @@ describe('measuring', function() {
   // load the module
   beforeEach(module('pattyApp.measuring'));
 
-  it('should create an application controller', inject(function($rootScope, $controller, MeasuringService) {
+  it('should create an application controller', inject(function($rootScope, $controller, MeasuringService, Messagebus) {
       var scope = $rootScope.$new();
-      var ctrl = $controller('MeasuringController', { $scope: scope, MeasuringService:MeasuringService });
+      var ctrl = $controller('MeasuringController', { $scope: scope, MeasuringService:MeasuringService, Messagebus: Messagebus });
       expect(ctrl).toBeDefined();
   }));
 
@@ -15,9 +15,9 @@ describe('measuring', function() {
     var scope;
     var ctrl;
     beforeEach(function() {
-      inject(function($rootScope, $controller, MeasuringService) {
+      inject(function($rootScope, $controller, MeasuringService, Messagebus) {
         scope = $rootScope.$new();
-        ctrl = $controller('MeasuringController', { $scope: scope, MeasuringService: MeasuringService });
+        ctrl = $controller('MeasuringController', { $scope: scope, MeasuringService: MeasuringService, Messagebus: Messagebus });
       });
     });
 
