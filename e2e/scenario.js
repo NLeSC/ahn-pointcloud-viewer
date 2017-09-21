@@ -96,21 +96,6 @@ describe('pattyApp', function() {
         browser.sleep(200);
       });
 
-      describe('and then clicking on top toolbox icon', function() {
-
-        beforeEach(function() {
-          // wait for toolbox to open, otherwise icon is moving when click is attempted
-          browser.sleep(500);
-          element(by.css('.icon-big.toolbox-tray-top-icon')).click();
-          // wait for toolbox to close, otherwise it will still be displayed partly
-          browser.sleep(200);
-        });
-
-        it('should hide tools', function() {
-          var panel = element(by.css('.toolbox-tools'));
-          expect(panel.isDisplayed()).toBeFalsy();
-        });
-      });
     });
 
   });
