@@ -136,7 +136,7 @@ grunt e2e-sauce
 
 The point cloud and minimap use a canvas and can't be tested automatically so they must be verified manually using the screencast in the report at `https://saucelabs.com/u/<your sauce labs username>`.
 
-Travis-ci also runs end-to-end tests on sauce labs.
+Travis-CI also runs end-to-end tests on sauce labs.
 
 Note! Running `grunt e2e-sauce` will undo all changes in `app/` folder.
 
