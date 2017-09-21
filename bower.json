@@ -37,7 +37,8 @@
     "angular-loading-bar": "~0.7.1",
     "angular-debounce": "~1.0.3",
     "ng-file-upload": "~5.0.9",
-    "octicons": "~2.4.1"
+    "octicons": "~2.4.1",
+    "intro.js": "^2.7.0"
   },
   "overrides": {
     "openlayers3": {

@@ -15,17 +15,18 @@
             <p>This software is free and open source (<a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License Version 2.0</a>) developed at the <a href="https://www.esciencecenter.nl/">Netherlands eScience Center</a>. For further details, please refer to the <a href="https://github.com/NLeSC/ahn-pointcloud-viewer">GitHub page</a>.</p>
             <p>Contributions are welcome! If you have some issues or comments, please report these <a href="https://github.com/NLeSC/ahn-pointcloud-viewer/issues">here</a>.</p>
             <h2>Graphical User Interface</h2>
+            <button onclick="introJs().start()">User interface step-by-step</button>
             <p>The point cloud viewer consists of several elements:</p>
             <ul>
-                <li>at the center: main display window for point cloud data,</li>
-                <li>top-left: <a href="#search">search box for a location</a></li>
-                <li>top-right: <a href="#minimap">minimap</a></li>
+                <li>at the center: <a onclick="introJs().goToStepNumber(1).start()">main display window</a> for point cloud data,</li>
+                <li>top-left: <a onclick="introJs().goToStepNumber(2).start()">search box for a location</a></li>
+                <li>top-right: <a onclick="introJs().goToStepNumber(3).start()">minimap</a></li>
                 <li>bottom-left:
                     <ul>
-                        <li><a href="#extract">export points</a>,</li>
-                        <li><a href="#settings">settings</a>,</li>
-                        <li>this help,</li>
-                        <li><a href="#toolbox">toolbox</a></li>
+                        <li><a onclick="introJs().goToStepNumber(4).start()">export points</a>,</li>
+                        <li><a onclick="introJs().goToStepNumber(5).start()">settings</a>,</li>
+                        <li><a onclick="introJs().goToStepNumber(6).start()">help</a>,</li>
+                        <li><a onclick="introJs().goToStepNumber(7).start()">toolbox</a></li>
                     </ul>
                 <li>bottom-middle: two buttons to switch between Google Earth-like controls and keyboard interaction (see <a href="#navigation">below</a>)</li>
             </ul>
@@ -33,14 +34,14 @@
             <h2 id="navigation">Navigation</h2>
             <div>
               <p>
-                <b><span class="octicon octicon-inverted octicon-globe"></span>&nbsp;Google Earth-like controls</b>
+                <b><span class="octicon octicon-inverted octicon-globe"></span>&nbsp;<a onclick="introJs().goToStepNumber(8).start()">Google Earth-like controls</a></b>
                   <ul>
                     <li>use the left/right mouse buttons to move or rotate the camera
                     <li>use the scroll wheel to zoom in/out
                   </ul>
               </p>
               <p>
-                <b><span class="octicon octicon-inverted octicon-keyboard"></span>&nbsp;Keyboard interaction</b>
+                <b><span class="octicon octicon-inverted octicon-keyboard"></span>&nbsp;<a onclick="introJs().goToStepNumber(9).start()">Keyboard interaction</a></b>
                   <ul>
                       <li>use the right mouse button to rotate camera</li>
                       <li>use the arrow or a/s/d/w keys to move left/backward/right/forward</li>
