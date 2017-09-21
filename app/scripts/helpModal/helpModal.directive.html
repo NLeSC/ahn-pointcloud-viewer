@@ -11,28 +11,22 @@
 
       <div class="modal-body">
         <div ng-show="!helpModal.mobile&&helpModal.chrome" class="panel-body">
-<<<<<<< HEAD
             <p>This software is free and open source (<a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License Version 2.0</a>) developed at the <a href="https://www.esciencecenter.nl/">Netherlands eScience Center</a>. For further details, please refer to the <a href="https://github.com/NLeSC/ahn-pointcloud-viewer">GitHub page</a>.</p>
-            <p>Contributions are welcome! If you have some issues or comments, please report these at the <a href="https://github.com/NLeSC/ahn-pointcloud-viewer/issues">issue tracker</a>.</p>
+            <p>Contributions are welcome! If you have some issues or comments, please report these <a href="https://github.com/NLeSC/ahn-pointcloud-viewer/issues">here</a>.</p>
             <h2>Graphical User Interface</h2>
             <p>The point cloud viewer consists of several elements:</p>
             <ul>
-                <li>at the center, main window to visualize point cloud data,</li>
-                <li>top-left,
-                    <a href="#search">text box to search for a location</a>
-                </li>
-                <li>top-right,
-                    <a href="#minimap">minimap</a>
-                </li>
-                <li>bottom-left,
-                    <a href="#extract">export points</a>,
-                    <a href="#settings">settings</a>,
-                    this help,
-                    and <a href="#measure">measure</a>
-                    </li>
-                <li>bottom-middle,
-                    two buttons to switch between Google Earth-like and keyboard interaction modes (see <a href="#navigation">below</a>)
-                </li>
+                <li>at the center: main display window for point cloud data,</li>
+                <li>top-left: <a href="#search">search box for a location</a></li>
+                <li>top-right: <a href="#minimap">minimap</a></li>
+                <li>bottom-left:
+                    <ul>
+                        <li><a href="#extract">export points</a>,</li>
+                        <li><a href="#settings">settings</a>,</li>
+                        <li>this help,</li>
+                        <li><a href="#toolbox">toolbox</a></li>
+                    </ul>
+                <li>bottom-middle: two buttons to switch between Google Earth-like controls and keyboard interaction (see <a href="#navigation">below</a>)</li>
             </ul>
 
             <h2 id="navigation">Navigation</h2>
@@ -40,18 +34,18 @@
               <p>
                 <b><span class="octicon octicon-inverted octicon-globe"></span>&nbsp;Google Earth-like controls</b>
                   <ul>
-                    <li>use left/right mouse buttons to move or rotate the camera
+                    <li>use the left/right mouse buttons to move or rotate the camera
                     <li>use the scroll wheel to zoom in/out
                   </ul>
               </p>
               <p>
                 <b><span class="octicon octicon-inverted octicon-keyboard"></span>&nbsp;Keyboard interaction</b>
                   <ul>
-                      <li>mouse right-click rotates camera</li>
-                      <li>use arrow or a/s/d/w keys to move left, backward, right or forward, respectively</li>
-                      <li>use q/z keys to move up or down</li>
-                      <li>use mouse scroll wheel to increases or decreases the field of view</li>
-                      <li>hold the spacebar to move faster</li>
+                      <li>use the right mouse button to rotate camera</li>
+                      <li>use the arrow or a/s/d/w keys to move left/backward/right/forward</li>
+                      <li>use the q/z keys to move up or down</li>
+                      <li>use the scroll wheel to increases or decreases the field of view</li>
+                      <li>hold down the spacebar to move faster</li>
                   </ul>
               </p>
             </div>
@@ -61,11 +55,11 @@
                 Export points</h2>
             <div>
                 Select and export points in the LAZ file format. The download URL will be mailed to you as soon as the processing is completed.
-                The selection of points can done in three ways:
+                Points can be selected by one of the three approaches:
                 <ul>
-                    <li>by clicking on two points in the minimap,</li>
-                    <li>by drawing a box in the 3D point cloud visualization; this only works in the <i>Keyboard interaction</i> navigation mode,</li>
-                    <li>by entering the actual coordinates into the input form.</li>
+                    <li>clicking on two points in the minimap,</li>
+                    <li>drawing a box in the 3D point cloud visualization; this only works in the <i>Keyboard interaction</i> navigation mode,</li>
+                    <li>entering the actual coordinates into the input form.</li>
                 </ul>
 
                 Note that the coordinates are based on the <a href="http://epsg.io/28992">Amersfoort/RD new</a> coordinate system.
@@ -88,7 +82,7 @@
                 Adjust other settings.
             </div>
 
-            <h2 id="search">Search Location</h2>
+            <h2 id="search">Search location</h2>
             <p>
                 Locate a landmark (e.g. city, address) by
                 <span class="glyphicon glyphicon-search inverted-glyphicon"></span>.
@@ -101,53 +95,47 @@
             <p>
                 Shows the camera field of view as a red trapezoid. Aerial photos are shown by default.
                 Change to road map using the layer switcher (top right corner).
-                Click
-                <span class="glyphicon glyphicon-resize-full"></span>
-                to enlarge the minimap.
+                Click <span class="glyphicon glyphicon-resize-full"></span> to enlarge the minimap.
             </p>
 
-            <h2 id="measure">Measurement</h2>
+            <h2 id="toolbox">
+                <div class="icon-inline toolbox-icon"></div>
+                Toolbox</h2>
             <div>
-                <div>
-                    <div class="icon-inline toolbox-icon"></div>
-                    Toolkit
-                </div>
-                <ul><li>click: open measuring instruments</li></ul>
+                <ul><li>right-click mouse to select from different measuring tools</li></ul>
             </div>
             <div>
                 <div>
                     <div class="icon-inline distance-icon"></div>
-                    Distance
+                    Distance measurement
                 </div>
                 <ul>
-                  <li>left mouse: insert a measurement point</li>
-                  <li>right mouse: complete insertion</li>
-                  <li>drag&amp;drop: move measurement points</il>
+                  <li>left-click mouse to insert a measurement point</li>
+                  <li>right-click mouse to complete the insertion</li>
+                  <li>drag &amp; drop to move the measurement points</il>
                 </ul>
             </div>
             <div>
                 <div>
                     <div class="icon-inline area-icon"></div>
-                    Surface area
+                    Surface area measurement
                 </div>
                 <ul>
-                  <li>left mouse: insert a measurement point</li>
-                  <li>right mouse: complete insertion</li>
-                  <li>drag&amp;drop: move measurement points</il>
+                  <li>left-click mouse to insert a measurement point</li>
+                  <li>right-click mouse to complete the insertion</li>
+                  <li>drag &amp; drop to move the measurement points</il>
                 </ul>
-                The area is calculated on the ground plane. The height does not affect the result. Crossings should be avoided.
             </div>
             <div>
                 <div>
                     <div class="icon-inline volume-icon"></div>
-                    Volume
+                    Volume measurement
                 </div>
                 <ul>
-                  <li>left mouse: insert volume or select inserted volume</li>
-                  <li>switch between translation (icon), scale (icon) and rotation (icon) mode</li>
-                  <li>keyboard shortcuts: T, E, R</li>
+                  <li>left-click mouse to insert volume or select inserted volume</li>
+                  <li>switch between translation (icon), scale (icon) and rotation (icon) mode or
+                    use keyboard shortcuts (T, E or R)</li>
                 </ul>
-                The volume is shown on the object's centroid.
             </div>
             <div>
                 <div>
@@ -155,12 +143,12 @@
                     Height profile
                 </div>
                 <ul>
-                  <li>left mouse: insert profile marker</li>
-                  <li>right mouse: complete insertion</li>
-                  <li>drag&amp;drop: move profile marker</li>
-                  <li>ctrl+drag&amp;drop: drag upwards/downwards to increase/decrease the profile width</li>
+                  <li>left-click mouse to insert a profile marker</li>
+                  <li>right-click mouse to complete the insertion</li>
+                  <li>drag &amp; drop to move the profile markers</li>
+                  <li>ctrl+drag upwards/downwards to increase/decrease the profile width</li>
                 </ul>
-                Depending on the _Clip mode_, points inside the profile will be highlighted whereas points outside the profile will be clipped.
+                Note: Depending on the <i>Clip mode</i>, points inside the profile are highlighted while points outside the profile are clipped.
             </div>
             <div>
                 <div>
@@ -168,9 +156,9 @@
                     Clip volume
                 </div>
                 <ul>
-                  <li>left mouse: insert volume or select inserted volume</li>
-                  <li>Switch between translation (icon), scale (icon) and rotation (icon) mode</li>
-                  <li>keyboard shortcuts: T, E, R</li>
+                  <li>left-click mouse to insert volume or select inserted volume</li>
+                  <li>switch between translation (icon), scale (icon) and rotation (icon) mode or
+                    use keyboard shortcuts (T, E or R)</li>
                 <ul>
             </div>
         </div>

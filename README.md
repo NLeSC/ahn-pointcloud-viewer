@@ -6,7 +6,7 @@ AHN2 point cloud viewer
 [![Code Climate](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer/badges/gpa.svg)](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer)
 [![Test Coverage](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer/badges/coverage.svg)](https://codeclimate.com/github/NLeSC/ahn-pointcloud-viewer/coverage)
 
-[Potree](http://potree.org/)-based point cloud visualization of the current digital elevation model of the Netherlands ([Actueel Hoogtebestand Nederland (2)](http://www.ahn.nl/). For further details, please refer to the original publication by [Martinez-Rubi _et al._ (2016)](http://dx.doi.org/10.13140/RG.2.1.1731.4326/1).
+Point cloud visualization of the current digital elevation model of the Netherlands ([Actueel Hoogtebestand Nederland or AHN2](http://www.ahn.nl/)). For further details, please refer to the publication by [Martinez-Rubi _et al._ (2015)](http://dx.doi.org/10.13140/RG.2.1.1731.4326/1).
 
 ![Willemstad in the AHN2 viewer](/doc/ahn2-screenshot.png "screenshot of ahn2 viewer showing willemstad")
 
@@ -14,7 +14,7 @@ Related repositories
 --------------------
 
 - [Massive-PotreeConverter](https://github.com/NLeSC/Massive-PotreeConverter) extends the [PotreeConverter](https://github.com/potree/PotreeConverter) to handle massive point cloud data such as AHN2.
-- [ahn-pointcloud-viewer-ws](https://github.com/NLeSC/ahn-pointcloud-viewer-ws): Contains the web service in charge of the communication between this application and the database with meta-data regarding the point cloud data.
+- [ahn-pointcloud-viewer-ws](https://github.com/NLeSC/ahn-pointcloud-viewer-ws) corresponds to a RESTful web service that enables communication between this web application (viewer) and database of point cloud (meta)data.
 
 
 Prerequisites
