@@ -4,9 +4,9 @@
     Settings</div>
   <div class="panel-body">
     <tabset>
-      <tab heading="Point">
+      <tab heading="Point" data-toggle="tooltip" title="Settings related to the display of the points.">
         <form class="form-horizontal">
-          <div class="form-group">
+          <div class="form-group" data-toggle="tooltip" title="Set the number of visible points at one time, in Millions.">
             <label class="col-sm-4 control-label" for="pointCountTarget">
               Number of points (M)
             </label>
@@ -14,7 +14,7 @@
               <input class="form-control" id="pointCountTarget" max="10.0" min="0.1" ng-model="sc.PointcloudService.settings.pointCountTarget" step="0.1" type="number"/>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" data-toggle="tooltip" title="Set the size modifier of the individual points.">
             <label class="col-sm-4 control-label" for="pointSize">
               Point size
             </label>
@@ -22,7 +22,7 @@
               <input class="form-control" id="pointSize" max="3.0" min="0.01" ng-model="sc.PointcloudService.settings.pointSize" step="0.01" type="number"/>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" data-toggle="tooltip" title="Sdet the type of coloration of the points. Please note that for AHN2 only height is useful.">
             <label class="col-sm-4 control-label" for="pointColorType">
               Color by
             </label>
@@ -31,7 +31,7 @@
             </div>
           </div>
 
-        <div class="form-group">
+        <div class="form-group" data-toggle="tooltip" title="Select the Quality preset. Higher presets require more graphics power.">
           <label class="col-sm-4 control-label" for="predefinedSettings">
             Quality
           </label>
@@ -41,35 +41,16 @@
         </div>
         </form>
       </tab>
-      <tab heading="Measurement">
-        <form class="form-horizontal">
-          <div class="form-group">
-            <label class="col-sm-4 control-label" for="clipMode">
-              Clip mode
-            </label>
-            <div class="col-sm-8">
-              <select class="form-control" id="clipMode" ng-model="sc.PointcloudService.settings.clipMode" ng-options="value as key|lowercase for (key, value) in sc.PointcloudService.settings.clipModes | orderBy:value"/>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-4 control-label" for="profileWidth">Profile width
-            </label>
-            <div class="col-sm-8">
-              <input class="form-control" id="profileWidth" max="50" min="0.1" ng-model="sc.measure.profileWidth" step="0.1" type="number"/>
-            </div>
-          </div>
-        </form>
-      </tab>
-      <tab heading="Misc">
+      <tab heading="Misc" data-toggle="tooltip" title="Settings for miscellaneous things.">
         <form class="form-horizontal misc">
-          <div class="form-group">
+          <div class="form-group" data-toggle="tooltip" title="Show the skybox, or don't.">
             <label class="col-sm-8 control-label" for="showSkybox">Show sky
             </label>
             <div class="col-sm-4">
               <input id="showSkybox" ng-model="sc.PointcloudService.settings.showSkybox" type="checkbox">
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" data-toggle="tooltip" title="Show additional info about the points visible.">
             <label class="col-sm-8 control-label" for="showStats">
               Show info
             </label>
@@ -77,7 +58,7 @@
               <input id="showStats" ng-model="sc.PointcloudService.settings.showStats" type="checkbox">
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" data-toggle="tooltip" title="Show the octree grid (for debugging).">
             <label class="col-sm-8 control-label" for="showBoundingBox" title="Show bounding box of pointcloud octree nodes">
               Show grid
             </label>
@@ -85,7 +66,7 @@
               <input id="showBoundingBox" ng-model="sc.PointcloudService.settings.showBoundingBox" type="checkbox">
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" data-toggle="tooltip" title="Set the default movement speed in keyboard mode.">
             <label class="col-sm-8 control-label" for="normalSpeedMultiplier">
               Hovering speed</br>[use arrow key(s)]
             </label>
@@ -93,7 +74,7 @@
               <input class="form-control" id="normalSpeedMultiplier" ng-model="sc.PathControls.NORMAL_MOVEMENT_SPEED_MULTIPLIER" type="number"/>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" data-toggle="tooltip" title="Set the fast (space held) movement speed in keyboard mode.">
             <label class="col-sm-8 control-label" for="fastSpeedMultiplier">
               Fast hovering speed</br>[use spacebar+arrow key(s)]
             </label>
