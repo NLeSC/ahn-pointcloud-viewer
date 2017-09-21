@@ -90,7 +90,7 @@
   angular.module('pattyApp.core', ['pattyApp.utils']);
   angular.module('pattyApp.minimap', ['pattyApp.core', 'pattyApp.three']);
   //angular.module('pattyApp.maximap', ['pattyApp.core', 'pattyApp.three']);
-  angular.module('pattyApp.measuring', ['pattyApp.potree', 'pattyApp.three']);
+  angular.module('pattyApp.measuring', ['pattyApp.potree', 'pattyApp.three', 'pattyApp.utils']);
   angular.module('pattyApp.gradients', []);
   angular.module('pattyApp.pointcloud', ['pattyApp.core', 'pattyApp.potree', 'pattyApp.three', 'pattyApp.measuring', 'cfp.loadingBar', 'pattyApp.extract', 'pattyApp.earthcontrols', 'pattyApp.utils', 'pattyApp.gradients']);
   angular.module('pattyApp.settings', ['pattyApp.pointcloud', 'ngFileUpload']);  
