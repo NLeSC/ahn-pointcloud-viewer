@@ -16,7 +16,7 @@ describe('pattyApp', function() {
   describe('initial state', function() {
     it('should have Welcome dialog shown', function() {
       var results = element(by.css('help-modal-directive'));
-      expect(results.isDisplayed()).toBeFalsy();
+      expect(results.isDisplayed()).toBeTruthy();
     });
   });
 
@@ -70,6 +70,7 @@ describe('pattyApp', function() {
     describe('click on settings gear', function() {
       beforeEach(function() {
         element(by.css('.icon-big.gear-icon')).click();
+        browser.sleep(200);
       });
 
       it('should show settings panel', function() {
@@ -84,7 +85,7 @@ describe('pattyApp', function() {
       });
 
       it('should show help panel', function() {
-        var panel = element(by.css('.help-panel'));
+        var panel = element(by.css('help-modal-directive'));
         expect(panel.isDisplayed()).toBeTruthy();
       });
     });
@@ -92,25 +93,7 @@ describe('pattyApp', function() {
     describe('clicking on toolbox icon', function() {
       beforeEach(function() {
         element(by.css('.icon-big.toolbox-icon')).click();
-      });
-
-      it('should show tools', function() {
-        var panel = element(by.css('.toolbox-tools'));
-        expect(panel.isDisplayed()).toBeTruthy();
-      });
-
-      describe('and then clicking on bottom toolbox icon', function() {
-
-        beforeEach(function() {
-          element(by.css('.icon-big.toolbox-icon')).click();
-          // wait for toolbox to close, otherwise it will still be displayed partly
-          browser.sleep(200);
-        });
-
-        it('should hide tools', function() {
-          var panel = element(by.css('.toolbox-tools'));
-          expect(panel.isDisplayed()).toBeFalsy();
-        });
+        browser.sleep(200);
       });
 
       describe('and then clicking on top toolbox icon', function() {
