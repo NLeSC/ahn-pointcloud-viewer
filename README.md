@@ -20,7 +20,7 @@ Related repositories
 Prerequisites
 -------------
 
-* Point cloud data in the _potree_ format.
+* Point cloud data in the _potree_ format
 * [Node.js](http://nodejs.org/)
 * [Bower](http://bower.io)
 * [Compass](http://compass-style.org)
@@ -58,7 +58,7 @@ bower install
 bower update
 ```
 
-8. Test AHN2 viewer
+### Test AHN2 viewer
 
 ```
 grunt serve # starts the web server and opens http://localhost:9000 in your browser
