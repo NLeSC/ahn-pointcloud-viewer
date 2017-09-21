@@ -120,25 +120,26 @@ Note: Both the point cloud and minimap use a canvas and can't be tested automati
 
 ### Run end-to-end tests remotely on [Sauce Labs](https://saucelabs.com/)
 
-To connect to Sauce Labs use sauce connect program. [Here](https://docs.saucelabs.com/reference/sauce-connect/) you can find the details on how to install and run it.
+Connect to Sauce Labs using the sauce-connect program. Further details on how to install and run this tool can be found [here](https://docs.saucelabs.com/reference/sauce-connect/).
 
-Before tests can be run the sauce labs credentials must be setup
+Setup Sauce Labs credentials before running the tests.
 
 ```
 export SAUCE_USERNAME=<your sauce labs username>
 export SAUCE_ACCESS_KEY=<your sauce labs access key>
 ```
 
-Tests in Chrome, Firefox on Windows, Linux and OSX can be run with
+Run the tests in Google Chrome (Linux).
+
 ```
 grunt e2e-sauce
 ```
 
-The point cloud and minimap use a canvas and can't be tested automatically so they must be verified manually using the screencast in the report at `https://saucelabs.com/u/<your sauce labs username>`.
+Both the point cloud window and minimap use a canvas, which can't be tested automatically. Therefore, the tests must be verified manually using the screencast in the report at `https://saucelabs.com/u/<your sauce labs username>`.
 
-Travis-CI also runs end-to-end tests on sauce labs.
+Also Travis-CI runs end-to-end tests on Sauce Labs.
 
-Note! Running `grunt e2e-sauce` will undo all changes in `app/` folder.
+Note: Executing `grunt e2e-sauce` locally will undo all changes in `app/` folder.
 
 ### Build a distro
 
@@ -163,7 +164,7 @@ Use Chrome FPS plotting to get the frame rate.
 2. On Console tab goto Rendering tab (bottom screen)
 3. Check the Show FPS meter checkbox
 
-### Deploy to Github pages
+### Deploy to GitHub pages
 
 Deploy distribution to `gh-pages` branch.
 Make it available as http://nlesc.github.io/ahn-pointcloud-viewer
