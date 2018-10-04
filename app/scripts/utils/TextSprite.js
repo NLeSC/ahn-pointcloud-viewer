@@ -1,6 +1,7 @@
 /**
  * adapted from http://stemkoski.github.io/Three.js/Sprite-Text-Labels.html
  */
+/* global THREE:false, Potree:false  */
 'use strict';
 
 Potree.TextSprite = function(text) {
@@ -19,12 +20,12 @@ Potree.TextSprite = function(text) {
 	//THREE.Sprite.call(this, spriteMaterial);
 
 	this.borderThickness = 4;
-	this.fontface = "Arial";
+	this.fontface = 'Arial';
 	this.fontsize = 28;
 	this.borderColor = { r:0, g:0, b:0, a:1.0 };
 	this.backgroundColor = { r:255, g:255, b:255, a:1.0 };
 	this.textColor = {r: 255, g: 255, b: 255, a: 1.0};
-	this.text = "";
+	this.text = '';
 	this.scaleFactor = 0.01;
 
 	this.setText(text);
@@ -60,7 +61,7 @@ Potree.TextSprite.prototype.update = function(){
 
 	var canvas = document.createElement('canvas');
 	var context = canvas.getContext('2d');
-	context.font = "Bold " + this.fontsize + "px " + this.fontface;
+	context.font = 'Bold ' + this.fontsize + 'px ' + this.fontface;
 
 	// get size data (height depends only on font size)
 	var metrics = context.measureText( this.text );
@@ -68,29 +69,26 @@ Potree.TextSprite.prototype.update = function(){
 	var spriteWidth = textWidth + 2 * this.borderThickness;
 	var spriteHeight = this.fontsize * 1.4 + 2 * this.borderThickness;
 
-	var canvas = document.createElement('canvas');
-	var context = canvas.getContext('2d');
+	canvas = document.createElement('canvas');
+	context = canvas.getContext('2d');
 	context.canvas.width = spriteWidth;
 	context.canvas.height = spriteHeight;
-	context.font = "Bold " + this.fontsize + "px " + this.fontface;
+	context.font = 'Bold ' + this.fontsize + 'px ' + this.fontface;
 
 	// background color
-	context.fillStyle   = "rgba(" + this.backgroundColor.r + "," + this.backgroundColor.g + ","
-								  + this.backgroundColor.b + "," + this.backgroundColor.a + ")";
+	context.fillStyle   = 'rgba(' + this.backgroundColor.r + ',' + this.backgroundColor.g + ',' + this.backgroundColor.b + ',' + this.backgroundColor.a + ')';
 	// border color
-	context.strokeStyle = "rgba(" + this.borderColor.r + "," + this.borderColor.g + ","
-								  + this.borderColor.b + "," + this.borderColor.a + ")";
+	context.strokeStyle = 'rgba(' + this.borderColor.r + ',' + this.borderColor.g + ',' + this.borderColor.b + ',' + this.borderColor.a + ')';
 
 	context.lineWidth = this.borderThickness;
 	this.roundRect(context, this.borderThickness/2, this.borderThickness/2,
 		textWidth + this.borderThickness, this.fontsize * 1.4 + this.borderThickness, 6);
 
 	// text color
-	context.strokeStyle = "rgba(0, 0, 0, 1.0)";
+	context.strokeStyle = 'rgba(0, 0, 0, 1.0)';
 	context.strokeText( this.text, this.borderThickness, this.fontsize + this.borderThickness);
 
-	context.fillStyle = "rgba(" + this.textColor.r + "," + this.textColor.g + ","
-								  + this.textColor.b + "," + this.textColor.a + ")";
+	context.fillStyle = 'rgba(' + this.textColor.r + ',' + this.textColor.g + ',' + this.textColor.b + ',' + this.textColor.a + ')';
 	context.fillText( this.text, this.borderThickness, this.fontsize + this.borderThickness);
 
 

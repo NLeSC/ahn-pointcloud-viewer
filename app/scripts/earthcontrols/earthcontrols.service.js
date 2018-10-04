@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function EarthcontrolsService($rootScope, $location, Messagebus, THREE, PathControls, RailService) {
+  function EarthcontrolsService($rootScope, $location, Messagebus, THREE, PathControls, RailService) { // jshint ignore:line
     this.enabled = true;
 
     this.earthControls = null;
@@ -14,7 +14,7 @@
     this.init = function(camera, renderer, scenePointCloud, pointcloud, elementRenderArea)  {
       this.earthControls = new THREE.EarthControls(camera, renderer, scenePointCloud);
 
-    	this.earthControls.addEventListener('proposeTransform', function(event) {
+    	this.earthControls.addEventListener('proposeTransform', function() {
     		// var demHeight = pointcloud.getDEMHeight(event.newPosition);
     		// if(event.newPosition.y < demHeight){
     		// 	event.objections++;
@@ -37,8 +37,10 @@
       if(this.enabled) {
 		    this.earthControls.update(clock.getDelta());
       }
+
+      /* jshint ignore:start */
       var waypoint = RailService.getCameraAndLookatLocation();
-      
+
       //store camera values in the URL
       $location.search({
         camera_x:waypoint.cameraPosition[0],
@@ -48,6 +50,8 @@
         lookat_y:waypoint.lookatPosition[1],
         lookat_z:waypoint.lookatPosition[2]
       }).replace();
+      /* jshint ignore:end */
+
       $rootScope.$applyAsync();
     };
 

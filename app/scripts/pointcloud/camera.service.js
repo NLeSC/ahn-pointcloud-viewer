@@ -1,5 +1,3 @@
-var thecamera;
-
 (function() {
   'use strict';
 

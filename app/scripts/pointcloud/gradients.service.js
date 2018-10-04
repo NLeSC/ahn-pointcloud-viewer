@@ -1,5 +1,6 @@
 (function () {
   'use strict';
+  /* global THREE:false, Potree:false  */
 
   function GradientsService() {
     Potree.Gradients.VIRIDIS = [

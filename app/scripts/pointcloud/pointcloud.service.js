@@ -1,4 +1,5 @@
-/* global requestAnimationFrame:false */
+/* global requestAnimationFrame:false  */
+
 (function() {
   'use strict';
 
@@ -7,7 +8,7 @@
     CameraService, SceneService,
     PathControls, MeasuringService, EarthcontrolsService,
     RailService, ExtractionDrawingService, PointcloudExtractionSelectionService,
-    cfpLoadingBar, Messagebus, GradientsService) {
+    cfpLoadingBar, Messagebus, GradientsService) { // jshint ignore:line
 
     var QUALITIES = { Splats:'Splats', Low:'Circle' };
 
@@ -349,8 +350,11 @@
         var location = $location.search();
 
         if (location.hasOwnProperty('camera_x')) {
-          var cameraPos = new THREE.Vector3(parseFloat(location.camera_x), parseFloat(location.camera_y), parseFloat(location.camera_z));
-          var lookatPos = new THREE.Vector3(parseFloat(location.lookat_x), parseFloat(location.lookat_y), parseFloat(location.lookat_z));
+          var cameraPos, lookatPos;
+          /* jshint ignore:start */
+          cameraPos = new THREE.Vector3(parseFloat(location.camera_x), parseFloat(location.camera_y), parseFloat(location.camera_z));
+          lookatPos = new THREE.Vector3(parseFloat(location.lookat_x), parseFloat(location.lookat_y), parseFloat(location.lookat_z));
+          /* jshint ignore:end */
 
           var vector = lookatPos.clone();
           vector.sub(cameraPos);
@@ -359,16 +363,16 @@
           var lookatPos2 = lookatPos.clone().add(vector);
 
           var cameraPathSurrogate = [[cameraPos.x, cameraPos.y, cameraPos.z],[cameraPos2.x, cameraPos2.y, cameraPos2.z]];
-          var lookPathSurrogate = [[lookatPos.x, lookatPos.y, lookatPos.z],[lookatPos2.x, lookatPos2.y, lookatPos2.z]]; 
+          var lookPathSurrogate = [[lookatPos.x, lookatPos.y, lookatPos.z],[lookatPos2.x, lookatPos2.y, lookatPos2.z]];
           RailService.setCameraAndLookAtWaypoints(
             cameraPathSurrogate, lookPathSurrogate
-          );         
+          );
         } else {
           RailService.setCameraAndLookAtWaypoints(
             DrivemapService.getCameraPath(),
             DrivemapService.getLookPath()
           );
-        }        
+        }
 
         //var miny = 306740, maxy = 615440, minx = 13420, maxx = 322120;
         // var minx = 79692.68, maxx = 96258.93, miny = 383917.51, maxy = 422503.12;
@@ -406,9 +410,6 @@
       referenceFrame.add(pointcloud);
     };
 
-    var intensityMax = null;
-    var heightMin = null;
-    var heightMax = null;
     var emptyVector = new THREE.Vector3();
     var updateCounter = 0;
 
@@ -560,11 +561,11 @@
         me.renderer.render(scene, camera);
         // me.renderer.render(scenePointCloud, camera);
 
-        MeasuringService.tools.heightprofile.render();
-        MeasuringService.tools.volume.render();
+        // MeasuringService.tools.heightprofile.render();
+        // MeasuringService.tools.volume.render();
         me.renderer.clearDepth();
-        MeasuringService.tools.measuring.render();
-        MeasuringService.tools.transformation.render();
+        // MeasuringService.tools.measuring.render();
+        // MeasuringService.tools.transformation.render();
       };
     };
     var potreeRenderer = new PotreeRenderer();
